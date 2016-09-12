@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report.external_layout_footer">
+        <div class="footer">
+            <div style="border-top: 1px solid #0066FF;  font-size: 12px; width: 820px;">
+                <span style="float:right; padding: 4px; padding-left: 8px; padding-right: 8px; background-color: #f5f5f5;">Page 
+                    <span class="page"/>
+                    /
+                    <span class="topage"/></span>
+                <div class="text-center" style="padding-top: 5px;">
+                    <span t-if="company.name">
+                        <span style="padding-right: 20px;" t-field="company.name"/>
+                    </span>
+                    <span t-if="company.fax">Fax: 
+                        <span style="padding-right: 20px;" t-field="company.fax"/></span>
+                    <span t-if="company.phone">Tel: 
+                        <span style="padding-right: 20px;" t-field="company.phone"/></span>
+                    <span t-if="company.email">Email: 
+                        <span style="padding-right: 20px;" t-field="company.email"/></span>
+                    <span t-if="company.website">Website: 
+                        <span style="padding-right: 20px;" t-field="company.website"/></span>
+                    <ul t-if="not company.custom_footer" class="list-inline" name="financial_infos"/>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

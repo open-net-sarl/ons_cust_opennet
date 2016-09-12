@@ -19,7 +19,9 @@
     'images': [],
     'data': [
         'views/invoice_report.xml',
-        'views/external_header.xml'
+        'views/external_header.xml',
+        'views/external_footer.xml',
+        'views/financial_report.xml'
     ],
     'installable': True
 }

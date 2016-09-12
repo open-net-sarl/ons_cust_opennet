@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_financial_body" inherit_id="account_reports.report_financial_body">
+        <xpath expr="//table" position="attributes">
+            <attribute name="style">
+                font-size: 10px
+            </attribute>
+        </xpath>
+    </template>
+    <template id="report_followup_letter_body" inherit_id="account_reports.report_followup_letter_body">
+        <xpath expr="//div[@class='col-xs-5 col-xs-offset-7']" position="attributes">
+            <attribute name="style">margin-top:100px</attribute>
+        </xpath>
+        <xpath expr="//div[@class='col-xs-5 col-xs-offset-7']/div" position="replace">
+            <div t-field="context.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+        </xpath>
+    </template>
+</odoo>
