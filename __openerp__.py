@@ -5,6 +5,7 @@
 {
     'name': 'Open-Net Customization for Open Net',
     'summary': 'Open Net Customization for Open Net',
+    'description': 'Open Net Customization for Open Net',
     'category': 'Open Net customizations',
     'author': "Open Net Sàrl",
     'depends': [
