@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2016 Open Net Sarl
+# © 2017 Open Net Sarl
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -10,19 +10,24 @@
     'author': "Open Net Sàrl",
     'depends': [
         'account',
-        'sale_layout',
-        'report'
+        'sale',
+        'report',
+        'ons_productivity_project_issue',
+        'account_reports'
     ],
-    'version': '9.0.1.0.2',
+    'version': '10.0.1.0.2',
     'auto_install': False,
     'website': 'http://open-net.ch',
     'license': 'AGPL-3',
     'images': [],
     'data': [
-        'views/invoice_report.xml',
-        'views/external_header.xml',
-        'views/external_footer.xml',
-        'views/financial_report.xml'
+        'views/project_task_views.xml',
+        'views/ons_cust_opennet.xml',
+        'views/report_external_header.xml',
+        'views/report_external_footer.xml',
+        'views/report_invoice.xml',
+        # 'views/report_financial.xml',
+        'report/account_followup_report_views.xml'
     ],
     'installable': True
 }

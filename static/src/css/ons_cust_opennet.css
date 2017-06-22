@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+/* ----- init -----*/
+body {
+    font-size: 10px !important;
+}
+/*h1,h2 {
+    font-size: 14px
+}
+h3,h4 {
+    font-size: 16px
+}
+.page {
+    padding-top:20px;
+}*/
+/*---------------------------------------------------*/
+/* --------------------- HEADER ---------------------*/
+/*---------------------------------------------------*/
+/*.cust_opennet_header {
+    border-bottom: 1px solid #0066FF; 
+    padding-bottom: 5px; 
+    width: auto;
+}*/
+
+
+/*---------------------------------------------------*/
+/* --------------------- FOOTER ---------------------*/
+/*---------------------------------------------------*/
+
+
+
+/*---------------------------------------------------*/
+/* -------------------- INVOICE ---------------------*/
+/*---------------------------------------------------*/
+/* ---- Page ---- */
+.cust_opennet_page {
+    padding-top:20px !important;
+    font-family: helvetica !important; 
+    /*font-size: 10px !important;*/
+}
+
+/* -- Address -- */
+.cust_opennet_inv_address{
+    margin-top : 90px !important; 
+    line-height: 17px !important; 
+    font-size: 12px !important;
+}
+
+/* -- Document Body -- */
+/* - doc title - */
+.cust_opennet_doc_name {
+    margin-bottom: 10px !important;
+    margin-top: 20px !important;
+}
+.cust_opennet_doc_name > h2{
+    font-size: 13px !important;
+}
+/* - inicial table - */
+.cust_opennet_doc_info_table {
+    width: auto;
+}
+.cust_opennet_doc_info_table th {
+    border: 1px solid #0066FF !important; 
+    width: 205px !important; 
+    background-color: WhiteSmoke !important; 
+    text-align: center !important; 
+    padding: 2px !important;  
+}
+.cust_opennet_doc_info_table td {
+    border: 1px solid #0066FF !important; 
+    text-align: center !important; 
+    padding: 5px !important;
+}
+/* - data table - */
+.cust_opennet_doc_data_table{
+    margin-top: 10px !important;
+}
+.cust_opennet_doc_data_table thead > tr > th{
+    border: 1px solid LightSteelBlue !important; 
+    width: 90px; 
+    background-color: WhiteSmoke; 
+    text-align: center; 
+    /*padding: 2px;*/
+    font-weight: bold;
+}
+.cust_opennet_doc_data_table thead tr > th:first-child {
+    width: 550px !important; 
+    text-align: left; 
+    padding-left: 5px !important;
+}
+.cust_opennet_doc_data_table tbody td {
+    border: 1px solid LightSteelBlue !important; 
+    text-align: right; 
+    padding-right: 6px;
+}
+.cust_opennet_doc_data_table tbody td:first-child {
+    text-align: justify;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.cust_opennet_doc_data_table .cust_opennet_category_title{
+    font-weight: bold;
+    border: 1px solid LightSteelBlue !important; 
+}
+.cust_opennet_category_title > td{
+    padding-left: 8px !important;
+    font-size: 10px !important;
+}
+.cust_opennet_doc_data_table .cust_opennet_subtotal_cat > td {
+    text-align: right !important; 
+    border: 0 !important; 
+    font-size: 11px !important;
+}
+
+.cust_opennet_doc_total_table {
+    margin-left: 513px; 
+    width: 305px; 
+    page-break-inside: avoid; 
+    margin-top: -10px; 
+    font-size: 12px;
+}
+.cust_opennet_doc_total_table tr:first-child > td:nth-child(odd) {
+    border: 1px solid LightSteelBlue; 
+    text-align: left; 
+    padding: 2px 0px 2px 6px; 
+    width: 200px;
+}
+.cust_opennet_doc_total_table tr:first-child > td:nth-child(even) {
+    border: 1px solid LightSteelBlue; 
+    text-align: right; 
+    padding: 2px 6px 2px 0px;
+    width: 105px;
+}
+.cust_opennet_doc_total_table tr > td:nth-child(odd) {
+    border: 1px solid LightSteelBlue; 
+    text-align: left;
+    padding: 2px 0px 2px 6px;
+}
+.cust_opennet_doc_total_table tr > td:nth-child(even) {
+    border: 1px solid LightSteelBlue; 
+    text-align: right; 
+    padding: 2px 6px 2px 0px;
+}
+
+/*---------------------------------------------------*/
+/* -------------------- FOLLOWUP --------------------*/
+/*---------------------------------------------------*/
+.cust_opennet_followup,
+.o_account_reports_summary,
+.o_account_reports_table {
+    font-size: 10px !important;
+}
+
+.o_account_reports_summary {
+    margin-top: 40px !important;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="account_reports.report_followup_letter_body" inherit_id="account_reports.report_followup_body" primary="True">
+        <xpath expr="//div[@class='o_account_reports_saved_summary']" position="attributes">
+            <attribute name="t-if"></attribute>
+            <attribute name="class"></attribute>
+            <attribute name="style">padding-top: 15px; padding-bottom: 15px;</attribute>
+        </xpath>
+        <xpath expr="//div[@class='row']" position="replace"/>
+        <xpath expr="//h2" position="replace">
+            <div class="row cust_opennet_followup">
+                <div class="col-xs-5 col-xs-offset-7" style='margin-top: 15px;'>
+                    <div t-field="context.partner_id" 
+                        t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True}'/>
+                    <span t-field="context.partner_id.vat"/>
+                </div>
+            </div>
+            <p style='margin-top: 35px;'>
+                Document: Customer account statement<br/>
+                Date: <span t-esc="today"/><br/>
+                Customer ref: <span t-field="context.partner_id.ref"/>
+            </p>
+        </xpath>
+        <xpath expr="//t[@t-call='account_reports.report_followup_line']" position="attributes">
+            <attribute name="t-call">account_reports.report_followup_line_public</attribute>
+            <attribute name="class">cust_opennet_followup</attribute>
+        </xpath>
+        <!-- https://github.com/odoo/enterprise/blob/f2311f3bf9caaf4bbd9fadfd1dcab476c867e662/account_reports/models/account_followup_report.py -->
+    </template>
+</odoo>

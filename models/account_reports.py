@@ -3,8 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from openerp import models, fields, api, _
-from openerp.tools import append_content_to_html
+from odoo import models, fields, api, _
+from odoo.tools import append_content_to_html
 
 class account_report_context_followup(models.TransientModel):
     _inherit = 'account.report.context.followup'
