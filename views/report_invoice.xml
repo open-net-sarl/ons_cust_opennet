@@ -170,7 +170,12 @@
                                 <span t-field="l.name"/>
                             </td>
                             <td>
-                                <span t-esc="&quot;%0.0f&quot; % l.quantity"/>
+                                <t t-if="int(l.quantity) == l.quantity">
+                                    <span t-esc="int(l.quantity)"/>
+                                </t>
+                                <t t-if="int(l.quantity) != l.quantity">
+                                    <span t-esc="l.quantity"/>
+                                </t>
                                 <span t-field="l.uom_id"/>
                             </td>
                             <td>
@@ -353,7 +358,12 @@
                                         <span t-field="l.name"/>
                                     </td>
                                     <td>
-                                        <span t-esc="&quot;%0.0f&quot; % l.quantity"/>
+                                        <t t-if="int(l.quantity) == l.quantity">
+                                            <span t-esc="&quot;%0.0f&quot; % l.quantity"/>
+                                        </t>
+                                        <t t-if="int(l.quantity) != l.quantity">
+                                            <span t-esc="l.quantity"/>
+                                        </t>
                                         <span t-field="l.uom_id"/>
                                     </td>
                                     <td>
