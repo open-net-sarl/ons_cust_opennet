@@ -233,7 +233,7 @@
                         <table style="page-break-inside: avoid;" >
                             <tr style="page-break-inside: avoid;" >
                                 <td>
-                                    <strong>Total Without Taxes</strong>
+                                    <strong>Total WT</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
@@ -371,8 +371,9 @@
                                     </td>
                                     <td>
                                         <t t-set="price_subtotal" t-value="'%0.2f' % l.price_subtotal"/>
-                                        <t t-set="price_subtotal" t-value="price_subtotal.replace('.', ',')"/>
-                                        <span t-esc="price_subtotal" />
+                                        <t t-set="price_subtotal" t-value='"{:,.2f}".format(float(price_subtotal)).replace(",", "&#39;")'/>
+                                        <!-- <t t-set="price_subtotal" t-value="price_subtotal.replace('.', ',')"/> -->
+                                        <span t-esc="price_subtotal"/>
                                         <span t-if="l.discount != 0">
                                             <br/>
                                             <span>

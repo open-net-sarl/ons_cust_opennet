@@ -42,6 +42,11 @@ msgstr "Facture"
 msgid "Price (WT)"
 msgstr "Prix (HT)"
 
+#. module: account
+#: model:ir.ui.view,arch_db:account.report_invoice_document
+msgid "<strong>Total WT</strong>"
+msgstr "<strong>Total HT</strong>"
+
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.report_invoice_layouted
 msgid "Price (WT)"
