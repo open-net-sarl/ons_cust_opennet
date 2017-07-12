@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record model="ir.cron" id="duplicate_tags_partner">
+        <field name="name">Deduplicate tags on partner</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'res.partner'"/>
+        <field name="function" eval="'_deduplicate_tags_on_partner'"/>
+        <field name="args" eval="'()'" />
+    </record>
+</odoo>

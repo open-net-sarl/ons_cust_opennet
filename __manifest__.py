@@ -21,6 +21,7 @@
     'license': 'AGPL-3',
     'images': [],
     'data': [
+        'data/ons_cust_crons.xml',
         'views/project_task_views.xml',
         'views/ons_cust_opennet.xml',
         'views/report_external_header.xml',

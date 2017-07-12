@@ -5,3 +5,4 @@
 from . import account_reports
 from . import crm_lead
 from . import invoice
+from . import res_partner
