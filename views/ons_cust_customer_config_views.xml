@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TREE -->
+    <record id="view_customer_config_tree" model="ir.ui.view">
+        <field name="name">ons.cust.customer.config.tree</field>
+        <field name="model">ons.cust.customer.config</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="ONS Cust Customer Config">
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="view_customer_config_form" model="ir.ui.view">
+        <field name="name">ons.cust.customer.config.form</field>
+        <field name="model">ons.cust.customer.config</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="ONS Cust Customer Config">
+                <field name="user_id"/>
+            </form>
+        </field>
+    </record>
+
+    <!-- MAIN ACTION -->
+    <record id="action_customer_config" model="ir.actions.act_window">
+        <field name="name">ONS Cust Customer Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ons.cust.customer.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new customer config.
+          </p>
+        </field>
+    </record>
+
+    <!-- MENU ITEM -->
+    <menuitem id="menu_customer_config" name="Customer Config" action="action_customer_config" parent="contacts.menu_contacts" sequence="5"/>
+</odoo>

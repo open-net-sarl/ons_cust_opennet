@@ -21,6 +21,7 @@
     'license': 'AGPL-3',
     'images': [],
     'data': [
+        'security/ir.model.access.csv',
         'data/ons_cust_crons.xml',
         'views/project_task_views.xml',
         'views/ons_cust_opennet.xml',
@@ -28,7 +29,8 @@
         'views/report_external_footer.xml',
         'views/report_invoice.xml',
         # 'views/report_financial.xml',
-        'report/account_followup_report_views.xml'
+        'views/ons_cust_customer_config_views.xml',
+        'report/account_followup_report_views.xml',
     ],
     'installable': True
 }

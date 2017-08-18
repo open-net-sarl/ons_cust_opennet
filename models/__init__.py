@@ -7,3 +7,4 @@ from . import crm_lead
 from . import invoice
 from . import res_partner
 from . import mass_mailing
+from . import ons_cust_customer_config
