@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <tree string="ONS Cust Customer Config">
                 <field name="user_id"/>
+                <field name="email"/>
             </tree>
         </field>
     </record>
@@ -20,6 +21,105 @@
         <field name="arch" type="xml">
             <form string="ONS Cust Customer Config">
                 <field name="user_id"/>
+                <group>
+                    <!-- company info -->
+                    <group string="Company Info">
+                        <field name="logo"/>
+                        <field name="email"/>
+                    </group>
+                    <!-- bank info -->
+                    <group string="Bank Info">
+                        <field name="bank_account_type"/>
+                        <field name="iban"/>
+                        <field name="bank_account_number"/>
+                        <field name="bvr_number"/>
+                        <field name="bank_name"/>
+                    </group>
+                </group>
+                <group>
+                    <!-- serveur d'email entrant - Incoming Email Server -->
+                    <group string="Incoming Email Server">
+                        <field name="incoming_email_server_type"/>
+                        <field name="incoming_email_server_name"/>
+                        <field name="incoming_email_server_port"/>
+                        <field name="incoming_email_server_security"/>
+                        <field name="incoming_email_server_username"/>
+                        <field name="incoming_email_server_pass"/>
+                    </group>
+                    <!-- serveur d'email sortant - Outgoing Email Server -->
+                    <group string="Outgoing Email Server">
+                        <field name="outgoing_email_server_name"/>
+                        <field name="outgoing_email_server_port"/>
+                        <field name="outgoing_email_server_security"/>
+                        <field name="outgoing_email_server_username"/>
+                        <field name="outgoing_email_server_password"/>
+                    </group>
+                </group>
+                <group>
+                    <!-- numerotation de vos documents - Document Numbering -->
+                    <group string="Document Numbering">
+                        <field name="doc_numb_quot_sales"/>
+                        <field name="doc_numb_invoices"/>
+                        <field name="doc_numb_purchases"/>
+                        <field name="doc_numb_delivery"/>
+                    </group>
+                    <!-- carnet d'adress - Contact Default Parameter -->
+                    <group string="Contact Default Parameter">
+                        <field name="contacts_lang"/>
+                        <field name="contacts_payment_terms"/>
+                        <field name="contacts_products_type"/>
+                    </group>
+                </group>
+                <group>
+                    <!-- articles - Product Default Parameters -->
+                    <group string="Product Default Parameters">
+                        <field name="products_can_be_sold"/>
+                        <field name="products_can_be_bought"/>
+                        <field name="products_warranty"/>
+                        <field name="products_delivery_delay"/>
+                        <field name="products_earnings_acc"/>
+                        <field name="products_spendings_acc"/>
+                        <field name="products_customer_tax"/>
+                        <field name="products_supplier_tax"/>
+                        <field name="products_supply_routes"/>
+                        <field name="products_unit_of_mesure"/>
+                    </group>
+                    <!-- ventes - Sales Parameters -->
+                    <group string="Sales Parameters">
+                        <field name="sales_sale_price"/>
+                        <field name="sales_invoicing_policy"/>
+                        <field name="sales_general_conditions"/>
+                        <field name="sales_autorize_different_address"/>
+                        <field name="sales_modify_sale_order"/>
+                    </group>
+                </group>
+                <group>
+                    <!-- comptabilite - Accounting Default Parameters -->
+                    <group string="Accounting Default Parameters">
+                        <field name="accounting_last_day_fiscal_exercise"/>
+                        <field name="accounting_currency"/>
+                        <field name="accounting_analytic_acc"/>
+                        <field name="accounting_asset_management"/>
+                        <field name="accounting_recognize_earnings"/>
+                        <field name="accounting_budget_management"/>
+                        <field name="accounting_output_bvr"/>
+                        <field name="accounting_iso_payment"/>
+                        <field name="accounting_foreign_currencies_list"/>
+                        <field name="accounting_tax_update_frequence"/>
+                        <field name="accounting_reminder_levels"/>
+                    </group>
+                    <!-- gestion de stock - Stock Management Default Parameters -->
+                    <group string="Stock Management Default Parameters">
+                        <field name="stock_mng_units_mesure"/>
+                        <field name="stock_mng_prod_variants"/>
+                        <field name="stock_mng_packing_methods"/>
+                        <field name="stock_mng_dropshipping"/>
+                        <field name="stock_mng_generate_journal_item"/>
+                        <field name="stock_mng_product_owners"/>
+                        <field name="stock_mng_expiration_dates"/>
+                        <field name="stock_mng_lots_serial_nb"/>
+                    </group>
+                </group>
             </form>
         </field>
     </record>
