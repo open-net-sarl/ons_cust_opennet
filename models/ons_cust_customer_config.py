@@ -181,7 +181,7 @@ class OnsCustCustomerConfig(models.Model):
             "- TLS (STARTTLS): TLS encryption is requested at start of SMTP session (Recommended)\n"
             "- SSL/TLS: SMTP sessions are encrypted with SSL/TLS through a dedicated port (default: 465)")
     outgoing_email_server_username = fields.Char("Username", help="Optional username for SMTP authentication")
-    outgoing_email_server_password = fields.Char("Password", help="Optional username for SMTP authentication")
+    outgoing_email_server_password = fields.Char("Password")
 
     # numerotation de vos documents - Document Numbering
     doc_numb_quot_sales = fields.Char("Quotations & Sales")

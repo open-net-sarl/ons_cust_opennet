@@ -38,7 +38,12 @@
                 </group>
                 <group>
                     <group string="Email Servers">
-                        <field name="do_email_configuration"/>
+                        <group colspan="2">
+                            <label for="do_email_configuration" string="Do configuration for"/>
+                            <div>
+                                <field name="do_email_configuration" class="oe_inline"/>
+                            </div>
+                        </group>
                         <!-- serveur d'email entrant - Incoming Email Server -->
                         <group string="Incoming Email Server">
                             <field name="incoming_email_server_type"/>

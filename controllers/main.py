@@ -19,7 +19,8 @@ class portal_parameters(http.Controller):
         "iban", "bank_account_number", "bvr_number", "bank_name",
         "do_email_configuration", 
         "incoming_email_server_type", "incoming_email_server_name", "incoming_email_server_port", "incoming_email_server_security", "incoming_email_server_username", "incoming_email_server_pass",
-        "outgoing_email_server_name", "outgoing_email_server_port", "outgoing_email_server_security", "outgoing_email_server_username", "outgoing_email_server_password"
+        "outgoing_email_server_name", "outgoing_email_server_port", "outgoing_email_server_security", "outgoing_email_server_username", "outgoing_email_server_password",
+        "doc_numb_quot_sales", "doc_numb_invoices", "doc_numb_purchases", "doc_numb_delivery"
     ]
 
     @http.route(['/my/parameters'], type='http', auth='user', website=True)
