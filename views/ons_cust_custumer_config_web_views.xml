@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_parameters" name="My Parameters Form">
+        <t t-call="website.layout">
+            <div class="container mt16">
+                <div class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#oe-help-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/my/parameters">
+                            My Parameters Form
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="oe-help-navbar-collapse">
+                        <ul class="nav navbar-nav o_portal_submenu">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="wrap">
+                <div class="container mb64">
+                    <div class="col-md-8">
+                        <form action="/my/parameters" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div t-if="error_message" class="alert alert-danger">
+                                              <t t-foreach="error_message" t-as="err"><t t-esc="err"/><br /></t>
+                                          </div>
+                                          <div t-if="success" class="alert alert-success">
+                                              <span>Successful Update!</span>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="panel-group" id="accordion_preferences">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#company_info">
+                                                          Company Info
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <!-- missing logo -->
+                                                <div id="company_info" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="email">Administrator's Email</label>
+                                                            <input type="email" name="email" class="form-control" t-att-value="email or config.email" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#bank_info">
+                                                            Bank Info
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="bank_info" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('iban') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="iban">IBAN</label>
+                                                            <input type="text" name="iban" class="form-control" t-att-value="iban or config.iban" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('bank_account_number') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="bank_account_number">Bank Account Number</label>
+                                                            <input type="text" name="bank_account_number" class="form-control" t-att-value="bank_account_number or config.bank_account_number" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('bvr_number') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="bvr_number">BVR Number</label>
+                                                            <input type="text" name="bvr_number" class="form-control" t-att-value="bvr_number or config.bvr_number" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('bank_name') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="bank_name">Bank Name</label>
+                                                            <input type="text" name="bank_name" class="form-control" t-att-value="bank_name or config.bank_name" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#email_server_config">
+                                                            Email Server Configurations
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <script>
+                                                    function onchange_email_server_config(elem){
+                                                        if(elem.value == 'none'){
+                                                            document.getElementById('email_server_incoming').style.display = "none";
+                                                            document.getElementById('email_server_outgoing').style.display = "none";
+                                                        }
+                                                        if(elem.value == 'in'){
+                                                            document.getElementById('email_server_incoming').style.display = "";
+                                                            document.getElementById('email_server_outgoing').style.display = "none";
+                                                        }
+                                                        if(elem.value == 'out'){
+                                                            document.getElementById('email_server_incoming').style.display = "none";
+                                                            document.getElementById('email_server_outgoing').style.display = "";
+                                                        }
+                                                        if(elem.value == 'all'){
+                                                            document.getElementById('email_server_incoming').style.display = "";
+                                                            document.getElementById('email_server_outgoing').style.display = ""; 
+                                                        }
+                                                    }
+                                                </script>
+                                                <div id="email_server_config" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('do_email_configuration') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="do_email_configuration">Do email configuration</label>
+                                                            <t t-set="db_email_config_val" t-value="config.do_email_configuration"/>
+                                                            <select name="do_email_configuration" class="form-control" onchange="onchange_email_server_config(this)">
+                                                                <t t-foreach="options_dict['do_email_configuration'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == db_email_config_val">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <t t-if="db_email_config_val == 'none'">
+                                                            <t t-set="style_email_incoming" t-value="'display:none'"/>
+                                                            <t t-set="style_email_outgoing" t-value="'display:none'"/>
+                                                        </t>
+                                                        <t t-if="db_email_config_val == 'in'">
+                                                            <t t-set="style_email_incoming" t-value="''"/>
+                                                            <t t-set="style_email_outgoing" t-value="'display:none'"/>
+                                                        </t>
+                                                        <t t-if="db_email_config_val == 'out'">
+                                                            <t t-set="style_email_incoming" t-value="'display:none'"/>
+                                                            <t t-set="style_email_outgoing" t-value="''"/>
+                                                        </t>
+                                                        <t t-if="db_email_config_val == 'all'">
+                                                            <t t-set="style_email_incoming" t-value="''"/>
+                                                            <t t-set="style_email_outgoing" t-value="''"/>
+                                                        </t>
+                                                        <br />
+                                                        <div id="email_server_incoming" t-att-style="style_email_incoming" class="col-xs-12">
+                                                            <group string="Incoming Server">
+                                                                <div t-attf-class="form-group #{error.get('incoming_email_server_type') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_type">Server's Type</label>
+                                                                    <!-- onchange pas fait! -->
+                                                                    <select name="incoming_email_server_type" class="form-control" onchange="onchange_in_email_server_type(this)">
+                                                                        <t t-foreach="options_dict['incoming_email_server_type'] or []" t-as="select_option">
+                                                                            <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.incoming_email_server_type">
+                                                                                <t t-esc="select_option[1]" />
+                                                                            </option>
+                                                                        </t>
+                                                                    </select>
+                                                                </div>
+                                                                <div t-attf-class="form-group #{error.get('incoming_email_server_name') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_name">Server Name</label>
+                                                                    <input type="text" name="incoming_email_server_name" class="form-control" t-att-value="incoming_email_server_name or config.incoming_email_server_name" />
+                                                                </div>
+                                                                <div t-attf-class="form-group #{error.get('incoming_email_server_port') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_port">Server Port</label>
+                                                                    <input type="text" name="incoming_email_server_port" class="form-control" t-att-value="incoming_email_server_port or config.incoming_email_server_port" />
+                                                                </div>
+                                                                 <div t-attf-class="form-group #{error.get('incoming_email_server_security') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_security">Security SSL/TLS</label>
+                                                                    <input type="checkbox" name="incoming_email_server_security" class="form-control" t-att-value="incoming_email_server_security or config.incoming_email_server_security" />
+                                                                </div>
+                                                                <div t-attf-class="form-group #{error.get('incoming_email_server_username') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_username">Username</label>
+                                                                    <input type="text" name="incoming_email_server_username" class="form-control" t-att-value="incoming_email_server_username or config.incoming_email_server_username" />
+                                                                </div>
+                                                                <div t-attf-class="form-group #{error.get('incoming_email_server_pass') and 'has-error' or ''} col-lg-6">
+                                                                    <label class="control-label" for="incoming_email_server_pass">Password</label>
+                                                                    <input type="text" name="incoming_email_server_pass" class="form-control" t-att-value="incoming_email_server_pass or config.incoming_email_server_pass" />
+                                                                </div>
+                                                            </group>
+                                                        </div>
+                                                        <div id="email_server_outgoing" t-att-style="style_email_outgoing" class="col-xs-12">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <button type="submit" class="btn btn-default btn-primary pull-right mb32 ">
+                                            Confirm
+                                            <span class="fa fa-long-arrow-right" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="o_my_sidebar" class="col-md-3 col-md-offset-1 o_my_sidebar">
+                        <div class="o_my_contact" t-if="sales_rep">
+                            <t t-call="website_portal.contact"/>
+                        </div>
+                        <div class="o_my_details">
+                            <h3 class="page-header">Your Details <a href="/my/account" class="btn btn-default btn-xs">Change</a></h3>
+                            <div t-field="user.partner_id" t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
+                        </div>
+                        <div class="o_my_archives" t-if="archive_groups">
+                            <t t-call="website_portal.portal_archive_groups"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="my_parameters_link" name="Link to frontend Parameters Form" inherit_id="website_portal.my_account_link">
+        <xpath expr="//li[@id='o_logout']" position="before">
+            <li><a href="/my/parameters" role="menuitem">My Parameters Form</a></li>
+        </xpath>
+    </template>
+</odoo>

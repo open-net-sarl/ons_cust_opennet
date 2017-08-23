@@ -13,7 +13,9 @@
         'sale',
         'report',
         'ons_productivity_project_issue',
-        'account_reports'
+        'account_reports',
+        'website_portal',
+        'muk_web_preview_vector'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
@@ -30,6 +32,7 @@
         'views/report_invoice.xml',
         # 'views/report_financial.xml',
         'views/ons_cust_customer_config_views.xml',
+        'views/ons_cust_custumer_config_web_views.xml',
         'report/account_followup_report_views.xml',
     ],
     'installable': True
