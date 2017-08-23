@@ -75,12 +75,12 @@
                     <group string="Contact Default Parameters">
                         <field name="contacts_lang" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
                         <field name="contacts_payment_terms"/>
-                        <field name="contacts_products_type"/>
                     </group>
                 </group>
                 <group>
                     <!-- articles - Product Default Parameters -->
                     <group string="Product Default Parameters">
+                        <field name="products_type"/>
                         <field name="products_can_be_sold"/>
                         <field name="products_can_be_purchased"/>
                         <field name="products_warranty"/>

@@ -146,6 +146,15 @@ class OnsCustCustomerConfig(models.Model):
             (1, 'Track lots or serial numbers')
         ]
         return options
+
+    @api.model
+    def get_products_type_options(self):
+        options = [
+            ('consu', 'Consumable'),
+            ('service', 'Service'),
+            ('product', 'Stockable Product')
+        ]
+        return options
     # - END SELECTION GETS -
 
     # - Votre Société - #
@@ -197,9 +206,9 @@ class OnsCustCustomerConfig(models.Model):
         'account.payment.term',
         string='Payment Terms',
         help="This payment term will be used instead of the default one for sale orders and customer invoices")
-    contacts_products_type = fields.Char("Product's Type")
 
     # articles - Product Default Parameters
+    products_type = fields.Selection(get_products_type_options, "Product's Type")
     products_can_be_sold = fields.Boolean("Can Be Sold")
     products_can_be_purchased = fields.Boolean("Can Be Purchased")
     products_warranty = fields.Integer("Warranty (months)")

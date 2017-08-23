@@ -20,7 +20,9 @@ class portal_parameters(http.Controller):
         "do_email_configuration", 
         "incoming_email_server_type", "incoming_email_server_name", "incoming_email_server_port", "incoming_email_server_security", "incoming_email_server_username", "incoming_email_server_pass",
         "outgoing_email_server_name", "outgoing_email_server_port", "outgoing_email_server_security", "outgoing_email_server_username", "outgoing_email_server_password",
-        "doc_numb_quot_sales", "doc_numb_invoices", "doc_numb_purchases", "doc_numb_delivery"
+        "doc_numb_quot_sales", "doc_numb_invoices", "doc_numb_purchases", "doc_numb_delivery",
+        "contacts_lang", "contacts_payment_terms",
+        "products_type", "products_can_be_sold", "products_can_be_purchased", "products_warranty", "products_delivery_delay", "products_earnings_acc", "products_spendings_acc", "products_customer_tax", "products_supplier_tax", "products_supply_routes", "products_unit_of_mesure"
     ]
 
     @http.route(['/my/parameters'], type='http', auth='user', website=True)
@@ -34,6 +36,17 @@ class portal_parameters(http.Controller):
             'error': {},
             'error_message': []
         }
+
+        all_langs = request.env['res.lang'].sudo().search(['|', ('active', '=', False), ('active', '=', True )])
+        lang_options = [(lang.id, lang.name) for lang in all_langs]
+
+        all_payment_terms = request.env['account.payment.term'].sudo().search([])
+        payment_terms_options = [(term.id, term.name) for term in all_payment_terms]
+
+        all_customer_taxes = request.env['account.tax'].sudo().search([('type_tax_use', '=', 'sale')])
+        customer_taxes_options = [(tax.id, tax.name) for tax in all_customer_taxes]
+        all_supplier_taxes = request.env['account.tax'].sudo().search([('type_tax_use', '=', 'purchase')])
+        supplier_taxes_options = [(tax.id, tax.name) for tax in all_supplier_taxes]
 
         dict_all_options = {
             'do_email_configuration': env_config.get_do_email_configuration_options(),
@@ -49,6 +62,11 @@ class portal_parameters(http.Controller):
             'stock_mng_product_owners': env_config.get_stock_mng_product_owners_options(),
             'stock_mng_expiration_dates': env_config.get_stock_mng_expiration_dates_options(),
             'stock_mng_lots_serial_nb': env_config.get_stock_mng_lots_serial_nb_options(),
+            'products_type': env_config.get_products_type_options(),
+            'contacts_lang': lang_options,
+            'contacts_payment_terms': payment_terms_options,
+            'products_customer_tax': customer_taxes_options,
+            'products_supplier_tax': supplier_taxes_options,
         }
 
         if post:

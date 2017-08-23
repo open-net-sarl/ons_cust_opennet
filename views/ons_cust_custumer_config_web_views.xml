@@ -209,7 +209,7 @@
                                                                             type="text" id="incoming_email_server_port" name="incoming_email_server_port" 
                                                                             class="form-control" t-att-value="incoming_email_server_port or config.incoming_email_server_port" />
                                                                     </div>
-                                                                     <div t-attf-class="form-group #{error.get('incoming_email_server_security') and 'has-error' or ''} col-lg-6">
+                                                                    <div t-attf-class="form-group #{error.get('incoming_email_server_security') and 'has-error' or ''} col-lg-6">
                                                                         <label class="control-label" for="incoming_email_server_security">Security SSL/TLS</label>
                                                                         <input 
                                                                             type="checkbox" onchange="onchange_in_email_server_security(this)"
@@ -259,7 +259,7 @@
                                                                             type="text" id="outgoing_email_server_port" name="outgoing_email_server_port" 
                                                                             class="form-control" t-att-value="outgoing_email_server_port or config.outgoing_email_server_port" />
                                                                     </div>
-                                                                     <div t-attf-class="form-group #{error.get('outgoing_email_server_security') and 'has-error' or ''} col-lg-6">
+                                                                    <div t-attf-class="form-group #{error.get('outgoing_email_server_security') and 'has-error' or ''} col-lg-6">
                                                                         <label class="control-label" for="outgoing_email_server_security">Security SSL/TLS</label>
                                                                         <select 
                                                                             id="outgoing_email_server_security" name="outgoing_email_server_security" 
@@ -321,6 +321,95 @@
                                                 </div>
                                             </div>
                                             <!-- END DOC NB -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#contact_params">
+                                                            Contact Default Parameters
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="contact_params" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('contacts_lang') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="contacts_lang">Language</label>
+                                                            <select name="contacts_lang" class="form-control">
+                                                                <option value="">Select a default language..</option>
+                                                                <t t-foreach="options_dict['contacts_lang'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.contacts_lang.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('contacts_payment_terms') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="contacts_payment_terms">Payment Terms</label>
+                                                            <select name="contacts_payment_terms" class="form-control">
+                                                                <option value="">Select a payment term..</option>
+                                                                <t t-foreach="options_dict['contacts_payment_terms'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.contacts_payment_terms.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END CONTACT PARAMS -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#product_params">
+                                                            Product Default Parameters
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="product_params" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('products_type') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_type">Product Type</label>
+                                                            <select name="products_type" class="form-control">
+                                                                <option value="">Select a product type..</option>
+                                                                <t t-foreach="options_dict['products_type'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.products_type">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_can_be_sold') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_can_be_sold">Can Be Sold</label>
+                                                            <input type="checkbox" name="products_can_be_sold" 
+                                                                class="form-control" t-att-value="products_can_be_sold or config.products_can_be_sold" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_can_be_purchased') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_can_be_purchased">Can Be Purchased</label>
+                                                            <input type="checkbox" name="products_can_be_purchased" 
+                                                                class="form-control" t-att-value="products_can_be_purchased or config.products_can_be_purchased" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_warranty') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_warranty">Warranty (months)</label>
+                                                            <input type="number" name="products_warranty" class="form-control" t-att-value="products_warranty or config.products_warranty" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_delivery_delay') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_delivery_delay">Delivery Delay to the Customer (days)</label>
+                                                            <input type="number" name="products_delivery_delay" class="form-control" t-att-value="products_delivery_delay or config.products_delivery_delay" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_earnings_acc') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_earnings_acc">Earnings Account</label>
+                                                            <input type="text" name="products_earnings_acc" class="form-control" t-att-value="products_earnings_acc or config.products_earnings_acc" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_spendings_acc') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_spendings_acc">Spendings Account</label>
+                                                            <input type="text" name="products_spendings_acc" class="form-control" t-att-value="products_spendings_acc or config.products_spendings_acc" />
+                                                        </div>
+                                                        <!-- missing other fields -->
+                                                        <!-- ops done for: products_customer_tax, products_supplier_tax -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END PRODUCT PARAMS -->
                                         </div>
                                     </div>
                                     <div class="clearfix">
