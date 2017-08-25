@@ -37,16 +37,22 @@ class portal_parameters(http.Controller):
             'error_message': []
         }
 
+        # Contact Default Parameters
         all_langs = request.env['res.lang'].sudo().search(['|', ('active', '=', False), ('active', '=', True )])
         lang_options = [(lang.id, lang.name) for lang in all_langs]
 
         all_payment_terms = request.env['account.payment.term'].sudo().search([])
         payment_terms_options = [(term.id, term.name) for term in all_payment_terms]
 
+        # Product Default Parameters
         all_customer_taxes = request.env['account.tax'].sudo().search([('type_tax_use', '=', 'sale')])
         customer_taxes_options = [(tax.id, tax.name) for tax in all_customer_taxes]
+
         all_supplier_taxes = request.env['account.tax'].sudo().search([('type_tax_use', '=', 'purchase')])
         supplier_taxes_options = [(tax.id, tax.name) for tax in all_supplier_taxes]
+        
+        all_product_uoms = request.env['product.uom'].sudo().search([])
+        product_uoms_options = [(uom.id, uom.name) for uom in all_product_uoms]
 
         dict_all_options = {
             'do_email_configuration': env_config.get_do_email_configuration_options(),
@@ -67,6 +73,7 @@ class portal_parameters(http.Controller):
             'contacts_payment_terms': payment_terms_options,
             'products_customer_tax': customer_taxes_options,
             'products_supplier_tax': supplier_taxes_options,
+            'products_unit_of_mesure': product_uoms_options
         }
 
         if post:

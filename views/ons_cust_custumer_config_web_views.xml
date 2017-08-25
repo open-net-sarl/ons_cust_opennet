@@ -214,7 +214,7 @@
                                                                         <input 
                                                                             type="checkbox" onchange="onchange_in_email_server_security(this)"
                                                                             id="incoming_email_server_security" name="incoming_email_server_security" 
-                                                                            class="form-control" t-att-value="incoming_email_server_security or config.incoming_email_server_security" />
+                                                                            class="form-control" t-att-checked="incoming_email_server_security or config.incoming_email_server_security" />
                                                                     </div>
                                                                     <div t-attf-class="form-group #{error.get('incoming_email_server_username') and 'has-error' or ''} col-lg-6">
                                                                         <label class="control-label" for="incoming_email_server_username">Username</label>
@@ -367,7 +367,7 @@
                                                 </div>
                                                 <div id="product_params" class="panel-collapse collapse">
                                                     <div class="panel-body">
-                                                        <div t-attf-class="form-group #{error.get('products_type') and 'has-error' or ''} col-lg-6">
+                                                        <div t-attf-class="form-group #{error.get('products_type') and 'has-error' or ''} col-lg-12">
                                                             <label class="control-label" for="products_type">Product Type</label>
                                                             <select name="products_type" class="form-control">
                                                                 <option value="">Select a product type..</option>
@@ -381,12 +381,12 @@
                                                         <div t-attf-class="form-group #{error.get('products_can_be_sold') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_can_be_sold">Can Be Sold</label>
                                                             <input type="checkbox" name="products_can_be_sold" 
-                                                                class="form-control" t-att-value="products_can_be_sold or config.products_can_be_sold" />
+                                                                class="form-control" t-att-checked="products_can_be_sold or config.products_can_be_sold" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('products_can_be_purchased') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_can_be_purchased">Can Be Purchased</label>
                                                             <input type="checkbox" name="products_can_be_purchased" 
-                                                                class="form-control" t-att-value="products_can_be_purchased or config.products_can_be_purchased" />
+                                                                class="form-control" t-att-checked="products_can_be_purchased or config.products_can_be_purchased" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('products_warranty') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_warranty">Warranty (months)</label>
@@ -404,8 +404,43 @@
                                                             <label class="control-label" for="products_spendings_acc">Spendings Account</label>
                                                             <input type="text" name="products_spendings_acc" class="form-control" t-att-value="products_spendings_acc or config.products_spendings_acc" />
                                                         </div>
-                                                        <!-- missing other fields -->
-                                                        <!-- ops done for: products_customer_tax, products_supplier_tax -->
+                                                        <div t-attf-class="form-group #{error.get('products_customer_tax') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_customer_tax">Customer Tax</label>
+                                                            <select name="products_customer_tax" class="form-control">
+                                                                <option value="">Select a customer tax..</option>
+                                                                <t t-foreach="options_dict['products_customer_tax'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.products_customer_tax.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_supplier_tax') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_supplier_tax">Supplier Tax</label>
+                                                            <select name="products_supplier_tax" class="form-control">
+                                                                <option value="">Select a supplier tax..</option>
+                                                                <t t-foreach="options_dict['products_supplier_tax'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.products_supplier_tax.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_supply_routes') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_supply_routes">Supply Routes</label>
+                                                            <input type="text" name="products_supply_routes" class="form-control" t-att-value="products_supply_routes or config.products_supply_routes" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('products_unit_of_mesure') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="products_unit_of_mesure">Unit of Mesure</label>
+                                                            <select name="products_unit_of_mesure" class="form-control">
+                                                                <option value="">Select a unit of mesure..</option>
+                                                                <t t-foreach="options_dict['products_unit_of_mesure'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.products_unit_of_mesure.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
