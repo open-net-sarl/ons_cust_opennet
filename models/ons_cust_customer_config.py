@@ -74,10 +74,10 @@ class OnsCustCustomerConfig(models.Model):
     @api.model
     def get_accounting_last_month_fiscal_exercise_options(self):
         options = [
-            (1, 'January'), (2, 'February'), (3, 'March'), 
-            (4, 'April'), (5, 'May'), (6, 'June'), 
-            (7, 'July'), (8, 'August'), (9, 'September'), 
-            (10, 'October'), (11, 'November'), (12, 'December')
+            ('1', 'January'), ('2', 'February'), ('3', 'March'), 
+            ('4', 'April'), ('5', 'May'), ('6', 'June'), 
+            ('7', 'July'), ('8', 'August'), ('9', 'September'), 
+            ('10', 'October'), ('11', 'November'), ('12', 'December')
         ]
         return options
 
@@ -94,56 +94,56 @@ class OnsCustCustomerConfig(models.Model):
     @api.model
     def get_stock_mng_units_mesure_options(self):
         options = [
-            (0, 'Products have only one unit of measure (easier)'),
-            (1, 'Some products may be sold/purchased in different units of measure (advanced)')
+            ('0', 'Products have only one unit of measure (easier)'),
+            ('1', 'Some products may be sold/purchased in different units of measure (advanced)')
         ]
         return options
 
     @api.model
     def get_stock_mng_prod_variants_options(self):
         options = [
-            (0, "No variants on products"),
-            (1, 'Products can have several attributes, defining variants (Example: size, color,...)')
+            ('0', "No variants on products"),
+            ('1', 'Products can have several attributes, defining variants (Example: size, color,...)')
         ]
         return options
 
     @api.model
     def get_stock_mng_packing_methods_options(self):
         options = [
-            (0, 'Do not manage packaging'),
-            (1, 'Manage available packaging options per products')
+            ('0', 'Do not manage packaging'),
+            ('1', 'Manage available packaging options per products')
         ]
         return options
 
     @api.model
     def get_stock_mng_dropshipping_options(self):
         options = [
-            (0, 'Suppliers always deliver to your warehouse(s)'),
-            (1, "Allow suppliers to deliver directly to your customers")
+            ('0', 'Suppliers always deliver to your warehouse(s)'),
+            ('1', "Allow suppliers to deliver directly to your customers")
         ]
         return options
 
     @api.model
     def get_stock_mng_product_owners_options(self):
         options = [
-            (0, 'All products in your warehouse belong to your company'),
-            (1, 'Manage consignee stocks (advanced)')
+            ('0', 'All products in your warehouse belong to your company'),
+            ('1', 'Manage consignee stocks (advanced)')
         ]
         return options
 
     @api.model
     def get_stock_mng_expiration_dates_options(self):
         options = [
-            (0, 'Do not use Expiration Date on serial numbers'),
-            (1, 'Define Expiration Date on serial numbers')
+            ('0', 'Do not use Expiration Date on serial numbers'),
+            ('1', 'Define Expiration Date on serial numbers')
         ]
         return options
 
     @api.model
     def get_stock_mng_lots_serial_nb_options(self):
         options = [
-            (0, 'Do not track individual product items'),
-            (1, 'Track lots or serial numbers')
+            ('0', 'Do not track individual product items'),
+            ('1', 'Track lots or serial numbers')
         ]
         return options
 
@@ -228,16 +228,16 @@ class OnsCustCustomerConfig(models.Model):
              'Advanced pricing based on formula: You can have all the rights on pricelist')
     sales_invoicing_policy = fields.Char("Invoicing Policy")
     sales_general_conditions = fields.Text("General Conditions")
-    sales_autorize_different_address = fields.Boolean("Autorize Different Addresses for Delivery and Invoicing")
+    sales_authorize_different_address = fields.Boolean("Authorize Different Addresses for Delivery and Invoicing")
     sales_modify_sale_order = fields.Text("Modify Sale Order")
 
     # comptabilite - Accounting Default Parameters
     accounting_last_day_fiscal_exercise = fields.Integer(string="Last Day of Fiscal Exercise", default=31)
-    accounting_last_month_fiscal_exercise = fields.Selection(get_accounting_last_month_fiscal_exercise_options, default=12, string="Last Month of Fiscal Exercise")
+    accounting_last_month_fiscal_exercise = fields.Selection(get_accounting_last_month_fiscal_exercise_options, default='12', string="Last Month of Fiscal Exercise")
     accounting_currency = fields.Many2one('res.currency', string='Default company currency', help="Main currency of the company.")
-    accounting_analytic_acc = fields.Boolean("Analytic Account")
-    accounting_asset_management = fields.Boolean("Asset's Management")
-    accounting_recognize_earnings = fields.Boolean("Recognize Ernings")
+    accounting_analytic_acc = fields.Boolean("Analytic Accounting")
+    accounting_asset_management = fields.Boolean("Assets Management")
+    accounting_revenu_recognition = fields.Boolean("Revenue Recognition")
     accounting_budget_management = fields.Boolean("Budget Management")
     accounting_output_bvr = fields.Boolean("Output BVR")
     accounting_iso_payment = fields.Boolean("ISO20022 Payment")

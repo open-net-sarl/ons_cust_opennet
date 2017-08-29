@@ -97,7 +97,7 @@
                         <field name="sales_sale_price"/>
                         <field name="sales_invoicing_policy"/>
                         <field name="sales_general_conditions"/>
-                        <field name="sales_autorize_different_address"/>
+                        <field name="sales_authorize_different_address"/>
                         <field name="sales_modify_sale_order"/>
                     </group>
                 </group>
@@ -113,7 +113,7 @@
                         <field name="accounting_currency" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
                         <field name="accounting_analytic_acc"/>
                         <field name="accounting_asset_management"/>
-                        <field name="accounting_recognize_earnings"/>
+                        <field name="accounting_revenu_recognition"/>
                         <field name="accounting_budget_management"/>
                         <field name="accounting_output_bvr"/>
                         <field name="accounting_iso_payment"/>

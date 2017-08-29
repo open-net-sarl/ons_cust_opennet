@@ -6,7 +6,7 @@
     <template id="alert_doubt">
         <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <span><t t-call="ons_cust_opennet.asterisk"/>En cas de doute, vous pouvez remplir après la formation de prise en main.</span>
+            <span><t t-call="ons_cust_opennet.asterisk"/>En cas de doute, vous pouvez remplir ces champs après la formation "Prise en main".</span>
         </div>
     </template>
     <template id="portal_my_parameters" name="My Parameters Form">
@@ -60,6 +60,9 @@
                                                 <!-- missing logo -->
                                                 <div id="company_info" class="panel-collapse collapse in">
                                                     <div class="panel-body">
+                                                        <div class="alert alert-info">
+                                                            <span>Merci de nous envoyer votre logo à <a href="mailto:support@open-net.ch">support@open-net.ch</a></span>
+                                                        </div>
                                                         <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="email">Administrator's Email</label>
                                                             <input type="email" name="email" class="form-control" t-att-value="email or config.email" />
@@ -445,12 +448,231 @@
                                                 </div>
                                             </div>
                                             <!-- END PRODUCT PARAMS -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#sales_params">
+                                                            Sales Parameters
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="sales_params" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('sales_sale_price') and 'has-error' or ''} col-lg-12">
+                                                            <label class="control-label" for="sales_sale_price">Sale's Price</label>
+                                                            <select name="sales_sale_price" class="form-control">
+                                                                <t t-foreach="options_dict['sales_sale_price'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.sales_sale_price">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('sales_invoicing_policy') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="sales_invoicing_policy">Invoicing Policy</label>
+                                                            <textarea style="resize: vertical;" name="sales_invoicing_policy" class="form-control" t-att-value="sales_invoicing_policy or config.sales_invoicing_policy" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('sales_general_conditions') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="sales_general_conditions">General Conditions</label>
+                                                            <textarea style="resize: vertical;" name="sales_general_conditions" class="form-control" t-att-value="sales_general_conditions or config.sales_general_conditions" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('sales_authorize_different_address') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="sales_authorize_different_address">Authorize Different Addresses for Delivery and Invoicing</label>
+                                                            <input type="checkbox" name="sales_authorize_different_address" 
+                                                                class="form-control" t-att-checked="sales_authorize_different_address or config.sales_authorize_different_address" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('sales_modify_sale_order') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="sales_modify_sale_order">Modify Sale Order</label>
+                                                            <textarea style="resize: vertical;" name="sales_modify_sale_order" class="form-control" t-att-value="sales_modify_sale_order or config.sales_modify_sale_order" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END SALES PARAMS -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#acc_params">
+                                                            Accounting Default Parameters
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="acc_params" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('accounting_last_month_fiscal_exercise') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_last_month_fiscal_exercise">Last Month of Fiscal Exercise</label>
+                                                            <select name="accounting_last_month_fiscal_exercise" class="form-control">
+                                                                <t t-foreach="options_dict['accounting_last_month_fiscal_exercise'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.accounting_last_month_fiscal_exercise">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_last_day_fiscal_exercise') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_last_day_fiscal_exercise">Last Day of Fiscal Exercise</label>
+                                                            <input type="number" min="1" max="31" name="accounting_last_day_fiscal_exercise" class="form-control" t-att-value="accounting_last_day_fiscal_exercise or config.accounting_last_day_fiscal_exercise" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_currency') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_currency">Default company currency</label>
+                                                            <select name="accounting_currency" class="form-control">
+                                                                <option value="">Select a currency..</option>
+                                                                <t t-foreach="options_dict['accounting_currency'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.accounting_currency.id">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_tax_update_frequence') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_tax_update_frequence">Tax Update Frequence</label>
+                                                            <select name="accounting_tax_update_frequence" class="form-control">
+                                                                <t t-foreach="options_dict['accounting_tax_update_frequence'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.accounting_tax_update_frequence">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_analytic_acc') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_analytic_acc">Analytic Accounting</label>
+                                                            <input type="checkbox" name="accounting_analytic_acc" 
+                                                                class="form-control" t-att-checked="accounting_analytic_acc or config.accounting_analytic_acc" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_asset_management') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_asset_management">Assets Management</label>
+                                                            <input type="checkbox" name="accounting_asset_management" 
+                                                                class="form-control" t-att-checked="accounting_asset_management or config.accounting_asset_management" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_revenu_recognition') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_revenu_recognition">Revenue Recognition</label>
+                                                            <input type="checkbox" name="accounting_revenu_recognition" 
+                                                                class="form-control" t-att-checked="accounting_revenu_recognition or config.accounting_revenu_recognition" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_budget_management') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_budget_management">Budget Management</label>
+                                                            <input type="checkbox" name="accounting_budget_management" 
+                                                                class="form-control" t-att-checked="accounting_budget_management or config.accounting_budget_management" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_output_bvr') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_output_bvr">Output BVR</label>
+                                                            <input type="checkbox" name="accounting_output_bvr" 
+                                                                class="form-control" t-att-checked="accounting_output_bvr or config.accounting_output_bvr" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_iso_payment') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_iso_payment">ISO20022 Payment</label>
+                                                            <input type="checkbox" name="accounting_iso_payment" 
+                                                                class="form-control" t-att-checked="accounting_iso_payment or config.accounting_iso_payment" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_foreign_currencies_list') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_foreign_currencies_list">Foreign Currencies List</label>
+                                                            <input type="checkbox" name="accounting_foreign_currencies_list" 
+                                                                class="form-control" t-att-checked="accounting_foreign_currencies_list or config.accounting_foreign_currencies_list" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('accounting_reminder_levels') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="accounting_reminder_levels">Reminder levels</label>
+                                                            <input type="checkbox" name="accounting_reminder_levels" 
+                                                                class="form-control" t-att-checked="accounting_reminder_levels or config.accounting_reminder_levels" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ACC PARAMS -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" href="#stock_params">
+                                                            Stock Management Default Parameters
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="stock_params" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_units_mesure') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_units_mesure">Units of Measure</label>
+                                                            <select name="stock_mng_units_mesure" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_units_mesure'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_units_mesure">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_prod_variants') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_prod_variants">Product Variants</label>
+                                                            <select name="stock_mng_prod_variants" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_prod_variants'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_prod_variants">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_packing_methods') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_packing_methods">Packing Methods</label>
+                                                            <select name="stock_mng_packing_methods" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_packing_methods'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_packing_methods">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_dropshipping') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_dropshipping">Dropshipping</label>
+                                                            <select name="stock_mng_dropshipping" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_dropshipping'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_dropshipping">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_product_owners') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_product_owners">Product Owners</label>
+                                                            <select name="stock_mng_product_owners" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_product_owners'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_product_owners">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_expiration_dates') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_expiration_dates">Expiration Dates</label>
+                                                            <select name="stock_mng_expiration_dates" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_expiration_dates'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_expiration_dates">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_lots_serial_nb') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_lots_serial_nb">Lots and Serial Numbers</label>
+                                                            <select name="stock_mng_lots_serial_nb" class="form-control">
+                                                                <t t-foreach="options_dict['stock_mng_lots_serial_nb'] or []" t-as="select_option">
+                                                                    <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.stock_mng_lots_serial_nb">
+                                                                        <t t-esc="select_option[1]" />
+                                                                    </option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('stock_mng_generate_journal_item') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="stock_mng_generate_journal_item">Generate a journal item for every stock movement</label>
+                                                            <input type="checkbox" name="stock_mng_generate_journal_item" 
+                                                                class="form-control" t-att-checked="stock_mng_generate_journal_item or config.stock_mng_generate_journal_item" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END STOCK MAN PARMS -->
                                         </div>
                                     </div>
                                     <div class="clearfix">
                                         <button type="submit" class="btn btn-default btn-primary pull-right mb32 ">
                                             Confirm
-                                            <span class="fa fa-long-arrow-right" />
+                                            <!-- <span class="fa fa-long-arrow-right" /> -->
                                         </button>
                                     </div>
                                 </div>
