@@ -19,7 +19,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/my/parameters">
+                        <a class="navbar-brand" href="#">
                             My Parameters Form
                         </a>
                     </div>
@@ -83,7 +83,7 @@
                                                     <div class="panel-body">
                                                         <div t-attf-class="form-group #{error.get('iban') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="iban">IBAN</label>
-                                                            <input type="text" name="iban" class="form-control" t-att-value="iban or config.iban" />
+                                                            <input type="text" name="iban" placeholder="CHXX XXXX XXXX XXXX XXXX X" class="form-control" t-att-value="iban or config.iban" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('bank_account_number') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="bank_account_number">Bank Account Number</label>
@@ -91,7 +91,7 @@
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('bvr_number') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="bvr_number">BVR Number</label>
-                                                            <input type="text" name="bvr_number" class="form-control" t-att-value="bvr_number or config.bvr_number" />
+                                                            <input type="text" name="bvr_number" placeholder="01-" class="form-control" t-att-value="bvr_number or config.bvr_number" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('bank_name') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="bank_name">Bank Name</label>
@@ -186,10 +186,10 @@
                                                         </script>
                                                         <div id="email_server_incoming" t-att-style="style_email_incoming" class="col-xs-12">
                                                             <div class="panel panel-default">
-                                                                <div class="panel-heading">Incoming Server</div>
+                                                                <div class="panel-heading">Incoming Email Server</div>
                                                                 <div class="panel-body">
                                                                     <div t-attf-class="form-group #{error.get('incoming_email_server_type') and 'has-error' or ''} col-lg-6">
-                                                                        <label class="control-label" for="incoming_email_server_type">Server's Type</label>
+                                                                        <label class="control-label" for="incoming_email_server_type">Server Type</label>
                                                                         <select 
                                                                             id="incoming_email_server_type" name="incoming_email_server_type" 
                                                                             class="form-control" onchange="onchange_in_email_server_type(this)">
@@ -248,7 +248,7 @@
                                                         </script>
                                                         <div id="email_server_outgoing" t-att-style="style_email_outgoing" class="col-xs-12">
                                                             <div class="panel panel-default">
-                                                                <div class="panel-heading">Outgoing Server</div>
+                                                                <div class="panel-heading">Outgoing Email Server</div>
                                                                 <div class="panel-body">
                                                                     <div t-attf-class="form-group #{error.get('outgoing_email_server_name') and 'has-error' or ''} col-lg-6">
                                                                         <label class="control-label" for="outgoing_email_server_name">Server Name</label>
@@ -393,11 +393,11 @@
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('products_warranty') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_warranty">Warranty (months)</label>
-                                                            <input type="number" name="products_warranty" class="form-control" t-att-value="products_warranty or config.products_warranty" />
+                                                            <input type="number" min="1" name="products_warranty" class="form-control" t-att-value="products_warranty or config.products_warranty" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('products_delivery_delay') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_delivery_delay">Delivery Delay to the Customer (days)</label>
-                                                            <input type="number" name="products_delivery_delay" class="form-control" t-att-value="products_delivery_delay or config.products_delivery_delay" />
+                                                            <input type="number" min="1" name="products_delivery_delay" class="form-control" t-att-value="products_delivery_delay or config.products_delivery_delay" />
                                                         </div>
                                                         <div t-attf-class="form-group #{error.get('products_earnings_acc') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="products_earnings_acc">Earnings Account</label>
@@ -459,7 +459,7 @@
                                                 <div id="sales_params" class="panel-collapse collapse">
                                                     <div class="panel-body">
                                                         <div t-attf-class="form-group #{error.get('sales_sale_price') and 'has-error' or ''} col-lg-12">
-                                                            <label class="control-label" for="sales_sale_price">Sale's Price</label>
+                                                            <label class="control-label" for="sales_sale_price">Sale Price</label>
                                                             <select name="sales_sale_price" class="form-control">
                                                                 <t t-foreach="options_dict['sales_sale_price'] or []" t-as="select_option">
                                                                     <option t-att-value="select_option[0]" t-att-selected="select_option[0] == config.sales_sale_price">

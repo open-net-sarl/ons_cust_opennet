@@ -2,7 +2,7 @@
 # © 2017 Open Net Sarl
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -38,121 +38,121 @@ class OnsCustCustomerConfig(models.Model):
     @api.model
     def get_do_email_configuration_options(self):
         options = [
-            ('none', 'None'),
-            ('in', 'Incoming Server'),
-            ('out', 'Outgoing Server'),
-            ('all', 'Incoming and Outgoing Servers')
+            ('none', _('None')),
+            ('in', _('Incoming Server')),
+            ('out', _('Outgoing Server')),
+            ('all', _('Incoming and Outgoing Servers'))
         ]
         return options
 
     @api.model
     def get_incoming_email_server_type_options(self):
         options = [
-            ('pop', 'POP Server'),
-            ('imap', 'IMAP Server'),
+            ('pop', _('POP Server')),
+            ('imap', _('IMAP Server')),
         ]
         return options
 
     @api.model
     def get_outgoing_email_server_security_options(self):
         options = [
-            ('none', 'None'),
-            ('starttls', 'TLS (STARTTLS)'),
-            ('ssl', 'SSL/TLS')
+            ('none', _('None')),
+            ('starttls', _('TLS (STARTTLS)')),
+            ('ssl', _('SSL/TLS'))
         ]
         return options
 
     @api.model
     def get_sales_sale_price_options(self):
         options = [
-            ('fixed', 'A single sale price per product'),
-            ('percentage', 'Specific prices per customer segment, currency, etc.'),
-            ('formula', 'Advanced pricing based on formulas (discounts, margins, rounding)')
+            ('fixed', _('A single sale price per product')),
+            ('percentage', _('Specific prices per customer segment, currency, etc.')),
+            ('formula', _('Advanced pricing based on formulas (discounts, margins, rounding)'))
         ]
         return options
 
     @api.model
     def get_accounting_last_month_fiscal_exercise_options(self):
         options = [
-            ('1', 'January'), ('2', 'February'), ('3', 'March'), 
-            ('4', 'April'), ('5', 'May'), ('6', 'June'), 
-            ('7', 'July'), ('8', 'August'), ('9', 'September'), 
-            ('10', 'October'), ('11', 'November'), ('12', 'December')
+            ('1', _('January')), ('2', _('February')), ('3', _('March')), 
+            ('4', _('April')), ('5', _('May')), ('6', _('June')), 
+            ('7', _('July')), ('8', _('August')), ('9', _('September')), 
+            ('10', _('October')), ('11', _('November')), ('12', _('December'))
         ]
         return options
 
     @api.model
     def get_accounting_tax_update_frequence_options(self):
         options = [
-            ('manually','Manually'),
-            ('daily','Daily'),
-            ('weekly','Weekly'),
-            ('monthly','Monthly')
+            ('manually', _('Manually')),
+            ('daily', _('Daily')),
+            ('weekly', _('Weekly')),
+            ('monthly', _('Monthly'))
         ]
         return options
 
     @api.model
     def get_stock_mng_units_mesure_options(self):
         options = [
-            ('0', 'Products have only one unit of measure (easier)'),
-            ('1', 'Some products may be sold/purchased in different units of measure (advanced)')
+            ('0', _('Products have only one unit of measure (easier)')),
+            ('1', _('Some products may be sold/purchased in different units of measure (advanced)'))
         ]
         return options
 
     @api.model
     def get_stock_mng_prod_variants_options(self):
         options = [
-            ('0', "No variants on products"),
-            ('1', 'Products can have several attributes, defining variants (Example: size, color,...)')
+            ('0', _('No variants on products')),
+            ('1', _('Products can have several attributes, defining variants (Example: size, color,...)'))
         ]
         return options
 
     @api.model
     def get_stock_mng_packing_methods_options(self):
         options = [
-            ('0', 'Do not manage packaging'),
-            ('1', 'Manage available packaging options per products')
+            ('0', _('Do not manage packaging')),
+            ('1', _('Manage available packaging options per products'))
         ]
         return options
 
     @api.model
     def get_stock_mng_dropshipping_options(self):
         options = [
-            ('0', 'Suppliers always deliver to your warehouse(s)'),
-            ('1', "Allow suppliers to deliver directly to your customers")
+            ('0', _('Suppliers always deliver to your warehouse(s)')),
+            ('1', _('Allow suppliers to deliver directly to your customers'))
         ]
         return options
 
     @api.model
     def get_stock_mng_product_owners_options(self):
         options = [
-            ('0', 'All products in your warehouse belong to your company'),
-            ('1', 'Manage consignee stocks (advanced)')
+            ('0', _('All products in your warehouse belong to your company')),
+            ('1', _('Manage consignee stocks (advanced)'))
         ]
         return options
 
     @api.model
     def get_stock_mng_expiration_dates_options(self):
         options = [
-            ('0', 'Do not use Expiration Date on serial numbers'),
-            ('1', 'Define Expiration Date on serial numbers')
+            ('0', _('Do not use Expiration Date on serial numbers')),
+            ('1', _('Define Expiration Date on serial numbers'))
         ]
         return options
 
     @api.model
     def get_stock_mng_lots_serial_nb_options(self):
         options = [
-            ('0', 'Do not track individual product items'),
-            ('1', 'Track lots or serial numbers')
+            ('0', _('Do not track individual product items')),
+            ('1', _('Track lots or serial numbers'))
         ]
         return options
 
     @api.model
     def get_products_type_options(self):
         options = [
-            ('consu', 'Consumable'),
-            ('service', 'Service'),
-            ('product', 'Stockable Product')
+            ('consu', _('Consumable')),
+            ('service', _('Service')),
+            ('product', _('Stockable Product'))
         ]
         return options
     # - END SELECTION GETS -
@@ -173,8 +173,8 @@ class OnsCustCustomerConfig(models.Model):
     # - Configurations - #
     do_email_configuration = fields.Selection(get_do_email_configuration_options, default='none', string="Do email configuration for")
     # serveur d'email entrant - Incoming Email Server
-    incoming_email_server_type = fields.Selection(get_incoming_email_server_type_options, default='pop', string="Server's Type")
-    incoming_email_server_name = fields.Char("Server's Name", help="Hostname or IP of the mail server")
+    incoming_email_server_type = fields.Selection(get_incoming_email_server_type_options, default='pop', string="Server Type")
+    incoming_email_server_name = fields.Char("Server Name", help="Hostname or IP of the mail server")
     incoming_email_server_port = fields.Char("Port")
     incoming_email_server_security = fields.Boolean("Security SSL/TLS", help="Connections are encrypted with SSL/TLS through a dedicated port (default: IMAPS=993, POP3S=995)")
     incoming_email_server_username = fields.Char("Username")
@@ -208,7 +208,7 @@ class OnsCustCustomerConfig(models.Model):
         help="This payment term will be used instead of the default one for sale orders and customer invoices")
 
     # articles - Product Default Parameters
-    products_type = fields.Selection(get_products_type_options, "Product's Type")
+    products_type = fields.Selection(get_products_type_options, "Product Type")
     products_can_be_sold = fields.Boolean("Can Be Sold")
     products_can_be_purchased = fields.Boolean("Can Be Purchased")
     products_warranty = fields.Integer("Warranty (months)")
@@ -222,7 +222,7 @@ class OnsCustCustomerConfig(models.Model):
 
     # ventes - Sales Parameters
     sales_sale_price = fields.Selection(
-        get_sales_sale_price_options, default='fixed', string="Sale's Price",
+        get_sales_sale_price_options, default='fixed', string="Sale Price",
         help='Fix Price: all price manage from products sale price.\n'
              'Different prices per Customer: you can assign price on buying of minimum quantity in products sale tab.\n'
              'Advanced pricing based on formula: You can have all the rights on pricelist')

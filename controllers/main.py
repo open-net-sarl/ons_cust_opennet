@@ -72,7 +72,7 @@ class portal_parameters(http.Controller):
         # Accounting Default Parameters
         "accounting_analytic_acc", "accounting_asset_management", "accounting_revenu_recognition", 
         "accounting_budget_management", "accounting_output_bvr", "accounting_iso_payment", 
-        "accounting_foreign_currencies_list", "accounting_reminder_levels"
+        "accounting_foreign_currencies_list", "accounting_reminder_levels",
         # Stock Management Default Parameters
         "stock_mng_generate_journal_item"
     ]

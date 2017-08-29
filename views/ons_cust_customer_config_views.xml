@@ -45,7 +45,7 @@
                             </div>
                         </group>
                         <!-- serveur d'email entrant - Incoming Email Server -->
-                        <group string="Incoming Email Server">
+                        <group string="Incoming Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['in', 'all'])]}">
                             <field name="incoming_email_server_type"/>
                             <field name="incoming_email_server_name"/>
                             <field name="incoming_email_server_port"/>
@@ -54,7 +54,7 @@
                             <field name="incoming_email_server_pass"/>
                         </group>
                         <!-- serveur d'email sortant - Outgoing Email Server -->
-                        <group string="Outgoing Email Server">
+                        <group string="Outgoing Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['out', 'all'])]}">
                             <field name="outgoing_email_server_name"/>
                             <field name="outgoing_email_server_port"/>
                             <field name="outgoing_email_server_security"/>
