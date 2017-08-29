@@ -15,7 +15,6 @@
         'ons_productivity_project_issue',
         'account_reports',
         'website_portal',
-        'muk_web_preview_vector'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
