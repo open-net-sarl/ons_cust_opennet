@@ -32,7 +32,8 @@
         # 'views/report_financial.xml',
         'views/ons_cust_customer_config_views.xml',
         'views/ons_cust_custumer_config_web_views.xml',
-        'views/website_templates.xml',
+        'views/website_portal_templates.xml',
+        'views/website_portal_sale_templates.xml',
         'report/account_followup_report_views.xml',
     ],
     'installable': True

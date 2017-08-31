@@ -1,0 +1,48 @@
+<odoo>
+	
+	<template id="portal_my_home_menu_sale" name="Portal layout : sales menu entries" inherit_id="website_portal_sale.portal_my_home_menu_sale" priority="25">
+        <xpath expr="//li/a[@href='/my/quotes']" position="replace">
+            <!--<li>
+                <a href="/my/quotes">Quotes</a>
+            </li>-->
+        </xpath>
+        <xpath expr="//li/a[@href='/my/invoices']/.." position="after">
+            <li>
+                <a href="/my/deliveries">Deliveries</a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_sale" name="Portal layout : sales menu entries" inherit_id="website_portal_sale.portal_my_home_sale" priority="25">
+        <xpath expr="//h3/a[@href='/my/quotes']/.." position="replace">
+            <!--<h3 class="page-header">
+                <a href="/my/quotes">Your Quotes
+                    <small class="ml8">
+                        <t t-if="quotation_count">
+                            <span class='badge'><t t-esc="quotation_count"/></span>
+                        </t>
+                        <t t-if="not quotation_count">
+                            There are currently no quotes for your account.
+                        </t>
+                    </small>
+                </a>
+            </h3>-->
+        </xpath>
+        <xpath expr="//h3/a[@href='/my/invoices']/.." position="after">
+            <h3 class="page-header">
+                <a href="/my/deliveries">Your Deliveries
+                    <small class="ml8">
+                        <t t-if="quotation_count">
+                            <span class='badge'><t t-esc="quotation_count"/></span>
+                        </t>
+                        <t t-if="not quotation_count">
+                            There are currently no deliveries for your account.
+                        </t>
+                    </small>
+                </a>
+            </h3>
+        </xpath>
+    </template>
+    	
+
+</odoo>

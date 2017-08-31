@@ -1049,3 +1049,18 @@ msgstr "ons.cust.customer.config"
 msgid "support@open-net.ch"
 msgstr "support@open-net.ch"
 
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+msgid "Your Deliveries"
+msgstr "Vos Livraisons"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_menu_sale
+msgid "Deliveries"
+msgstr "Livraisons"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+msgid "There are currently no deliveries for your account."
+msgstr "Il n'y a pas de livraisons pour votre compte."
+

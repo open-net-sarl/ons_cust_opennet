@@ -7,6 +7,7 @@ from odoo.http import request
 from odoo import tools
 from odoo.tools.translate import _
 from odoo.fields import Date
+from odoo.addons.website_portal.controllers.main import website_account
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -189,3 +190,44 @@ class portal_parameters(http.Controller):
             error_message.append("Unknown field '%s'" % ','.join(unknown))
 
         return error, error_message
+
+class website_account(website_account):
+
+    MANDATORY_BILLING_FIELDS = ["phone", "email", "street", "city", "country_id"]
+
+    @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
+    def portal_my_stock_picking(self, page=1, **kw):
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        StockPicking = request.env['stock.picking']
+
+        domain = [
+            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
+        ]
+
+        sale_order_ids = request.env['sale.order'].sudo().search(domain)
+
+        domain_pickings = domain
+        domain_pickings.append(('sale_id', 'in', [sale.id for sale in sale_order_ids]))
+
+        all_stock_picking = StockPicking.sudo().search(domain_pickings)
+
+        # count for pager
+        order_count = len([picking.id for picking in all_stock_picking])
+        # pager
+        pager = request.website.pager(
+            url="/my/deliveries",
+            total=order_count,
+            page=page,
+            step=self._items_per_page
+        )
+        # content according to pager and archive selected
+        stock_pickings = StockPicking.sudo().search(domain_pickings, limit=self._items_per_page, offset=pager['offset'])
+        # values
+        values.update({
+            'stock_pickings': stock_pickings,
+            'page_name': 'Stock',
+            'pager': pager,
+            'default_url': '/my/deliveries',
+        })
+        return request.render("ons_cust_opennet.portal_my_stock_picking", values)

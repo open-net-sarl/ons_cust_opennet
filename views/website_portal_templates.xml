@@ -156,4 +156,40 @@
         </t>
       </t>
     </template>
+
+    <template id="portal_my_stock_picking" name="My Stock Picking">
+      <t t-call="website_portal.portal_layout">
+        <h3 class="page-header">Your Deliveries</h3>
+        <t t-if="not stock_pickings">
+            <p>There are currently no deliveries for your account.</p>
+        </t>
+        <t t-if="stock_pickings">
+            <table class="table table-hover o_my_status_table">
+                <thead>
+                    <tr class="active">
+                        <th>Deliveries</th>
+                        <th>Partner</th>
+                        <th>Date prévue</th>
+                    </tr>
+                </thead>
+                <t t-foreach="stock_pickings" t-as="stock_picking">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/my/deliveries/#{stock_picking.id}?#{keep_query()}"><t t-esc="stock_picking.name"/></a>
+                        </td>
+                        <td>
+                            <span t-field="stock_picking.partner_id" />
+                        </td>
+                        <td>
+                            <span t-field="stock_picking.min_date" />
+                        </td>
+                    </tr>
+                </t>
+            </table>
+            <div t-if="pager" class="o_portal_pager text-center">
+              <t t-call="website.pager"/>
+            </div>
+        </t>
+      </t>
+    </template>
 </odoo>
