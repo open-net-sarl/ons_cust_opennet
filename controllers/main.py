@@ -214,6 +214,8 @@ class website_account(website_account):
 
         # count for pager
         order_count = len([picking.id for picking in all_stock_picking])
+
+        archive_groups = self._get_archive_groups('stock.picking', domain_pickings)
         # pager
         pager = request.website.pager(
             url="/my/deliveries",
@@ -228,6 +230,20 @@ class website_account(website_account):
             'stock_pickings': stock_pickings,
             'page_name': 'Stock',
             'pager': pager,
+            'archive_groups': archive_groups,
             'default_url': '/my/deliveries',
         })
         return request.render("ons_cust_opennet.portal_my_stock_picking", values)
+
+    @http.route(['/my/deliveries/<int:picking>'], type='http', auth="user", website=True)
+    def pickings_followup(self, picking=None, **kw):
+        picking = request.env['stock.picking'].browse([picking])
+        try:
+            picking.check_access_rights('read')
+            picking.check_access_rule('read')
+        except AccessError:
+            return request.render("website.403")
+
+        return request.render("ons_cust_opennet.pickings_followup", {
+            'picking': picking
+        })

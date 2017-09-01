@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.ons_cust_table_deliveries th,
+.ons_cust_table_deliveries td {
+    padding-left: 15px !important;
+}
+
+.ons_cust_table_deliveries {
+    margin-bottom: 0 !important;
+}

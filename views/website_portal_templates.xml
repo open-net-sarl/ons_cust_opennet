@@ -158,38 +158,141 @@
     </template>
 
     <template id="portal_my_stock_picking" name="My Stock Picking">
-      <t t-call="website_portal.portal_layout">
-        <h3 class="page-header">Your Deliveries</h3>
-        <t t-if="not stock_pickings">
-            <p>There are currently no deliveries for your account.</p>
+        <t t-call="website_portal.portal_layout">
+            <h3 class="page-header">Your Deliveries</h3>
+            <t t-if="not stock_pickings">
+                <p>There are currently no deliveries for your account.</p>
+            </t>
+            <t t-if="stock_pickings">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="active">
+                            <th>Deliveries</th>
+                            <th class="text-left">Partner</th>
+                            <th>Date prévue</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="stock_pickings" t-as="stock_picking">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/deliveries/#{stock_picking.id}?#{keep_query()}"><t t-esc="stock_picking.name"/></a>
+                            </td>
+                            <td class="text-left">
+                                <span t-field="stock_picking.partner_id" />
+                            </td>
+                            <td>
+                                <span t-field="stock_picking.min_date" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <div t-if="pager" class="o_portal_pager text-center">
+                    <t t-call="website.pager"/>
+                </div>
+            </t>
         </t>
-        <t t-if="stock_pickings">
-            <table class="table table-hover o_my_status_table">
-                <thead>
-                    <tr class="active">
-                        <th>Deliveries</th>
-                        <th>Partner</th>
-                        <th>Date prévue</th>
-                    </tr>
-                </thead>
-                <t t-foreach="stock_pickings" t-as="stock_picking">
-                    <tr>
-                        <td>
-                            <a t-attf-href="/my/deliveries/#{stock_picking.id}?#{keep_query()}"><t t-esc="stock_picking.name"/></a>
-                        </td>
-                        <td>
-                            <span t-field="stock_picking.partner_id" />
-                        </td>
-                        <td>
-                            <span t-field="stock_picking.min_date" />
-                        </td>
-                    </tr>
-                </t>
-            </table>
-            <div t-if="pager" class="o_portal_pager text-center">
-              <t t-call="website.pager"/>
+    </template>
+
+    <template id="pickings_followup" name="Stock Pickings">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+                                    <li>
+                                        <a t-attf-href="/my/deliveries/">
+                                        my deliveries
+                                        </a>
+                                    </li>
+                                    <li><span t-field="picking.name"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                            Delivery - <span t-field="picking.name"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class='row'>
+                                    <div class="col-md-6">
+                                        <t t-if="picking.partner_id">
+                                            <strong>Customer</strong>
+                                            <div t-if="picking.partner_id" class="mb16">
+                                                <span t-field="picking.partner_id"/>
+                                            </div>
+                                        </t>
+                                        <t t-if="picking.location_dest_id">
+                                            <strong>Zone d'emplacement de destination</strong>
+                                            <div t-if="picking.location_dest_id" class="mb16">
+                                                <span t-field="picking.location_dest_id"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <t t-if="picking.min_date">
+                                            <strong>Date prévue</strong>
+                                            <div t-if="picking.min_date" class="mb16">
+                                                <span t-field="picking.min_date" t-options='{"widget": "date"}'/>
+                                            </div>
+                                        </t>
+                                        <t t-if="picking.origin">
+                                            <strong>Document d'origine</strong>
+                                            <div t-if="picking.origin" class="mb16">
+                                                <a t-attf-href="/my/orders/#{picking.sale_id.id}?#{keep_query()}"><span t-field="picking.origin"/></a>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <table class="table table-hover ons_cust_table_deliveries">
+                                        <thead>
+                                            <tr>
+                                                <th width="50%">Article</th>
+                                                <th width="30%">Unité de mesure</th>
+                                                <th width="10%">A faire</th>
+                                                <th width="10%">Fait</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="picking.pack_operation_product_ids" t-as="pro">
+                                                <tr>
+                                                    <td><span t-field="pro.product_id" /></td>
+                                                    <td><span t-field="pro.product_uom_id" /></td>
+                                                    <td><span t-field="pro.product_qty" /></td>
+                                                    <td><span t-field="pro.qty_done" /></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row mt32">
+                            <div class="col-md-12">
+                                <h4><strong>Message and communication history</strong></h4>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1 mt16">
+                                <t t-call="website_mail.message_thread">
+                                    <t t-set="object" t-value="picking"/>
+                                    <t t-set="chatter_mode" t-value="'json'"/>
+                                </t>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
             </div>
         </t>
-      </t>
     </template>
+
 </odoo>
