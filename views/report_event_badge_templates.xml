@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="event_barcode.report_registration_badge" inherit_id="event.event_registration_report_template_badge" priority="1">
+        <xpath expr="//div[@id='o_event_name']" position="after">
+            <!-- <div class="col-xs-12">
+                <div class="text-center">
+                    <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', o.barcode, 400, 67)"></img>&amp;nbsp;
+                </div>
+            </div> -->
+             <div class="col-xs-12">
+                <div class="text-center">
+                    <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('EAN13', o.barcode, 200, 67)"/>&amp;nbsp;
+                    <h4><strong>Accès WiFi</strong></h4>
+                    <p>SSID : <strong>Open Net</strong></p>
+                    <p>Password : <strong>bienvenuechezopennet</strong></p>
+                    <h4 class="mt32"><strong>Accès Web</strong></h4>
+                    <p><strong>http://192.168.127.150</strong></p>
+                    <p>Courriel : <strong>stepdemo@open-net.ch</strong></p>
+                    <p>Mot de passe : <strong>changeme</strong></p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="event.event_registration_report_template_badge">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <div class="row">
+                        <!-- Front -->
+                        <div class="col-xs-6 text-center" style="padding-left:7mm; border-left:1px dashed black; height: 139mm; -webkit-transform:rotate(180deg); padding-top: 7mm">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <t t-if="o.event_id.event_logo">
+                                        <div t-field="o.event_id.event_logo"/>
+                                    </t>
+                                    <span t-if="not o.event_id.event_logo and o.event_id.organizer_id.company_id.logo_web and o.event_id.organizer_id.is_company">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.event_id.organizer_id.company_id.logo_web" style="max-height:1cm; max-width:4cm;"/>
+                                    </span>
+                                    <h5 t-field="o.event_id.name"/>
+                                    <h5>( <i class="fa fa-clock-o"/> <span itemprop="startDate" t-field="o.event_id.date_begin" t-options="{&quot;hide_seconds&quot;: True}"> </span> <i>to</i> <span itemprop="endDate" t-field="o.event_id.date_end" t-options="{&quot;hide_seconds&quot;: True}"> </span> )</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 text-center" id="o_event_name">
+                                        <small>
+                                            <h3 t-field="o.name"/>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div t-field="o.event_id.badge_front"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="col-xs-6" style="padding-right:7mm; height: 139mm; -webkit-transform:rotate(180deg); padding-top: 2mm;">
+                            <span t-field="o.event_id.badge_back"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Inner left -->
+                        <div class="col-xs-6 text-center" style="padding-right:7mm; border-top:1px dashed black; height: 135mm;">
+                            <span t-field="o.event_id.badge_innerleft"/>
+                        </div>
+                        <!-- Inner right -->
+                        <div class="col-xs-6 text-center" style="border-left:1px dashed black; border-top:1px dashed black; height: 135mm; text-center">
+                            <span t-field="o.event_id.badge_innerright"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="border-bottom:1px dashed black; height: 135mm;">
+
+                            <!-- company info + place, day -->
+                            <div style="font-size: 15px">
+                                <img style="max-height: 60px; padding-bottom: 10px" src="/ons_cust_opennet/static/src/img/logo.png"/>
+
+                                <span t-if="o.company_id.name">
+                                    <br/>
+                                    <span t-field="o.company_id.name"/>
+                                    <br/>
+                                </span>
+                                <span t-if="o.company_id.street">
+                                    <span t-field="o.company_id.street"/>
+                                    <br/>
+                                </span>
+                                <span t-if="o.company_id.street2">
+                                    <span t-field="o.company_id.street2"/>
+                                    <br/>
+                                </span>
+                                <span t-if="o.company_id.zip">
+                                    <span t-field="o.company_id.zip"/>
+                                </span>
+                                <span t-if="o.company_id.city">
+                                    <span t-field="o.company_id.city"/>
+                                    <br/>
+                                </span>
+
+                                <br/>
+
+                                <span t-if="o.company_id.city">
+                                    <span t-field="o.company_id.city"/>, le <span t-field="o.event_id.date_begin" t-field-options='{"widget": "date"}'/>
+                                </span>
+                            </div>
+
+                            <div class="text-center">
+                                <div style="font-size: 50px; padding-top: 130px;">
+                                    <t t-set="time_start" t-value='context_timestamp(datetime.datetime.strptime(o.event_id.date_begin, "%Y-%m-%d %H:%M:%S") - datetime.timedelta(minutes=30)).strftime("%H:%M")'/>
+                                    <t t-set="time_end" t-value='context_timestamp(datetime.datetime.strptime(o.event_id.date_end, "%Y-%m-%d %H:%M:%S") + datetime.timedelta(minutes=30)).strftime("%H:%M")'/>
+                                    VISITE DE <span t-esc="time_start" /> à <span t-esc="time_end" />
+                                </div>
+                            </div>
+
+                            
+                            <!-- coller à la ligne -->
+                            <div 
+                                class="text-center" 
+                                style="position: absolute; bottom: 0; left: 0; right: 0; font-size: 13px; padding-bottom: 3px">
+                                <span>Plier ici. Merci.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="height: 135mm;">
+                            <style>
+                                .div_img img{
+                                    padding-top: 7px;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    display: block;
+                                }
+                            </style>
+                            <div style="text-align: justify; padding-top: 10px; font-size: 13px">
+                                <span>
+                                    Instructions : le présent macaron est à placer en vue derrière le pare-brise de votre voiture ou sur votre motocycle. Les places autorisées (3 à 8) sont illustrées ci-dessous. Si toutes ces places sont occupées, vous pouvez vous garer exceptionnellement un peu plus bas, <b><u>sans placer le présent macaron</u></b>, à la rue de l'industrie 49 aux places 11 à 13 ou 23 à 31 (marque jaune sur fond bleu).
+                                </span>
+                            </div>
+                            <div class="div_img">
+                                <!-- img 1 -->
+                                <img style="max-height: 220px;" src="/ons_cust_opennet/static/src/img/badge_park_1.png"/>
+                            </div>
+                            <div class="div_img">
+                                <!-- img 2 -->
+                                <img style="max-height: 215px;" src="/ons_cust_opennet/static/src/img/badge_park_2.png"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

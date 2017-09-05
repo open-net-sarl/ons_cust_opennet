@@ -15,6 +15,7 @@
         'ons_productivity_project_issue',
         'account_reports',
         'website_portal_sale',
+        'event_barcode'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
@@ -29,6 +30,7 @@
         'views/report_external_header.xml',
         'views/report_external_footer.xml',
         'views/report_invoice.xml',
+        'views/report_event_badge_templates.xml',
         # 'views/report_financial.xml',
         'views/ons_cust_customer_config_views.xml',
         'views/ons_cust_custumer_config_web_views.xml',
