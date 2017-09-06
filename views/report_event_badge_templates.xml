@@ -8,8 +8,11 @@
                 </div>
             </div> -->
              <div class="col-xs-12">
-                <div class="text-center">
-                    <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('EAN13', o.barcode, 200, 67)"/>&amp;nbsp;
+                <div class="text-center" style="overflow: hidden">
+                    <img 
+                        class="barcode" 
+                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.barcode, 400, 57)"
+                        style="padding-left: 10px;margin-left: -250px; margin-right: -250px;"/>&amp;nbsp;
                     <h4><strong>Accès WiFi</strong></h4>
                     <p>SSID : <strong>Open Net</strong></p>
                     <p>Password : <strong>bienvenuechezopennet</strong></p>
