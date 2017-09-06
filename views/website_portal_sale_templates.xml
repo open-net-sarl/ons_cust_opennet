@@ -32,10 +32,10 @@
             <h3 class="page-header">
                 <a href="/my/deliveries">Your Deliveries
                     <small class="ml8">
-                        <t t-if="quotation_count">
-                            <span class='badge'><t t-esc="quotation_count"/></span>
+                        <t t-if="pickings_count">
+                            <span class='badge'><t t-esc="pickings_count"/></span>
                         </t>
-                        <t t-if="not quotation_count">
+                        <t t-if="not pickings_count">
                             There are currently no deliveries for your account.
                         </t>
                     </small>

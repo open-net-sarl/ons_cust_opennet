@@ -7,6 +7,7 @@ from odoo.http import request
 from odoo import tools
 from odoo.tools.translate import _
 from odoo.fields import Date
+from odoo.exceptions import AccessError
 from odoo.addons.website_portal.controllers.main import website_account
 
 import logging
@@ -195,10 +196,11 @@ class website_account(website_account):
 
     MANDATORY_BILLING_FIELDS = ["phone", "email", "street", "city", "country_id"]
 
-    @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
-    def portal_my_stock_picking(self, page=1, **kw):
-        values = self._prepare_portal_layout_values()
+    @http.route()
+    def account(self, **kw):
+        response = super(website_account, self).account(**kw)
         partner = request.env.user.partner_id
+
         StockPicking = request.env['stock.picking']
 
         domain = [
@@ -213,13 +215,40 @@ class website_account(website_account):
         all_stock_picking = StockPicking.sudo().search(domain_pickings)
 
         # count for pager
-        order_count = len([picking.id for picking in all_stock_picking])
+        pickings_count = len([picking.id for picking in all_stock_picking])
+
+        response.qcontext.update({
+            'pickings_count': pickings_count,
+        })
+        return response
+
+    @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
+    def portal_my_stock_picking(self, page=1, **kw):
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        StockPicking = request.env['stock.picking'].sudo()
+
+        domain = [
+            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
+        ]
+
+        sale_order_ids = request.env['sale.order'].sudo().search(domain)
+
+        domain_pickings = domain
+        domain_pickings.append(('sale_id', 'in', [sale.id for sale in sale_order_ids]))
+
+        all_stock_picking = StockPicking.sudo().search(domain_pickings)
+
+        # count for pager
+        pickings_count = len([picking.id for picking in all_stock_picking])
+
+        _logger.info("PICKING COUNT: %s" % pickings_count)
 
         archive_groups = self._get_archive_groups('stock.picking', domain_pickings)
         # pager
         pager = request.website.pager(
             url="/my/deliveries",
-            total=order_count,
+            total=pickings_count,
             page=page,
             step=self._items_per_page
         )
@@ -230,6 +259,7 @@ class website_account(website_account):
             'stock_pickings': stock_pickings,
             'page_name': 'Stock',
             'pager': pager,
+            'pickings_count': pickings_count,
             'archive_groups': archive_groups,
             'default_url': '/my/deliveries',
         })
