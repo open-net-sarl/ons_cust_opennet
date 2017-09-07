@@ -86,6 +86,10 @@ class portal_parameters(http.Controller):
         config = env_config.sudo().search([
             ('user_id', '=', user.id)
         ])
+        if not len(config):
+            env_config.sudo().create({'user_id': user.id})
+            return request.redirect('/my/parameters')
+
         values = {
             'error': {},
             'error_message': []
