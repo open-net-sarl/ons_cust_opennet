@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_ons_cust_customer_config_officer,ons_cust_customer_config,model_ons_cust_customer_config,base.group_user,1,1,1,1
+access_portal_stock_picking,portal_stock_picking,stock.model_stock_picking,base.group_portal,1,0,0,0
+access_portal_stock_move,portal_stock_move,stock.model_stock_move,base.group_portal,1,0,0,0
+access_portal_procurement_order,portal_procurement_order,procurement.model_procurement_order,base.group_portal,1,0,0,0
+access_portal_stock_pack_operation,portal_stock_pack_operation,stock.model_stock_pack_operation,base.group_portal,1,0,0,0
