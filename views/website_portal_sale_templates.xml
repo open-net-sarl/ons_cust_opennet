@@ -43,6 +43,31 @@
             </h3>
         </xpath>
     </template>
+
+    <template id="portal_my_home_menu_sale_followup" name="Portal layout : sales menu entries" inherit_id="website_portal_followup.portal_my_home_menu_followup" priority="25">
+        <xpath expr="//li/a[@href='/my/statement']" position="replace">
+            <!--<li>
+                <a href="/my/statement">Statements</a>
+            </li>-->
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_sale_followup" name="Portal layout : sales menu entries" inherit_id="website_portal_followup.portal_my_home_followup" priority="25">
+        <xpath expr="//h3/a[@href='/my/statement']/.." position="replace">
+            <!--<h3 class="page-header">
+                <a href="/my/statement">Your Statements
+                    <small class="ml8">
+                        <t t-if="statement_count">
+                            <span class="badge"><t t-esc="statement_count"/></span>
+                        </t>
+                        <t t-if="not statement_count">
+                            There are currently no statements for your account.
+                        </t>
+                    </small>
+                </a>
+            </h3>-->
+        </xpath>
+    </template>
     	
 
 </odoo>

@@ -8,6 +8,7 @@ from odoo import tools
 from odoo.tools.translate import _
 from odoo.fields import Date
 from odoo.exceptions import AccessError
+from collections import OrderedDict
 from odoo.addons.website_portal.controllers.main import website_account
 
 import logging
@@ -21,7 +22,7 @@ class portal_parameters(http.Controller):
     OPTIONAL_FIELDS = [
         # Bank Info
         "iban", "bank_account_number", "bvr_number", 
-        "bank_name",
+        "bank_name", "bank_agency_name"
 
         # Configurations
         "do_email_configuration", 
@@ -207,14 +208,7 @@ class website_account(website_account):
 
         StockPicking = request.env['stock.picking']
 
-        domain = [
-            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
-        ]
-
-        sale_order_ids = request.env['sale.order'].sudo().search(domain)
-
-        domain_pickings = domain
-        domain_pickings.append(('sale_id', 'in', [sale.id for sale in sale_order_ids]))
+        domain_pickings = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
 
         all_stock_picking = StockPicking.sudo().search(domain_pickings)
 
@@ -232,14 +226,14 @@ class website_account(website_account):
         partner = request.env.user.partner_id
         StockPicking = request.env['stock.picking'].sudo()
 
-        domain = [
-            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
-        ]
+        # domain = [
+        #     ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
+        # ]
 
-        sale_order_ids = request.env['sale.order'].sudo().search(domain)
+        # sale_order_ids = request.env['sale.order'].sudo().search(domain)
 
-        domain_pickings = domain
-        domain_pickings.append(('sale_id', 'in', [sale.id for sale in sale_order_ids]))
+        # domain_pickings = domain
+        domain_pickings = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
 
         all_stock_picking = StockPicking.sudo().search(domain_pickings)
 
@@ -263,7 +257,6 @@ class website_account(website_account):
             'stock_pickings': stock_pickings,
             'page_name': 'Stock',
             'pager': pager,
-            'pickings_count': pickings_count,
             'archive_groups': archive_groups,
             'default_url': '/my/deliveries',
         })
@@ -281,3 +274,5 @@ class website_account(website_account):
         return request.render("ons_cust_opennet.pickings_followup", {
             'picking': picking
         })
+
+    

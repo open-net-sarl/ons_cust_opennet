@@ -121,7 +121,6 @@
                     <th>Invoice Date</th>
                     <th>Due Date</th>
                     <th></th>
-                    <th></th>
                     <th>Amount Due</th>
                   </tr>
                 </thead>
@@ -169,7 +168,7 @@
                         <tr class="active">
                             <th>Deliveries</th>
                             <th class="text-left">Partner</th>
-                            <th>Date prévue</th>
+                            <th>Expected Date</th>
                         </tr>
                     </thead>
                     <t t-foreach="stock_pickings" t-as="stock_picking">
@@ -227,13 +226,13 @@
                                 <div class='row'>
                                     <div class="col-md-6">
                                         <t t-if="picking.partner_id">
-                                            <strong>Customer</strong>
+                                            <strong>Partner</strong>
                                             <div t-if="picking.partner_id" class="mb16">
                                                 <span t-field="picking.partner_id"/>
                                             </div>
                                         </t>
                                         <t t-if="picking.location_dest_id">
-                                            <strong>Zone d'emplacement de destination</strong>
+                                            <strong>Dest. Location</strong>
                                             <div t-if="picking.location_dest_id" class="mb16">
                                                 <span t-field="picking.location_dest_id"/>
                                             </div>
@@ -241,13 +240,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <t t-if="picking.min_date">
-                                            <strong>Date prévue</strong>
+                                            <strong>Expected Date</strong>
                                             <div t-if="picking.min_date" class="mb16">
                                                 <span t-field="picking.min_date" t-options='{"widget": "date"}'/>
                                             </div>
                                         </t>
                                         <t t-if="picking.origin">
-                                            <strong>Document d'origine</strong>
+                                            <strong>Origin</strong>
                                             <div t-if="picking.origin" class="mb16">
                                                 <a t-attf-href="/my/orders/#{picking.sale_id.id}?#{keep_query()}"><span t-field="picking.origin"/></a>
                                             </div>
@@ -258,10 +257,10 @@
                                     <table class="table table-hover ons_cust_table_deliveries">
                                         <thead>
                                             <tr>
-                                                <th width="50%">Article</th>
-                                                <th width="30%">Unité de mesure</th>
-                                                <th width="10%">A faire</th>
-                                                <th width="10%">Fait</th>
+                                                <th width="50%">Product</th>
+                                                <th width="30%">Unit of Measure</th>
+                                                <th width="10%">To Do</th>
+                                                <th width="10%">Done</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -278,7 +277,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row mt32">
+                        <div class="row mt32">
                             <div class="col-md-12">
                                 <h4><strong>Message and communication history</strong></h4>
                             </div>
@@ -288,7 +287,7 @@
                                     <t t-set="chatter_mode" t-value="'json'"/>
                                 </t>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>

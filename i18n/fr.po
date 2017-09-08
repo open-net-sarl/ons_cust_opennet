@@ -156,6 +156,12 @@ msgid "Bank Name"
 msgstr "Nom de l'établissement financier"
 
 #. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_bank_agency_name
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
+msgid "Bank Agency Name (local)"
+msgstr "Nom de l'agence (localité)"
+
+#. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_accounting_budget_management
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Budget Management"
@@ -343,7 +349,7 @@ msgstr "Livraison directe"
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_earnings_acc
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Earnings Account"
-msgstr "Compte de produit"
+msgstr "Compte de recettes"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
@@ -911,7 +917,7 @@ msgstr "Prix spécifique par catégorie de client, devises spécifiques, etc."
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_spendings_acc
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Spendings Account"
-msgstr "Compte de charge"
+msgstr "Compte de charges"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
@@ -1064,3 +1070,72 @@ msgstr "Livraisons"
 msgid "There are currently no deliveries for your account."
 msgstr "Il n'y a pas de livraisons pour votre compte."
 
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "There are currently no deliveries for your account."
+msgstr "Il n'y a pas de livraisons pour votre compte."
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Your Deliveries"
+msgstr "Vos livraisons"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Deliveries"
+msgstr "Livraisons"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Expected Date"
+msgstr "Date prévue"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Expected Date"
+msgstr "Date prévue"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Dest. Location"
+msgstr "Zone d'emplacement de destination"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Origin"
+msgstr "Document d'origine"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Product"
+msgstr "Article"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "To Do"
+msgstr "A faire"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Done"
+msgstr "Fait"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Delivery - "
+msgstr "Livraison - "

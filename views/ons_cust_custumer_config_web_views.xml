@@ -89,13 +89,17 @@
                                                             <label class="control-label" for="bank_account_number">Bank Account Number</label>
                                                             <input type="text" name="bank_account_number" class="form-control" t-att-value="bank_account_number or config.bank_account_number" />
                                                         </div>
-                                                        <div t-attf-class="form-group #{error.get('bvr_number') and 'has-error' or ''} col-lg-6">
-                                                            <label class="control-label" for="bvr_number">BVR Number</label>
-                                                            <input type="text" name="bvr_number" placeholder="01-" class="form-control" t-att-value="bvr_number or config.bvr_number" />
-                                                        </div>
                                                         <div t-attf-class="form-group #{error.get('bank_name') and 'has-error' or ''} col-lg-6">
                                                             <label class="control-label" for="bank_name">Bank Name</label>
                                                             <input type="text" name="bank_name" class="form-control" t-att-value="bank_name or config.bank_name" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('bank_agency_name') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="bank_agency_name">Bank Agency Name (local)</label>
+                                                            <input type="text" name="bank_agency_name" class="form-control" t-att-value="bank_agency_name or config.bank_agency_name" />
+                                                        </div>
+                                                        <div t-attf-class="form-group #{error.get('bvr_number') and 'has-error' or ''} col-lg-6">
+                                                            <label class="control-label" for="bvr_number">BVR Number</label>
+                                                            <input type="text" name="bvr_number" placeholder="01-" class="form-control" t-att-value="bvr_number or config.bvr_number" />
                                                         </div>
                                                     </div>
                                                 </div>

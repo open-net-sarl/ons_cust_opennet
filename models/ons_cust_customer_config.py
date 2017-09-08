@@ -168,6 +168,7 @@ class OnsCustCustomerConfig(models.Model):
     bank_account_number = fields.Char('Bank Account Number')
     bvr_number = fields.Char('BVR Number')
     bank_name = fields.Char('Bank Name')
+    bank_agency_name = fields.Char('Bank Agency Name (local)')
     # - END - #
 
     # - Configurations - #

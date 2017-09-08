@@ -32,8 +32,9 @@
                     <group string="Bank Info">
                         <field name="iban"/>
                         <field name="bank_account_number"/>
-                        <field name="bvr_number"/>
                         <field name="bank_name"/>
+                        <field name="bank_agency_name"/>
+                        <field name="bvr_number"/>
                     </group>
                 </group>
                 <group>

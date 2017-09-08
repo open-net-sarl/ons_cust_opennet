@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="portal_deliveries_rule" model="ir.rule">
+	        <field name="name">Deliveries portal</field>
+	        <field name="model_id" ref="stock.model_stock_picking"/>
+	        <field name="domain_force">[('partner_id','=',user.commercial_partner_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+	        <field name="perm_read">True</field>
+	        <field name="perm_write">False</field>
+	        <field name="perm_create">False</field>
+	        <field name="perm_unlink">False</field>
+    	</record>
+	</data>
+</odoo>

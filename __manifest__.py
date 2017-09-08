@@ -24,6 +24,7 @@
     'images': [],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/ons_cust_crons.xml',
         'views/project_task_views.xml',
         'views/ons_cust_opennet.xml',
