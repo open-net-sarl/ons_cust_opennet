@@ -15,7 +15,8 @@
         'ons_productivity_project_issue',
         'account_reports',
         'website_portal_sale',
-        'event_barcode'
+        'event_barcode',
+        'eagle_project'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
@@ -37,6 +38,7 @@
         'views/ons_cust_custumer_config_web_views.xml',
         'views/website_portal_templates.xml',
         'views/website_portal_sale_templates.xml',
+        'views/eagle_views.xml',
         'report/account_followup_report_views.xml',
     ],
     'installable': True

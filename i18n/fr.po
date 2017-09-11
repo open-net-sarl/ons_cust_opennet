@@ -246,7 +246,7 @@ msgstr "Client"
 #. module: ons_cust_opennet
 #: model:ir.ui.menu,name:ons_cust_opennet.menu_customer_config
 msgid "Customer Config"
-msgstr "Paramètres des client portail"
+msgstr "Paramètres du portail client"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_customer_tax

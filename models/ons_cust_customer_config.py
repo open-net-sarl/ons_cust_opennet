@@ -34,6 +34,10 @@ class OnsCustCustomerConfig(models.Model):
         string="Name",
         related='user_id.display_name')
 
+    eagle_contracts = fields.Many2many(
+        string="Eagle Contracts",
+        related="user_id.eagle_contracts")
+
     # - SELECTION GETS -
     @api.model
     def get_do_email_configuration_options(self):
