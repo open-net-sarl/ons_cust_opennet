@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2017 Open Net Sarl
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# access_portal_project_task,portal_project_task,project.model_project_task,base.group_portal,1,0,0,0
 
 {
     'name': 'Open-Net Customization for Open Net',

@@ -10,6 +10,7 @@ from odoo.fields import Date
 from odoo.exceptions import AccessError
 from collections import OrderedDict
 from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_project.controllers.main import WebsiteAccount
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -222,6 +223,7 @@ class website_account(website_account):
 
     @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_stock_picking(self, page=1, **kw):
+        _logger.info('**********************deliveries******************')
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         StockPicking = request.env['stock.picking'].sudo()
@@ -274,5 +276,81 @@ class website_account(website_account):
         return request.render("ons_cust_opennet.pickings_followup", {
             'picking': picking
         })
+
+class WebsiteAccount(WebsiteAccount):
+
+    def _prepare_portal_layout_values(self):
+        values = super(WebsiteAccount, self)._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        project_count = request.env['project.project'].search_count([('privacy_visibility','=','portal')])
+        task_count = request.env['project.task'].sudo().search_count([('project_id.privacy_visibility','=','portal'), '|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)])
+        values.update({
+            'project_count': project_count,
+            'task_count': task_count,
+        })
+        return values
+
+    @http.route(['/my/tasks', '/my/tasks/page/<int:page>'], type='http', auth="user", website=True)
+    def my_tasks(self, page=1, date_begin=None, date_end=None, project=None, sortby=None, **kw):
+        _logger.info('********************MY TASKS ooooo*******************')
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+
+        sortings = {
+            'date': {'label': _('Newest'), 'order': 'create_date desc'},
+            'name': {'label': _('Name'), 'order': 'name'},
+            'stage': {'label': _('Stage'), 'order': 'stage_id'},
+            'update': {'label': _('Last Stage Update'), 'order': 'date_last_stage_update desc'},
+        }
+
+        projects = request.env['project.project'].search([('privacy_visibility', '=', 'portal')])
+
+        project_filters = {
+            'all': {'label': _('All'), 'domain': []},
+        }
+
+        for proj in projects:
+            project_filters.update({
+                str(proj.id): {'label': proj.name, 'domain': [('project_id', '=', proj.id)]}
+            })
+
+        domain = [('project_id.privacy_visibility', '=', 'portal')]
+        domain += project_filters.get(project, project_filters['all'])['domain']
+        order = sortings.get(sortby, sortings['date'])['order']
+        domain += ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
+
+        # archive groups - Default Group By 'create_date'
+        archive_groups = self._get_archive_groups('project.task', domain)
+        if date_begin and date_end:
+            domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
+
+        # pager
+        pager = request.website.pager(
+            url="/my/tasks",
+            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'project': project},
+            total=values['task_count'],
+            page=page,
+            step=self._items_per_page
+        )
+
+        _logger.info(domain)
+        # content according to pager and archive selected
+        tasks = request.env['project.task'].sudo().search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
+
+        values.update({
+            'date': date_begin,
+            'date_end': date_end,
+            'project_filters': OrderedDict(sorted(project_filters.items())),
+            'projects': projects,
+            'project': project,
+            'sortings': sortings,
+            'sortby': sortby,
+            'tasks': tasks,
+            'page_name': 'task',
+            'archive_groups': archive_groups,
+            'default_url': '/my/tasks',
+            'pager': pager
+        })
+        return request.render("website_project.my_tasks", values)
 
     
