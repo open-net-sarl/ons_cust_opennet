@@ -223,7 +223,6 @@ class website_account(website_account):
 
     @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_stock_picking(self, page=1, **kw):
-        _logger.info('**********************deliveries******************')
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         StockPicking = request.env['stock.picking'].sudo()
@@ -241,8 +240,6 @@ class website_account(website_account):
 
         # count for pager
         pickings_count = len([picking.id for picking in all_stock_picking])
-
-        _logger.info("PICKING COUNT: %s" % pickings_count)
 
         archive_groups = self._get_archive_groups('stock.picking', domain_pickings)
         # pager
@@ -276,6 +273,48 @@ class website_account(website_account):
         return request.render("ons_cust_opennet.pickings_followup", {
             'picking': picking
         })
+
+    @http.route(['/my/moves', '/my/moves/page/<int:page>'], type='http', auth="user", website=True)+
+    def portal_my_stock_move(self, page=1, **kw):
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        StockMove = request.env['stock.move'].sudo()
+
+        # domain = [
+        #     ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
+        # ]
+
+        # sale_order_ids = request.env['sale.order'].sudo().search(domain)
+
+        # domain_pickings = domain
+        domain_moves = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
+
+        all_stock_move = StockMove.sudo().search(domain_moves)
+
+        # count for pager
+        moves_count = len([move.id for move in all_stock_move])
+
+        archive_groups = self._get_archive_groups('stock.move', domain_moves)
+        # pager
+        pager = request.website.pager(
+            url="/my/deliveries",
+            total=moves_count,
+            page=page,
+            step=self._items_per_page
+        )
+        # content according to pager and archive selected
+        stock_moves = StockMove.sudo().search(domain_moves, limit=self._items_per_page, offset=pager['offset'])
+        # values
+        values.update({
+            'stock_moves': stock_moves,
+            'page_name': 'Moves',
+            'pager': pager,
+            'archive_groups': archive_groups,
+            'default_url': '/my/moves',
+        })
+        return request.render("ons_cust_opennet.portal_my_stock_move", values)
+
+
 
 class WebsiteAccount(WebsiteAccount):
 
@@ -352,5 +391,15 @@ class WebsiteAccount(WebsiteAccount):
             'pager': pager
         })
         return request.render("website_project.my_tasks", values)
+
+    @http.route(['/my/task/<model("project.task"):task>'], type='http', auth="user", website=True)
+    def my_task(self, task=None, **kw):
+        try:
+            task.check_access_rights('read')
+            task.check_access_rule('read')
+        except AccessError:
+            return request.render("website.403")
+
+        return request.render("website_project.my_task", {'task': task, 'user': request.env.user})
 
     

@@ -11,5 +11,16 @@
 	        <field name="perm_create">False</field>
 	        <field name="perm_unlink">False</field>
     	</record>
+
+    	<record id="portal_tasks_rule" model="ir.rule">
+	        <field name="name">Tasks portal</field>
+	        <field name="model_id" ref="project.model_project_task"/>
+	        <field name="domain_force">[('partner_id','=',user.commercial_partner_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+	        <field name="perm_read">True</field>
+	        <field name="perm_write">False</field>
+	        <field name="perm_create">False</field>
+	        <field name="perm_unlink">False</field>
+    	</record>
 	</data>
 </odoo>

@@ -4,3 +4,4 @@ access_portal_stock_picking,portal_stock_picking,stock.model_stock_picking,base.
 access_portal_stock_move,portal_stock_move,stock.model_stock_move,base.group_portal,1,0,0,0
 access_portal_procurement_order,portal_procurement_order,procurement.model_procurement_order,base.group_portal,1,0,0,0
 access_portal_stock_pack_operation,portal_stock_pack_operation,stock.model_stock_pack_operation,base.group_portal,1,0,0,0
+access_portal_account_analytic_tag,portal_account_analytic_tag,analytic.model_account_analytic_tag,base.group_portal,1,0,0,0

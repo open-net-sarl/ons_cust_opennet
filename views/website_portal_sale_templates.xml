@@ -1,39 +1,32 @@
 <odoo>
-	
-	<template id="portal_my_home_menu_sale" name="Portal layout : sales menu entries" inherit_id="website_portal_sale.portal_my_home_menu_sale" priority="25">
+    <template id="portal_my_home_menu_sale" inherit_id="website_portal_sale.portal_my_home_menu_sale" name="Portal layout : sales menu entries" priority="25">
         <xpath expr="//li/a[@href='/my/quotes']" position="replace">
-            <!--<li>
-                <a href="/my/quotes">Quotes</a>
-            </li>-->
+            <!--<li><a href="/my/quotes">Quotes</a></li>-->
         </xpath>
         <xpath expr="//li/a[@href='/my/invoices']/.." position="after">
             <li>
                 <a href="/my/deliveries">Deliveries</a>
             </li>
+            <li>
+                <a href="/my/moves">Moves</a>
+            </li>
         </xpath>
     </template>
-
-    <template id="portal_my_home_sale" name="Portal layout : sales menu entries" inherit_id="website_portal_sale.portal_my_home_sale" priority="25">
+    <template id="portal_my_home_sale" inherit_id="website_portal_sale.portal_my_home_sale" name="Portal layout : sales menu entries" priority="25">
         <xpath expr="//h3/a[@href='/my/quotes']/.." position="replace">
-            <!--<h3 class="page-header">
-                <a href="/my/quotes">Your Quotes
-                    <small class="ml8">
-                        <t t-if="quotation_count">
-                            <span class='badge'><t t-esc="quotation_count"/></span>
-                        </t>
-                        <t t-if="not quotation_count">
-                            There are currently no quotes for your account.
-                        </t>
-                    </small>
-                </a>
-            </h3>-->
+            <!--<h3 class="page-header"><a href="/my/quotes">Your Quotes
+                    <small class="ml8"><t t-if="quotation_count"><span class='badge'><t t-esc="quotation_count"/></span></t><t t-if="not quotation_count">There are currently no quotes for your account.
+                        </t></small></a></h3>-->
         </xpath>
         <xpath expr="//h3/a[@href='/my/invoices']/.." position="after">
             <h3 class="page-header">
                 <a href="/my/deliveries">Your Deliveries
+                    
                     <small class="ml8">
                         <t t-if="pickings_count">
-                            <span class='badge'><t t-esc="pickings_count"/></span>
+                            <span class="badge">
+                                <t t-esc="pickings_count"/>
+                            </span>
                         </t>
                         <t t-if="not pickings_count">
                             There are currently no deliveries for your account.
@@ -41,33 +34,83 @@
                     </small>
                 </a>
             </h3>
-        </xpath>
-    </template>
-
-    <template id="portal_my_home_menu_sale_followup" name="Portal layout : sales menu entries" inherit_id="website_portal_followup.portal_my_home_menu_followup" priority="25">
-        <xpath expr="//li/a[@href='/my/statement']" position="replace">
-            <!--<li>
-                <a href="/my/statement">Statements</a>
-            </li>-->
-        </xpath>
-    </template>
-
-    <template id="portal_my_home_sale_followup" name="Portal layout : sales menu entries" inherit_id="website_portal_followup.portal_my_home_followup" priority="25">
-        <xpath expr="//h3/a[@href='/my/statement']/.." position="replace">
-            <!--<h3 class="page-header">
-                <a href="/my/statement">Your Statements
-                    <small class="ml8">
-                        <t t-if="statement_count">
-                            <span class="badge"><t t-esc="statement_count"/></span>
+            <h3 class="page-header">
+                <a href="/my/moves">Your Moves
+                    
+                    <!--<small class="ml8">
+                        <t t-if="pickings_count">
+                            <span class="badge">
+                                <t t-esc="pickings_count"/>
+                            </span>
                         </t>
-                        <t t-if="not statement_count">
-                            There are currently no statements for your account.
+                        <t t-if="not pickings_count">
+                            There are currently no moves for your account.
                         </t>
-                    </small>
+                    </small>-->
                 </a>
-            </h3>-->
+            </h3>
         </xpath>
     </template>
-    	
-
+    <template id="portal_my_home_menu_sale_followup" inherit_id="website_portal_followup.portal_my_home_menu_followup" name="Portal layout : sales menu entries" priority="25">
+        <xpath expr="//li/a[@href='/my/statement']" position="replace">
+            <!--<li><a href="/my/statement">Statements</a></li>-->
+        </xpath>
+    </template>
+    <template id="portal_my_home_sale_followup" inherit_id="website_portal_followup.portal_my_home_followup" name="Portal layout : sales menu entries" priority="25">
+        <xpath expr="//h3/a[@href='/my/statement']/.." position="replace">
+            <!--<h3 class="page-header"><a href="/my/statement">Your Statements
+                    <small class="ml8"><t t-if="statement_count"><span class="badge"><t t-esc="statement_count"/></span></t><t t-if="not statement_count">There are currently no statements for your account.
+                        </t></small></a></h3>-->
+        </xpath>
+    </template>
+    <template id="website_project_timesheet.my_task" inherit_id="website_project.my_task">
+        <xpath expr="//div[@class='panel-body']" position="inside">
+            <div class="container" t-if="task.timesheet_ids">
+                <hr/>
+                <t t-set="remarques" t-value="False"/>
+                <t t-as="t" t-foreach="task.timesheet_ids">
+                    <t t-if="not t.ons_to_invoice">
+                        <t t-set="remarques" t-value="True"/>
+                    </t>
+                </t>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="active">
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Responsible</th>
+                            <th t-if="remarques">Notes</th>
+                            <th>Category</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tr t-as="timesheet" t-foreach="task.timesheet_ids">
+                        <td>
+                            <t t-esc="timesheet.date"/>
+                        </td>
+                        <td>
+                            <t t-esc="timesheet.name"/>
+                        </td>
+                        <td>
+                            <t t-esc="timesheet.sudo().user_id.name"/>
+                        </td>
+                        <td t-if="remarques">
+                            <t t-if="timesheet.ons_to_invoice">
+                                <span/>
+                            </t>
+                            <t t-if="not timesheet.ons_to_invoice">
+                                <span>Free</span>
+                            </t>
+                        </td>
+                        <td>
+                            <span t-esc="', '.join(map(lambda x: (x.name), timesheet.tag_ids))"/>
+                        </td>
+                        <td>
+                            <span t-field="timesheet.unit_amount" t-field-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
 </odoo>

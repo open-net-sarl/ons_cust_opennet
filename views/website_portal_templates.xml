@@ -167,6 +167,7 @@
                     <thead>
                         <tr class="active">
                             <th>Deliveries</th>
+                            <th>Origin doc.</th>
                             <th class="text-left">Partner</th>
                             <th>Expected Date</th>
                         </tr>
@@ -176,11 +177,50 @@
                             <td>
                                 <a t-attf-href="/my/deliveries/#{stock_picking.id}?#{keep_query()}"><t t-esc="stock_picking.name"/></a>
                             </td>
+                            <td>
+                                <a t-attf-href="/my/orders/#{stock_picking.sale_id.id}?#{keep_query()}"><span t-field="stock_picking.origin"/></a>
+                            </td>
                             <td class="text-left">
                                 <span t-field="stock_picking.partner_id" />
                             </td>
                             <td>
-                                <span t-field="stock_picking.min_date" />
+                                <span t-field="stock_picking.min_date" t-options='{"widget": "date"}'/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <div t-if="pager" class="o_portal_pager text-center">
+                    <t t-call="website.pager"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_stock_move" name="My Stock Move">
+        <t t-call="website_portal.portal_layout">
+            <h3 class="page-header">Your Moves</h3>
+            <t t-if="not stock_moves">
+                <p>There are currently no moves for your account.</p>
+            </t>
+            <t t-if="stock_moves">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="active">
+                            <th width="15%">Date</th>
+                            <th width="70%">Articles</th>
+                            <th width="15%">Origin doc.</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="stock_moves" t-as="move">
+                        <tr>
+                            <td>
+                                <span t-field="move.date" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td>
+                                <span t-field="move.product_id.name"/>
+                            </td>
+                            <td>
+                                <span t-field="move.origin" />
                             </td>
                         </tr>
                     </t>
@@ -294,4 +334,88 @@
         </t>
     </template>
 
+    <template id="website_project.my_task" name="My Task">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+                                    <li><a t-attf-href="/my/tasks?#{keep_query()}">My Tasks</a></li>
+                                    <li><span t-field="task.name"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                            Task - <span t-field="task.name"/>
+                                            <span t-field="task.stage_id.name" class="pull-right label label-info" title="Current stage of this task"/>
+                                            <a class="btn btn-info" t-att-href="'/web#return_label=Website&amp;model=project.task&amp;id=%s&amp;view_type=form' % (task.id)" groups="project.group_project_user">Edit Task</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="mb8" t-if="user.partner_id.id in task.sudo().project_id.message_partner_ids.ids">
+                                    <strong>Project:</strong> <a t-attf-href="/my/project/#{task.project_id.id}" t-field="task.project_id.name"/>
+                                </div>
+
+                                <div class='row'>
+                                    <div class="col-md-6">
+                                        <div class="mb8">
+                                            <strong>Date:</strong> <span t-field="task.create_date" t-field-options='{"widget": "date"}'/>
+                                        </div>
+
+                                        <div t-if="task.user_id">
+                                            <strong>Assigned to</strong>
+                                            <div>
+                                                <address t-field="task.user_id" t-field-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb8" t-if="task.date_deadline">
+                                            <strong>Deadline:</strong> <span t-field="task.date_deadline" t-field-options='{"widget": "date"}'/>
+                                        </div>
+                                        <div t-if="task.partner_id">
+                                            <strong>Reported by</strong>
+                                            <div>
+                                                <address t-field="task.partner_id" t-field-options='{"widget": "contact", "fields": ["name", "email"]}'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Heures passées : </strong><span t-field="task.effective_hours" t-field-options='{"widget": "duration", "unit": "hour", "round": "minute"}' />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Heures restantes : </strong><span t-field="task.remaining_hours" t-field-options='{"widget": "duration", "unit": "hour", "round": "minute"}' />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt32">
+                            <div class="col-md-12">
+                                <h4><strong>Message and communication history</strong></h4>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1 mt16">
+                                <t t-call="website_mail.message_thread">
+                                    <t t-set="object" t-value="task"/>
+                                    <t t-set="chatter_mode" t-value="'json'"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

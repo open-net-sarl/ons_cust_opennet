@@ -308,7 +308,7 @@ msgstr "Faire la configuration pour"
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Do email configuration"
-msgstr "Configurer vous flux de messagerie"
+msgstr "Configurer votre flux de messagerie"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_do_email_configuration
@@ -1139,3 +1139,25 @@ msgstr "Fait"
 #: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
 msgid "Delivery - "
 msgstr "Livraison - "
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
+msgid "<span>Free</span>"
+msgstr "<span>Offert</span>"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
+msgid "Notes"
+msgstr "Remarques"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:website_project.my_task
+msgid "Category"
+msgstr "Catégorie"
+
+
