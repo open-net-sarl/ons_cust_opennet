@@ -212,7 +212,20 @@
                         </tr>
                     </thead>
                     <t t-foreach="stock_moves" t-as="move">
-                        <tr>
+                        <t t-set='line_color'>
+                            color:black
+                        </t>
+                        <t t-if='datetime.datetime.strptime(move.date, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today()'>
+                            <t t-set='line_color'>
+                                color:red
+                            </t>
+                        </t>
+                        <t t-if='datetime.datetime.strptime(move.date, "%Y-%m-%d %H:%M:%S") &gt; datetime.datetime.today() and move.state != "done"'>
+                            <t t-set='line_color'>
+                                color:green
+                            </t>
+                        </t>
+                        <tr t-attf-style='{{ line_color }}'>
                             <td>
                                 <span t-field="move.date" t-options='{"widget": "date"}'/>
                             </td>

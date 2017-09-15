@@ -274,19 +274,12 @@ class website_account(website_account):
             'picking': picking
         })
 
-    @http.route(['/my/moves', '/my/moves/page/<int:page>'], type='http', auth="user", website=True)+
+    @http.route(['/my/moves', '/my/moves/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_stock_move(self, page=1, **kw):
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         StockMove = request.env['stock.move'].sudo()
 
-        # domain = [
-        #     ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
-        # ]
-
-        # sale_order_ids = request.env['sale.order'].sudo().search(domain)
-
-        # domain_pickings = domain
         domain_moves = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
 
         all_stock_move = StockMove.sudo().search(domain_moves)
@@ -303,11 +296,12 @@ class website_account(website_account):
             step=self._items_per_page
         )
         # content according to pager and archive selected
-        stock_moves = StockMove.sudo().search(domain_moves, limit=self._items_per_page, offset=pager['offset'])
+        stock_moves = StockMove.sudo().search(domain_moves, limit=self._items_per_page, offset=pager['offset'], order='date desc')
         # values
         values.update({
             'stock_moves': stock_moves,
             'page_name': 'Moves',
+            'moves_count': moves_count,
             'pager': pager,
             'archive_groups': archive_groups,
             'default_url': '/my/moves',
