@@ -23,7 +23,7 @@ class portal_parameters(http.Controller):
     OPTIONAL_FIELDS = [
         # Bank Info
         "iban", "bank_account_number", "bvr_number", 
-        "bank_name", "bank_agency_name"
+        "bank_name", "bank_agency_name",
 
         # Configurations
         "do_email_configuration", 
