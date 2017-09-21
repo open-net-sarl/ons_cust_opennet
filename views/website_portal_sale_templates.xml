@@ -23,12 +23,12 @@
                 <a href="/my/deliveries">Your Deliveries
                     
                     <small class="ml8">
-                        <t t-if="moves_count">
+                        <t t-if="pickings_count">
                             <span class="badge">
-                                <t t-esc="moves_count"/>
+                                <t t-esc="pickings_count"/>
                             </span>
                         </t>
-                        <t t-if="not moves_count">
+                        <t t-if="not pickings_count">
                             There are currently no deliveries for your account.
                         </t>
                     </small>
@@ -113,4 +113,5 @@
             </div>
         </xpath>
     </template>
+
 </odoo>

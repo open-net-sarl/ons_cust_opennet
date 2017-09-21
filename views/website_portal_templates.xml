@@ -276,7 +276,7 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class='row'>
+                                <!-- <div class='row'>
                                     <div class="col-md-6">
                                         <t t-if="picking.partner_id">
                                             <strong>Partner</strong>
@@ -305,7 +305,7 @@
                                             </div>
                                         </t>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class='row'>
                                     <table class="table table-hover ons_cust_table_deliveries">
                                         <thead>

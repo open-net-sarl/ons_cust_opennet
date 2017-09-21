@@ -202,36 +202,33 @@ class website_account(website_account):
 
     MANDATORY_BILLING_FIELDS = ["phone", "email", "street", "city", "country_id"]
 
-    @http.route()
-    def account(self, **kw):
-        response = super(website_account, self).account(**kw)
+    def _prepare_portal_layout_values(self):
+        values = super(website_account, self)._prepare_portal_layout_values()
         partner = request.env.user.partner_id
 
         StockPicking = request.env['stock.picking']
+        StockMove = request.env['stock.move'].sudo()
 
         domain_pickings = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
+        domain_moves = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
 
         all_stock_picking = StockPicking.sudo().search(domain_pickings)
+        all_stock_move = StockMove.sudo().search(domain_moves)
 
-        # count for pager
         pickings_count = len([picking.id for picking in all_stock_picking])
+        moves_count = len([move.id for move in all_stock_move])
 
-        response.qcontext.update({
+        values.update({
             'pickings_count': pickings_count,
+            'moves_count': moves_count,
         })
-        return response
+        return values
 
     @http.route(['/my/deliveries', '/my/deliveries/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_stock_picking(self, page=1, **kw):
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         StockPicking = request.env['stock.picking'].sudo()
-
-        # domain = [
-        #     ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
-        # ]
-
-        # sale_order_ids = request.env['sale.order'].sudo().search(domain)
 
         # domain_pickings = domain
         domain_pickings = ['|', ('partner_id', '=', partner.commercial_partner_id.id),('partner_id', '=', partner.id)]
@@ -286,6 +283,7 @@ class website_account(website_account):
 
         # count for pager
         moves_count = len([move.id for move in all_stock_move])
+        _logger.info('move count %s' % moves_count)
 
         archive_groups = self._get_archive_groups('stock.move', domain_moves)
         # pager
@@ -297,11 +295,11 @@ class website_account(website_account):
         )
         # content according to pager and archive selected
         stock_moves = StockMove.sudo().search(domain_moves, limit=self._items_per_page, offset=pager['offset'], order='date desc')
+        _logger.info('stock move %s' % stock_moves)
         # values
         values.update({
             'stock_moves': stock_moves,
             'page_name': 'Moves',
-            'moves_count': moves_count,
             'pager': pager,
             'archive_groups': archive_groups,
             'default_url': '/my/moves',
