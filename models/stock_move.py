@@ -18,8 +18,6 @@ class StockMove(models.Model):
     def _cron_info_person_in_charge(self):
         records = self.search([])
         for record in records:
-            if record.ons_cust_person_in_charge:
-                _logger.info("FOUND STOCK MOVE W/ PIC")
-
-                # https://github.com/search?l=Python&q=org%3AOCA+generate_email&type=Code
-                # mail.py ledixa 
+            if record.ons_cust_person_in_charge and record.state in ['assigned', 'confirmed', 'waiting']:
+                mail_tmp = self.env.ref('ons_cust_opennet.email_template_opennet_info_cron')
+                mail_tmp.send_mail(record.id)

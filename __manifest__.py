@@ -17,7 +17,8 @@
         'account_reports',
         'website_portal_sale',
         'event_barcode',
-        'eagle_project'
+        'eagle_project',
+        'stock'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
@@ -33,6 +34,7 @@
         'views/ons_cust_opennet.xml',
         'views/eagle_views.xml',
         'views/stock_move_views.xml',
+        'views/res_partner_views.xml',
         'views/report_external_header.xml',
         'views/report_external_footer.xml',
         'views/report_invoice.xml',

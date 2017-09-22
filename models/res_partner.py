@@ -9,6 +9,8 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    ons_cust_email_two = fields.Char(string="ONS Email")
+
     @api.model
     def _deduplicate_tags_on_partner(self):
         records = self.search([])

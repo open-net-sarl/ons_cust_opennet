@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="email_template_opennet_info_cron" model="mail.template">
-            <field name="name">Info Cron - Send by Email (Open Net)</field>
-            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
-            <field name="subject">Rappel</field>
-            <field name="partner_to">${object.ons_cust_person_in_charge.id}</field>
-            <field name="model_id" ref="stock.move"/>
-            <field name="auto_delete" eval="False"/> <!-- Should I ? -->
-            <field name="lang">${object.partner_id.lang}</field>
-            <field name="user_signature" eval="True"/>
-            <field name="body_html">
-<![CDATA[
-
-<p>Monsieur/Madame,</p>
+        <field name="name">Info Cron - Send by Email (Open Net)</field>
+        <field name="email_from">support@open-net.ch</field>
+        <field name="email_to">${object.ons_cust_person_in_charge.ons_cust_email_two}</field>
+        <field name="subject">ONS: Rappel de movement</field>
+        <field name="model_id" ref="stock.model_stock_move"/>
+        <field name="auto_delete" eval="False"/> <!-- Should I ? -->
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="user_signature" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p>Monsieur,</p>
 
 <p>RAPPEL</p>
 
-<p>Article: ${object.product_id}</p>
+<p>Article: ${object.product_id.name}</p>
 <p>Description: ${object.name}</p>
-<p>Partenaire: ${object.partner_id}</p>
+<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>
 <p>Date prévue: ${object.date_expected}</p>
 
-]]>    
-            </field>
+    ]]></field>
     </record>
 </odoo>
