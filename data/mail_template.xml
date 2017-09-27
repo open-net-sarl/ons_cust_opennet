@@ -19,6 +19,14 @@
 <p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>
 <p>Date prévue: ${object.date_expected}</p>
 
+% set info = object.info_for_mail_person_in_charge()
+% set action = info['action'].id or 2411
+% set menu = info['menu'].id or 228
+
+<a href="/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}">Voir le movement de stock</a>
+
     ]]></field>
     </record>
 </odoo>
+
+<!-- https://github.com/odoo/odoo/blob/fc2e80cb4bcc450762c7ac5cb82a3e2d88062b38/addons/mail/data/mail_data.xml -->
