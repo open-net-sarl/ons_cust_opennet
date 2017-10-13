@@ -41,6 +41,7 @@
         'views/report_event_badge_templates.xml',
         # 'views/report_financial.xml',
         'views/ons_cust_customer_config_views.xml',
+        'views/ons_cust_customer_changes_views.xml',
         'views/ons_cust_custumer_config_web_views.xml',
         'views/website_portal_templates.xml',
         'views/website_portal_sale_templates.xml',

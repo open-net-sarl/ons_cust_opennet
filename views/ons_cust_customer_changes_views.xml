@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- TREE -->
+	<record model="ir.ui.view" id="view_customer_changes_tree">
+        <field name="name">mail.message.tree</field>
+        <field name="model">mail.message</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <tree string="ONS Cust Customer Changes">
+                <field name="date"/>
+                <field name="author_id"/>
+                <field name="ons_partner_id" />
+                <field name="ons_tracking_values"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="view_customer_changes_form">
+        <field name="name">mail.message.form</field>
+        <field name="model">mail.message</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="Message">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subject"/>
+                            <field name="date"/>
+                            <field name="email_from"/>
+                            <field name="author_id"/>
+                            <field name="record_name"/>
+                            <field name="ons_partner_id" />
+                        </group>
+                        <group>
+                            <field name="parent_id"/>
+                            <field name="model"/>
+                            <field name="res_id"/>
+                            <field name="message_type"/>
+                            <field name="subtype_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Body">
+                            <field name="body" options="{'style-inline': true}"/>
+                        </page>
+                        <page string="Gateway">
+                            <group>
+                                <group>
+                                    <field name="reply_to"/>
+                                    <field name="no_auto_thread"/>
+                                </group>
+                                <group>
+                                    <field name="message_id"/>
+                                    <field name="mail_server_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Recipients">
+                            <group>
+                                <group>
+                                    <field name="partner_ids" widget="many2many_tags"/>
+                                    <field name="channel_ids" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="needaction_partner_ids" widget="many2many_tags"/>
+                                    <field name="starred_partner_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notification_ids">
+                                    <tree>
+                                        <field name="res_partner_id"/>
+                                        <field name="is_read"/>
+                                        <field name="is_email"/>
+                                        <field name="email_status"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Tracking">
+                            <field name="tracking_value_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+	<!-- MAIN ACTION -->
+    <record id="action_customer_changes" model="ir.actions.act_window">
+        <field name="name">ONS Cust Customer Changes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mail.message</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('model','=','ons.cust.customer.config')]</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            There is no recent notifications
+          </p>
+        </field>
+    </record>
+
+    <!-- ACTION VIEW -->
+    <record id="action_customer_changes_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_customer_changes_tree"/>
+        <field name="act_window_id" ref="action_customer_changes"/>
+    </record>
+    <record id="action_customer_changes_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_customer_changes_form"/>
+        <field name="act_window_id" ref="action_customer_changes"/>
+    </record>
+
+    <record model="ir.ui.view" id="eagle_project_view_customer_changes">
+        <field name="name">Eagle Project Customer Changes</field>
+        <field name="model">eagle.contract</field>
+        <field name="inherit_id" ref="eagle_project.eagle_project_view_contract_form"/>
+        <field name="priority" eval="18"/>
+        <field name="arch" type="xml">
+            <div name="base_buttons" position="inside">
+                <button class="oe_stat_button"
+                    icon="fa-book"
+                    type="object" 
+                    name="action_contract2customerchanges" 
+                    attrs="{'invisible': [('portal_user_ids','=',False)]}">
+                    <span>Info Portail Changements Client</span>
+                </button>
+            </div>
+        </field>
+    </record>
+
+
+    <!-- MENU ITEM -->
+    <menuitem 
+    	id="menu_customer_changes"
+    	name="Customer Changes"
+    	action="action_customer_changes"
+    	parent="contacts.menu_contacts"
+    	sequence="6"/>
+</odoo>

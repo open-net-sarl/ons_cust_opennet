@@ -258,9 +258,9 @@ class website_account(website_account):
         })
         return request.render("ons_cust_opennet.portal_my_stock_picking", values)
 
-    @http.route(['/my/deliveries/<int:picking>'], type='http', auth="user", website=True)
-    def pickings_followup(self, picking=None, **kw):
-        picking = request.env['stock.picking'].browse([picking])
+    @http.route(['/my/deliveries/<int:picking_id>'], type='http', auth="user", website=True)
+    def pickings_followup(self, picking_id=None, **kw):
+        picking = request.env['stock.picking'].browse([picking_id])
         try:
             picking.check_access_rights('read')
             picking.check_access_rule('read')
@@ -288,7 +288,7 @@ class website_account(website_account):
         archive_groups = self._get_archive_groups('stock.move', domain_moves)
         # pager
         pager = request.website.pager(
-            url="/my/deliveries",
+            url="/my/moves",
             total=moves_count,
             page=page,
             step=self._items_per_page
@@ -306,6 +306,18 @@ class website_account(website_account):
         })
         return request.render("ons_cust_opennet.portal_my_stock_move", values)
 
+    @http.route(['/my/moves/<int:move_id>'], type='http', auth="user", website=True)
+    def moves_followup(self, move_id=None, **kw):
+        move = request.env['stock.move'].browse([move_id])
+        try:
+            move.check_access_rights('read')
+            move.check_access_rule('read')
+        except AccessError:
+            return request.render("website.403")
+
+        return request.render("ons_cust_opennet.moves_followup", {
+            'move': move
+        })
 
 
 class WebsiteAccount(WebsiteAccount):

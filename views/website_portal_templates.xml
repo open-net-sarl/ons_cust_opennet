@@ -167,15 +167,34 @@
                     <thead>
                         <tr class="active">
                             <th>Deliveries</th>
+                            <th>Back order of</th>
                             <th>Origin doc.</th>
                             <th class="text-left">Partner</th>
                             <th>Expected Date</th>
                         </tr>
                     </thead>
                     <t t-foreach="stock_pickings" t-as="stock_picking">
-                        <tr>
+                        <t t-if='datetime.datetime.strptime(stock_picking.min_date, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today() and stock_picking.state != "done"'>
+                            <t t-set='line_color'>
+                                color:red
+                            </t>
+                        </t>
+                        <t t-if='datetime.datetime.strptime(stock_picking.min_date, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today() and stock_picking.state == "done"'>
+                            <t t-set='line_color'>
+                                color:gray
+                            </t>
+                        </t>
+                        <tr t-attf-style='{{ line_color }}'>
                             <td>
                                 <a t-attf-href="/my/deliveries/#{stock_picking.id}?#{keep_query()}"><t t-esc="stock_picking.name"/></a>
+                            </td>
+                            <td>
+                                <t t-if="stock_picking.backorder_id">
+                                    <a t-attf-href="/my/deliveries/#{stock_picking.backorder_id.id}?#{keep_query()}"><t t-esc="stock_picking.backorder_id.name"/></a>
+                                </t>
+                                <t t-if="not stock_picking.backorder_id">
+
+                                </t>
                             </td>
                             <td>
                                 <a t-attf-href="/my/orders/#{stock_picking.sale_id.id}?#{keep_query()}"><span t-field="stock_picking.origin"/></a>
@@ -198,7 +217,7 @@
 
     <template id="portal_my_stock_move" name="My Stock Move">
         <t t-call="website_portal.portal_layout">
-            <h3 class="page-header">Your Moves</h3>
+            <h3 class="page-header">Your moves</h3>
             <t t-if="not stock_moves">
                 <p>There are currently no moves for your account.</p>
             </t>
@@ -215,25 +234,25 @@
                         <t t-set='line_color'>
                             color:black
                         </t>
-                        <t t-if='datetime.datetime.strptime(move.date, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today()'>
+                        <t t-if='datetime.datetime.strptime(move.date_expected, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today() and move.state != "done"'>
                             <t t-set='line_color'>
                                 color:red
                             </t>
                         </t>
-                        <t t-if='datetime.datetime.strptime(move.date, "%Y-%m-%d %H:%M:%S") &gt; datetime.datetime.today() and move.state != "done"'>
+                        <t t-if='datetime.datetime.strptime(move.date_expected, "%Y-%m-%d %H:%M:%S") &lt; datetime.datetime.today() and move.state == "done"'>
                             <t t-set='line_color'>
-                                color:green
+                                color:gray
                             </t>
                         </t>
                         <tr t-attf-style='{{ line_color }}'>
                             <td>
-                                <span t-field="move.date" t-options='{"widget": "date"}'/>
+                                <span t-field="move.date_expected" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td> 
+                                <a t-attf-href="/my/moves/#{move.id}?#{keep_query()}"><span t-field="move.product_id.name"/></a>
                             </td>
                             <td>
-                                <span t-field="move.product_id.name"/>
-                            </td>
-                            <td>
-                                <span t-field="move.origin" />
+                                <a t-attf-href="/my/orders/#{move.ons_order_id.id}?#{keep_query()}"><span t-field="move.origin" /></a>
                             </td>
                         </tr>
                     </t>
@@ -341,6 +360,78 @@
                                 </t>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="moves_followup" name="Stock Pickings">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+                                    <li>
+                                        <a t-attf-href="/my/moves/">
+                                        my moves
+                                        </a>
+                                    </li>
+                                    <li><span t-field="move.name"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                            Move - <span t-field="move.name"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class='row'>
+                                    <div class="col-md-6">
+                                        <strong>Product</strong>
+                                        <div t-if="move.product_id" class="mb16">
+                                            <span t-field="move.product_id"/>
+                                        </div>
+                                        <strong>Quantity</strong>
+                                        <div t-if="move.product_uom_qty" class="mb16">
+                                            <span t-field="move.product_uom_qty"/> <span t-field="move.product_uom"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Scheduled</strong>
+                                        <div t-if="move.date_expected" class="mb16">
+                                            <span t-field="move.date_expected" t-options='{"widget": "date"}'/>
+                                        </div>
+                                        <strong>Priority</strong>
+                                        <div t-if="move.priority" class="mb16">
+                                            <span t-field="move.priority" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row mt32">
+                            <div class="col-md-12">
+                                <h4><strong>Message and communication history</strong></h4>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1 mt16">
+                                <t t-call="website_mail.message_thread">
+                                    <t t-set="object" t-value="move"/>
+                                    <t t-set="chatter_mode" t-value="'json'"/>
+                                </t>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

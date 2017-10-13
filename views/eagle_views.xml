@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="eagle_base.eagle_view_contract_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='references']" position="inside">
-                <field name="portal_user_id" widget="many2many_tags"/>
+                <field name="portal_user_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
@@ -28,7 +28,7 @@
                     icon="fa-book"
                     type="object" 
                     name="action_contract2portalclient" 
-                    attrs="{'invisible': [('portal_user_id','=',False)]}">
+                    attrs="{'invisible': [('portal_user_ids','=',False)]}">
                     <span>Info Portail Client</span>
                 </button>
             </div>

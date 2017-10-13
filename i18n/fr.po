@@ -1,19 +1,56 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * ons_cust_opennet
+#	* ons_cust_opennet
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 09:53+0000\n"
-"PO-Revision-Date: 2017-08-29 09:53+0000\n"
+"POT-Creation-Date: 2017-09-29 06:49+0000\n"
+"PO-Revision-Date: 2017-09-29 06:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: ons_cust_opennet
+#: model:mail.template,body_html:ons_cust_opennet.email_template_opennet_info_cron
+msgid "\n"
+"<p>Monsieur,</p>\n"
+"\n"
+"<p>RAPPEL</p>\n"
+"\n"
+"<p>Article: ${object.product_id.name}</p>\n"
+"<p>Description: ${object.name}</p>\n"
+"<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>\n"
+"<p>Date prévue: ${object.date_expected}</p>\n"
+"\n"
+"% set info = object.info_for_mail_person_in_charge()\n"
+"% set action = info['action'].id or 2411\n"
+"% set menu = info['menu'].id or 228\n"
+"\n"
+"<a href=\"/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}\">Voir le movement de stock</a>\n"
+"\n"
+"    "
+msgstr "\n"
+"<p>Monsieur,</p>\n"
+"\n"
+"<p>RAPPEL</p>\n"
+"\n"
+"<p>Article: ${object.product_id.name}</p>\n"
+"<p>Description: ${object.name}</p>\n"
+"<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>\n"
+"<p>Date prévue: ${object.date_expected}</p>\n"
+"\n"
+"% set info = object.info_for_mail_person_in_charge()\n"
+"% set action = info['action'].id or 2411\n"
+"% set menu = info['menu'].id or 228\n"
+"\n"
+"<a href=\"/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}\">Voir le movement de stock</a>\n"
+"\n"
+"    "
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_dropshipping
@@ -31,6 +68,11 @@ msgid "%s Payment Reminder"
 msgstr "%s Payment Reminder"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
+msgid "01-"
+msgstr "01-"
+
+#. module: ons_cust_opennet
 #: code:addons/ons_cust_opennet/models/account_reports.py:23
 #, python-format
 msgid ": Sent a followup email"
@@ -46,9 +88,24 @@ msgstr "<span class=\"sr-only\">Basculer la navigation</span>\n"
 "                            <span class=\"icon-bar\"/>"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.eagle_project_view_customer_changes
+msgid "<span>Info Portail Changements Client</span>"
+msgstr "<span>Info Portail Changements Client</span>"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.eagle_project_view_contract_form
+msgid "<span>Info Portail Client</span>"
+msgstr "<span>Info Portail Client</span>"
+
+#. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "<span>Successful Update!</span>"
 msgstr "<span>Mise à jour réussie!</span>"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "<strong>Message and communication history</strong>"
+msgstr "<strong>Historique des messages et communications</strong>"
 
 #. module: ons_cust_opennet
 #: model:ir.model,name:ons_cust_opennet.model_account_report_context_followup
@@ -56,7 +113,7 @@ msgid "A particular context for the followup report"
 msgstr "Un contexte particulier pour le rapport de suivi"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:68
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:124
 #, python-format
 msgid "A single sale price per product"
 msgstr "Un seul prix de vente par article"
@@ -74,19 +131,25 @@ msgid "Administrator's Email"
 msgstr "Email de l'administrateur"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:70
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:126
 #, python-format
 msgid "Advanced pricing based on formulas (discounts, margins, rounding)"
 msgstr "Tarification avancée en fonction de formules (remises, marges, arrondis)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:129
+#: code:addons/ons_cust_opennet/controllers/main.py:340
+#, python-format
+msgid "All"
+msgstr "All"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:185
 #, python-format
 msgid "All products in your warehouse belong to your company"
 msgstr "Tous les produits dans votre entrepôt appartiennent à votre société"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:122
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:178
 #, python-format
 msgid "Allow suppliers to deliver directly to your customers"
 msgstr "Permet aux fournisseurs de livrer directement à vos clients"
@@ -108,10 +171,15 @@ msgid "Analytic Accounting"
 msgstr "Comptabilité analytique"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:78
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:134
 #, python-format
 msgid "April"
 msgstr "avril"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "Articles"
+msgstr "Prestations"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_accounting_asset_management
@@ -120,7 +188,7 @@ msgid "Assets Management"
 msgstr "Gestion d'actifs"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:79
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:135
 #, python-format
 msgid "August"
 msgstr "août"
@@ -141,7 +209,13 @@ msgstr "Numéro de BVR"
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_bank_account_number
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Bank Account Number"
-msgstr "Numéro de compte"
+msgstr "Numéro de Compte Bancaire"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_bank_agency_name
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
+msgid "Bank Agency Name (local)"
+msgstr "Nom de l'agence (localité)"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
@@ -156,16 +230,20 @@ msgid "Bank Name"
 msgstr "Nom de l'établissement financier"
 
 #. module: ons_cust_opennet
-#: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_bank_agency_name
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
-msgid "Bank Agency Name (local)"
-msgstr "Nom de l'agence (localité)"
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_form
+msgid "Body"
+msgstr "Corps"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_accounting_budget_management
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Budget Management"
 msgstr "Gestion du budget"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
+msgid "CHXX XXXX XXXX XXXX XXXX X"
+msgstr "CHXX XXXX XXXX XXXX XXXX X"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_can_be_purchased
@@ -217,7 +295,7 @@ msgid "Connections are encrypted with SSL/TLS through a dedicated port (default:
 msgstr "Les connexions sont chiffrées via SSL/TLS au travers d'un port dédié (par défaut : IMAPS=993, POP3S=995)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:153
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:209
 #, python-format
 msgid "Consumable"
 msgstr "Consommable"
@@ -244,9 +322,26 @@ msgid "Customer"
 msgstr "Client"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.menu,name:ons_cust_opennet.menu_customer_changes
+msgid "Customer Changes"
+msgstr "Changements des clients"
+
+#. module: ons_cust_opennet
 #: model:ir.ui.menu,name:ons_cust_opennet.menu_customer_config
 msgid "Customer Config"
 msgstr "Paramètres du portail client"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/eagle_contract.py:57
+#, python-format
+msgid "Customer Portal Changes"
+msgstr "Customer Portal Changes"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/eagle_contract.py:44
+#, python-format
+msgid "Customer Portal Parameters"
+msgstr "Customer Portal Parameters"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_customer_tax
@@ -255,10 +350,15 @@ msgid "Customer Tax"
 msgstr "TVA sur ventes"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:88
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:144
 #, python-format
 msgid "Daily"
 msgstr "Quotidienne"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "Date"
+msgstr "Date"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_crm_lead_last_message_date
@@ -266,7 +366,7 @@ msgid "Date du dernier message"
 msgstr "Date du dernier message"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:80
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:136
 #, python-format
 msgid "December"
 msgstr "décembre"
@@ -278,10 +378,21 @@ msgid "Default company currency"
 msgstr "Devise par défaut"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:138
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:194
 #, python-format
 msgid "Define Expiration Date on serial numbers"
 msgstr "Définir une date de péremption sur les numéros de série"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_menu_sale
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Deliveries"
+msgstr "Livraisons"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Delivery -"
+msgstr "Livraison - "
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_delivery_delay
@@ -298,7 +409,7 @@ msgstr "Livraisons"
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_display_name
 msgid "Display Name"
-msgstr "Afficher le nom"
+msgstr "Nom affiché"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_config_form
@@ -316,19 +427,19 @@ msgid "Do email configuration for"
 msgstr "Configurer le flux de messagerie pour"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:113
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:169
 #, python-format
 msgid "Do not manage packaging"
 msgstr "Ne pas gérer les emballages"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:145
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:201
 #, python-format
 msgid "Do not track individual product items"
 msgstr "Ne pas suivre les articles de produits individuels"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:137
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:193
 #, python-format
 msgid "Do not use Expiration Date on serial numbers"
 msgstr "Ne pas utiliser de dates d'expiration pour les numéros de série"
@@ -340,10 +451,25 @@ msgid "Document Numbering"
 msgstr "Numérotation de vos documents"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Done"
+msgstr "Fait"
+
+#. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_dropshipping
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Dropshipping"
 msgstr "Livraison directe"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_eagle_contracts
+msgid "Eagle Contracts"
+msgstr "Eagle Contracts"
+
+#. module: ons_cust_opennet
+#: model:ir.model,name:ons_cust_opennet.model_eagle_contract
+msgid "Eagle file"
+msgstr "Dossier Eagle"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_earnings_acc
@@ -367,13 +493,18 @@ msgid "En cas de doute, vous pouvez remplir ces champs après la formation \"Pri
 msgstr "En cas de doute, vous pouvez remplir ces champs après la formation \"Prise en main\"."
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Expected Date"
+msgstr "Date prévue"
+
+#. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_expiration_dates
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Expiration Dates"
 msgstr "Dates d'expiration"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:77
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:133
 #, python-format
 msgid "February"
 msgstr "février"
@@ -397,6 +528,11 @@ msgstr "Prix fixe : tous les prix sont gérés depuis le prix de vente de l'arti
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Foreign Currencies List"
 msgstr "Liste de devises étrangères"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_form
+msgid "Gateway"
+msgstr "Passerelle"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_sales_general_conditions
@@ -437,7 +573,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:52
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:108
 #, python-format
 msgid "IMAP Server"
 msgstr "Serveur IMAP"
@@ -455,19 +591,19 @@ msgid "Incoming Email Server"
 msgstr "Serveur de mails entrant"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:42
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:98
 #, python-format
 msgid "Incoming Server"
 msgstr "Serveur de mails entrant"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:44
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:100
 #, python-format
 msgid "Incoming and Outgoing Servers"
 msgstr "Serveurs de mails entrant et sortant"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/controllers/main.py:180
+#: code:addons/ons_cust_opennet/controllers/main.py:188
 #, python-format
 msgid "Invalid Email! Please enter a valid email address."
 msgstr "Mail invalide! Voulez entrer une adress mail valide."
@@ -490,19 +626,19 @@ msgid "Invoicing Policy"
 msgstr "Politique de facturation"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:77
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:133
 #, python-format
 msgid "January"
 msgstr "janvier"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:79
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:135
 #, python-format
 msgid "July"
 msgstr "juillet"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:78
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:134
 #, python-format
 msgid "June"
 msgstr "juin"
@@ -529,6 +665,12 @@ msgstr "Dernière Modification le"
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Last Month of Fiscal Exercise"
 msgstr "Dernier mois de l'exercice fiscal"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/controllers/main.py:334
+#, python-format
+msgid "Last Stage Update"
+msgstr "Last Stage Update"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_write_uid
@@ -572,31 +714,36 @@ msgid "Main currency of the company."
 msgstr "Devise principale de la société"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:114
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:170
 #, python-format
 msgid "Manage available packaging options per products"
 msgstr "Gérez les options d'emballage disponibles par produit."
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:130
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:186
 #, python-format
 msgid "Manage consignee stocks (advanced)"
 msgstr "Gérer les stocks consignataires (avancé)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:87
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:143
 #, python-format
 msgid "Manually"
 msgstr "Manuelle"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:77
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:133
 #, python-format
 msgid "March"
 msgstr "mars"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:78
+#: model:ir.model,name:ons_cust_opennet.model_mail_mass_mailing
+msgid "Mass Mailing"
+msgstr "Envoi en masse"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:134
 #, python-format
 msgid "May"
 msgstr "mai"
@@ -607,16 +754,27 @@ msgid "Merci de nous envoyer votre logo à"
 msgstr "Merci de nous envoyer votre logo à"
 
 #. module: ons_cust_opennet
+#: model:ir.model,name:ons_cust_opennet.model_mail_message
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_form
+msgid "Message"
+msgstr "Message"
+
+#. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_sales_modify_sale_order
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Modify Sale Order"
 msgstr "Modification du bon de ventes"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:90
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:146
 #, python-format
 msgid "Monthly"
 msgstr "Mensuelle"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_menu_sale
+msgid "Moves"
+msgstr "Mouvements"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.my_parameters_link
@@ -625,28 +783,42 @@ msgid "My Parameters Form"
 msgstr "Mes paramètres"
 
 #. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/controllers/main.py:332
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_name
+#, python-format
 msgid "Name"
 msgstr "Nom"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:105
+#: code:addons/ons_cust_opennet/controllers/main.py:331
+#, python-format
+msgid "Newest"
+msgstr "Newest"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:161
 #, python-format
 msgid "No variants on products"
 msgstr "Pas de variantes sur les articles"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:41
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:59
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:97
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:115
 #, python-format
 msgid "None"
 msgstr "None"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:80
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:136
 #, python-format
 msgid "November"
 msgstr "novembre"
+
+#. module: ons_cust_opennet
+#: model:ir.actions.act_window,name:ons_cust_opennet.action_customer_changes
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_tree
+msgid "ONS Cust Customer Changes"
+msgstr "ONS Cust Customer Cĥanges"
 
 #. module: ons_cust_opennet
 #: model:ir.actions.act_window,name:ons_cust_opennet.action_customer_config
@@ -660,7 +832,18 @@ msgid "ONS Customer Config"
 msgstr "ONS Customer Config"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:80
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_res_partner_ons_cust_email_two
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_res_users_ons_cust_email_two
+msgid "ONS Email"
+msgstr "ONS Email"
+
+#. module: ons_cust_opennet
+#: model:mail.template,subject:ons_cust_opennet.email_template_opennet_info_cron
+msgid "ONS: Rappel de movement"
+msgstr "ONS: Rappel de movement"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:136
 #, python-format
 msgid "October"
 msgstr "octobre"
@@ -671,13 +854,19 @@ msgid "Optional username for SMTP authentication"
 msgstr "Nom d'utilisateur pour l'authentification SMTP (facultatif)"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Origin doc."
+msgstr "Origin doc."
+
+#. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 #: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_config_form
 msgid "Outgoing Email Server"
 msgstr "Serveur de mails sortant"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:43
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:99
 #, python-format
 msgid "Outgoing Server"
 msgstr "Serveur de mails sortant"
@@ -689,7 +878,7 @@ msgid "Output BVR"
 msgstr "Emission BVR"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:51
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:107
 #, python-format
 msgid "POP Server"
 msgstr "Serveur POP"
@@ -702,8 +891,22 @@ msgstr "Packing Methods"
 
 #. module: ons_cust_opennet
 #: model:ir.model,name:ons_cust_opennet.model_res_partner
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_compose_message_ons_partner_id
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_mail_ons_partner_id
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_message_ons_partner_id
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_survey_mail_compose_message_ons_partner_id
+msgid "Partner id"
+msgstr "Partenaire id"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_partner_id
+msgid "Partner-related data of the user"
+msgstr "Données du partenaire lié à l'utilisateur"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_incoming_email_server_pass
@@ -716,12 +919,22 @@ msgstr "Mot de passe"
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_contacts_payment_terms
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Payment Terms"
-msgstr "Vos conditions de paiement"
+msgstr "Conditions de règlement"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_incoming_email_server_port
 msgid "Port"
 msgstr "Port"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_eagle_contract_portal_user_ids
+msgid "Portal user id"
+msgstr "Portal user id"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Product"
+msgstr "Article"
 
 #. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
@@ -748,13 +961,13 @@ msgid "Product Variants"
 msgstr "Variantes d'article"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:106
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:162
 #, python-format
 msgid "Products can have several attributes, defining variants (Example: size, color,...)"
 msgstr "Les articles peuvent avoir plusieurs attributs, définissant des variantes (exemple : taille, couleur, ...)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:97
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:153
 #, python-format
 msgid "Products have only one unit of measure (easier)"
 msgstr "Les produits ont seulement une unité de mesure (plus facile)"
@@ -763,7 +976,7 @@ msgstr "Les produits ont seulement une unité de mesure (plus facile)"
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_doc_numb_purchases
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Purchase Orders"
-msgstr "Bons de commande"
+msgstr "Bon de commande"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_doc_numb_quot_sales
@@ -776,10 +989,25 @@ msgid "Quotations &amp; Sales"
 msgstr "Devis &amp; Ventes"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_form
+msgid "Recipients"
+msgstr "Destinataires"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_partner_id
+msgid "Related Partner"
+msgstr "Partenaire associé"
+
+#. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_accounting_reminder_levels
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Reminder levels"
 msgstr "Niveaux de rappels"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_stock_move_ons_cust_person_in_charge
+msgid "Responsable"
+msgstr "Responsable"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_accounting_revenu_recognition
@@ -803,7 +1031,7 @@ msgid "SMTP Server"
 msgstr "Serveur SMTP"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:61
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:117
 #, python-format
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -867,7 +1095,7 @@ msgid "Select a unit of mesure.."
 msgstr "Sélectionnez une unité de mesure.."
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:79
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:135
 #, python-format
 msgid "September"
 msgstr "septembre"
@@ -890,25 +1118,25 @@ msgid "Server Type"
 msgstr "Type de serveur"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:154
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:210
 #, python-format
 msgid "Service"
 msgstr "Service"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:98
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:154
 #, python-format
 msgid "Some products may be sold/purchased in different units of measure (advanced)"
 msgstr "Les unités de mesure d'achat ou de vente des produits peuvent varier (avancé)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/controllers/main.py:184
+#: code:addons/ons_cust_opennet/controllers/main.py:192
 #, python-format
 msgid "Some required fields are empty."
 msgstr "Certains champs obligatoires sont vides."
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:69
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:125
 #, python-format
 msgid "Specific prices per customer segment, currency, etc."
 msgstr "Prix spécifique par catégorie de client, devises spécifiques, etc."
@@ -920,13 +1148,24 @@ msgid "Spendings Account"
 msgstr "Compte de charges"
 
 #. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/controllers/main.py:333
+#, python-format
+msgid "Stage"
+msgstr "Stage"
+
+#. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 #: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_config_form
 msgid "Stock Management Default Parameters"
 msgstr "Paramètre par défaut de gestion des stock"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:155
+#: model:ir.model,name:ons_cust_opennet.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: ons_cust_opennet
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:211
 #, python-format
 msgid "Stockable Product"
 msgstr "Stockable "
@@ -938,7 +1177,7 @@ msgid "Supplier Tax"
 msgstr "TVA sur achats"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:121
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:177
 #, python-format
 msgid "Suppliers always deliver to your warehouse(s)"
 msgstr "Les fournisseurs livrent toujours dans votre (vos) entreprôt(s)"
@@ -950,7 +1189,7 @@ msgid "Supply Routes"
 msgstr "Routes d'approvisionnement"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:60
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:116
 #, python-format
 msgid "TLS (STARTTLS)"
 msgstr "TLS (STARTTLS)"
@@ -960,6 +1199,23 @@ msgstr "TLS (STARTTLS)"
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
 msgid "Tax Update Frequence"
 msgstr "Fréquence de la mise à jour des taux"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "There are currently no deliveries for your account."
+msgstr "Il n'y a pas de livraisons pour votre compte."
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "There are currently no moves for your account."
+msgstr "Il n'y a pas de prestations pour votre compte."
+
+#. module: ons_cust_opennet
+#: model:ir.actions.act_window,help:ons_cust_opennet.action_customer_changes
+msgid "There is no recent notifications"
+msgstr "There is no recent notifications"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_lots_serial_nb
@@ -975,6 +1231,11 @@ msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pou
 #: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_product_owners
 msgid "This way you can receive products attributed to a certain owner. "
 msgstr "De cette façon, vous pouvez recevoir les articles attribués à un propriétaire."
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "To Do"
+msgstr "À faire"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_expiration_dates
@@ -994,10 +1255,28 @@ msgstr "Track different dates on products and serial numbers.\n"
 "                This installs the module product_expiry."
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:146
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:202
 #, python-format
 msgid "Track lots or serial numbers"
 msgstr "Garder trace des lots ou numéros de série"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.view_customer_changes_form
+msgid "Tracking"
+msgstr "Suivi"
+
+#. module: ons_cust_opennet
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_compose_message_ons_tracking_values
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_mail_ons_tracking_values
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_mail_message_ons_tracking_values
+#: model:ir.model.fields,field_description:ons_cust_opennet.field_survey_mail_compose_message_ons_tracking_values
+msgid "Tracking values"
+msgstr "Suivi des valeurs"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
 
 #. module: ons_cust_opennet
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_ons_cust_customer_config_products_unit_of_mesure
@@ -1030,7 +1309,7 @@ msgid "Warranty (months)"
 msgstr "Garantie (mois)"
 
 #. module: ons_cust_opennet
-#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:89
+#: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:145
 #, python-format
 msgid "Weekly"
 msgstr "Hebdomadaire"
@@ -1041,9 +1320,41 @@ msgid "Work with product variant allows you to define some variant of the same p
 msgstr "Travailler avec variante de produit permet de définir d'autres produits du même type, cela facilite la gestion des produits dans le commerce électronique par exemple"
 
 #. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
+msgid "Your deliveries"
+msgstr "Vos livraisons"
+
+#. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_parameters
-msgid "Your Details"
+msgid "Your details"
 msgstr "Vos détails"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "Your moves"
+msgstr "Nos prestations"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "color:black"
+msgstr "color:black"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "color:green"
+msgstr "color:green"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
+msgid "color:red"
+msgstr "color:red"
+
+#. module: ons_cust_opennet
+#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
+msgid "my deliveries"
+msgstr "my deliveries"
 
 #. module: ons_cust_opennet
 #: model:ir.model,name:ons_cust_opennet.model_ons_cust_customer_config
@@ -1056,148 +1367,6 @@ msgid "support@open-net.ch"
 msgstr "support@open-net.ch"
 
 #. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
-msgid "Your Deliveries"
-msgstr "Vos livraisons"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
-msgid "Your Moves"
-msgstr "Vos prestations"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_menu_sale
-msgid "Deliveries"
-msgstr "Livraisons"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_menu_sale
-msgid "Moves"
-msgstr "Prestations"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
-msgid "There are currently no deliveries for your account."
-msgstr "Il n'y a pas de livraisons pour votre compte."
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_home_sale
-msgid "There are currently no moves for your account."
-msgstr "Il n'y a pas de prestations pour votre compte."
-
-#. module: ons_cust_opennet
 #: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
-msgid "There are currently no deliveries for your account."
-msgstr "Il n'y a pas de livraisons pour votre compte."
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
-msgid "There are currently no moves for your account."
-msgstr "Il n'y a pas de prestations pour votre compte."
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
-msgid "Your Deliveries"
-msgstr "Vos livraisons"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
-msgid "Your Moves"
-msgstr "Vos Prestations"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
-msgid "Deliveries"
-msgstr "Livraisons"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
-msgid "Moves"
-msgstr "Prestation"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
-msgid "Your Moves"
-msgstr "Nos Prestations"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_move
-msgid "Articles"
-msgstr "Prestations"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.portal_my_stock_picking
-msgid "Expected Date"
-msgstr "Date prévue"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Expected Date"
-msgstr "Date prévue"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Dest. Location"
-msgstr "Zone d'emplacement de destination"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Origin"
-msgstr "Document d'origine"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Product"
-msgstr "Article"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Unit of Measure"
-msgstr "Unité de mesure"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "To Do"
-msgstr "A faire"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Done"
-msgstr "Fait"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:ons_cust_opennet.pickings_followup
-msgid "Delivery - "
-msgstr "Livraison - "
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
-msgid "<span>Free</span>"
-msgstr "<span>Offert</span>"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
-msgid "Notes"
-msgstr "Remarques"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:website_project_timesheet.my_task
-msgid "Category"
-msgstr "Catégorie"
-
-#. module: ons_cust_opennet
-#: model:ir.ui.view,arch_db:website_project.my_task
-msgid "Category"
-msgstr "Catégorie"
-
-
+msgid "Back order of"
+msgstr "Reliquat de"

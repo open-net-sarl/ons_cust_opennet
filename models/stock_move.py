@@ -15,6 +15,8 @@ class StockMove(models.Model):
         'res.partner', 
         string='Responsable')
 
+    ons_order_id = fields.Many2one(related="procurement_id.sale_line_id.order_id", string="Sale Order")
+
     @api.model
     def _cron_info_person_in_charge(self):
         records = self.search([])
