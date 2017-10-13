@@ -11,3 +11,4 @@ from . import ons_cust_customer_config
 from . import eagle_contract
 from . import stock_move
 from . import res_partner
+from . import ons_functional_area

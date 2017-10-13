@@ -406,4 +406,15 @@ class WebsiteAccount(WebsiteAccount):
 
         return request.render("website_project.my_task", {'task': task, 'user': request.env.user})
 
-    
+class opennet_price(http.Controller):
+    """docstring for ClassName"""
+    @http.route(['/opennet-pricing'], auth="public", type="http", website=True)
+    def pricing(self, **kw):
+
+        areas = request.env['ons.functionnal.area'].search([])
+
+        values = {
+            'areas': areas
+        }
+
+        return request.render("ons_cust_opennet.opennet_pricing_template", values)
