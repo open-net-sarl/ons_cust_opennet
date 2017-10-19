@@ -8,3 +8,29 @@
 .ons_cust_table_deliveries {
     margin-bottom: 0 !important;
 }
+
+.ons_cust_apps_title {
+	background-color: #F2F2F2;
+}
+
+.ons-pricing-area {
+	transition-property: background-color;
+    transition-duration: 1s;
+}
+
+.ons-pricing-row:hover {
+	background-color: #E3F2FD;
+}
+
+.ons-pricing-logo {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.ons-pricing-app {
+	padding-right: 0px !important;
+}
+
+.ons-pricing-info:not(.hide) {
+ 	transition: max-height .3s ease-in-out,margin-bottom .1s .2s;
+}

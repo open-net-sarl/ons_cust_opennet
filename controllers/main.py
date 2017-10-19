@@ -412,9 +412,26 @@ class opennet_price(http.Controller):
     def pricing(self, **kw):
 
         areas = request.env['ons.functionnal.area'].search([])
+        options_logi = request.env['ons.pricing.option'].search(
+            [('option_type', '=', 'logistic')]
+        )
+        options_misc = request.env['ons.pricing.option'].search(
+            [('option_type', '=', 'misc')]
+        )
+        options_tech = request.env['ons.pricing.option'].search(
+            [('option_type', '=', 'technical')]
+        )
+
+        hosting = request.env['ons.hosting'].search([])
 
         values = {
-            'areas': areas
+            'areas': areas,
+            'options_logi': options_logi,
+            'options_misc': options_misc,
+            'options_tech': options_tech,
+            'hosting': hosting,
         }
 
-        return request.render("ons_cust_opennet.opennet_pricing_template", values)
+        return request.render(
+            "ons_cust_opennet.opennet_pricing_template", values
+        )

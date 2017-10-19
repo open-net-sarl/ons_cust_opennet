@@ -1,0 +1,44 @@
+<odoo>
+	<data>
+		<record id="ons_hosting_tree_view" model="ir.ui.view">
+	        <field name="name">ONS hosting tree</field>
+	        <field name="model">ons.hosting</field>
+	        <field name="priority" eval="8"/>
+	        <field name="arch" type="xml">
+	            <tree string="ONS hosting tree">
+	                <field name="name"/>
+                    <field name="price"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.ui.view" id="ons_hosting_form_view">
+            <field name="name">ONS hosting form</field>
+            <field name="model">ons.hosting</field>
+            <field name="arch" type="xml">
+                <form string="ONS hosting form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="price"/>
+                            <field name="description"/>
+                            <field name="logo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ons_hosting_action">
+            <field name="name">ONS hosting</field>
+            <field name="res_model">ons.hosting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            
+        </record>
+
+        <menuitem id="ons_hosting_menu" name="ONS hosting"
+                  parent="website.menu_website_global_configuration"
+                  action="ons_hosting_action"/>
+    </data>
+</odoo>

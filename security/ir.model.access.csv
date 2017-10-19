@@ -6,3 +6,6 @@ access_portal_procurement_order,portal_procurement_order,procurement.model_procu
 access_portal_stock_pack_operation,portal_stock_pack_operation,stock.model_stock_pack_operation,base.group_portal,1,0,0,0
 access_portal_account_analytic_tag,portal_account_analytic_tag,analytic.model_account_analytic_tag,base.group_portal,1,0,0,0
 access_portal_stock_picking_type,portal_stock_picking_type,stock.model_stock_picking_type,base.group_portal,1,0,0,0
+access_ons_pricing_list,ons_pricing_list,model_ons_functionnal_area,base.group_portal,1,0,0,0
+access_ons_pricing_option,ons_pricing_option,model_ons_pricing_option,base.group_portal,1,0,0,0
+access_ons_hosting,ons_hosting,model_ons_hosting,base.group_portal,1,0,0,0

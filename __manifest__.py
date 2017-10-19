@@ -47,7 +47,9 @@
         'views/website_portal_sale_templates.xml',
         'report/account_followup_report_views.xml',
         'views/ons_functionnal_area_view.xml',
-        'views/ons_functionnal_area_template.xml'
+        'views/ons_pricing_template.xml',
+        'views/ons_pricing_option_view.xml',
+        'views/ons_hosting_view.xml',
     ],
     'installable': True
 }

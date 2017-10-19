@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="generic_grid" name="Generic grid">
+		<div class="row">
+			<t t-foreach="options" t-as="option">
+				<div class="col-md-4 mb16 ons-pricing-area">
+					<div class="row ons-pricing-row">
+						<div class="col-md-3 ons-pricing-logo">
+							<div t-field="option.logo" t-options="{'widget': 'image'}"/>
+						</div>
+						<div class="col-md-9 ons-pricing-app">
+							<h3 t-field="option.name" class="mt0 ons_cust_apps_title"></h3>
+							<span t-field="option.price"/> CHF
+							<input type="checkbox" />
+						</div>
+					</div>
+				</div>
+			</t>
+		</div>
+	</template>
+
+	<template id="opennet_pricing_template" name="Open-net pricing">
+		<t t-call="website.layout">
+			<div class="container">
+				<div class="col-md-9">
+					<div class="page-header">
+					  	<h1>Open-Net <small>pricing</small></h1>
+					</div>
+					<div class="row">
+						<t t-set="idx" t-value="0"/>
+						<t t-set="cnt" t-value="0"/>
+						<t t-foreach="areas" t-as="area">
+							<t t-set="cnt" t-value="cnt + 1"/>
+							<div class="col-md-4 mb16 ons-pricing-area" t-attf-index-number="{{ idx }}">
+								<div class="row ons-pricing-row">
+									<div class="col-md-3 ons-pricing-logo">
+										<div t-field="area.logo" t-options="{'widget': 'image'}"/>
+									</div>
+									<div class="col-md-9 ons-pricing-app">
+										<h3 t-field="area.name" class="mt0 ons_cust_apps_title"></h3>
+										<span t-field="area.price"/> CHF
+										<input type="checkbox" />
+									</div>
+								</div>
+							</div>
+							<t t-if="(idx + 1) % 3 == 0 or area_last">
+								<t t-foreach="cnt" t-as="c">
+									<div class="col-md-12 hide ons-pricing-info" t-attf-index-number-info="{{ idx - c }}">
+										<div class="card">
+  											<div class="card-body">
+												<t t-if="areas[idx-c].app_ids">
+													<span t-field="areas[idx-c].app_ids.name"/>
+												</t>
+												<t t-else="">
+													<p>Aucune application n'est incluse dans ce domaine</p>
+												</t>
+											</div>
+										</div>
+									</div>
+								</t>
+								<t t-set="cnt" t-value="0"/>
+							</t>
+							<t t-set="idx" t-value="idx + 1"/>
+						</t>
+					</div>
+					<hr/>
+					<t t-set="options" t-value="options_logi"/>
+					<t t-call="ons_cust_opennet.generic_grid"/>
+					<hr/>
+					<t t-set="options" t-value="options_tech"/>
+					<t t-call="ons_cust_opennet.generic_grid"/>
+					<hr/>
+					<t t-set="options" t-value="options_misc"/>
+					<t t-call="ons_cust_opennet.generic_grid"/>
+					<hr/>
+					<t t-set="options" t-value="hosting"/>
+					<t t-call="ons_cust_opennet.generic_grid"/>
+				</div>
+				<div class="col-md-3 col-xs-12">
+
+				</div>
+			</div>
+		</t>
+		<script>
+			var last_id = -100;
+			$('.ons-pricing-area').on("click", function(){
+				// Récupérer l'id de l'attribut
+				var id_attr = $(this).attr('index-number')
+				console.log(id_attr);
+				// Afficher la div correspondant à l'id
+				if(last_id == id_attr){
+					$("[index-number-info="+last_id+"]").toggleClass('hide')
+				}
+				else{
+					$("[index-number-info="+last_id+"]").addClass('hide')
+					$("[index-number-info="+id_attr+"]").removeClass('hide')
+				}
+				last_id = id_attr;
+			});
+		</script>
+	</template>
+
+</odoo>
