@@ -22,11 +22,19 @@
 
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
+			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
 			<div class="container">
 				<div class="col-md-9">
 					<div class="page-header">
 					  	<h1>Open-Net <small>pricing</small></h1>
 					</div>
+					<div class="form-group row">
+						<label class="col-2 col-form-label" t-esc="user_price[0]['ons_user_price']" id="user_pricing"/>
+					  	<div class="col-10">
+					    	<input class="form-control" type="number" value="1" id="user_select" />
+					  	</div>
+					</div>
+					<hr/>
 					<div class="row">
 						<t t-set="idx" t-value="0"/>
 						<t t-set="cnt" t-value="0"/>
@@ -78,7 +86,30 @@
 					<t t-call="ons_cust_opennet.generic_grid"/>
 				</div>
 				<div class="col-md-3 col-xs-12">
-
+					<div class="o_my_contact">  
+				        <h3>pricing calcul</h3>
+				        <table class="table">
+				        	<thead>
+						      	<tr>
+						        	<th></th>
+						        	<th class="text-right">Monthly</th>
+						        	<th class="text-right">Annualy</th>
+						      	</tr>
+						    </thead>
+						    <tbody>
+								<tr>
+									<td><span id="user_selected"/></td>
+									<td class="text-right"><span id="monthly_price"/></td>
+									<td class="text-right"><span id="annualy_price"/></td>
+								</tr>
+								<tr class="active">
+									<td>Total</td>
+									<td class="text-right"></td>
+									<td class="text-right"></td>
+								</tr>
+							</tbody>
+						</table>
+                    </div>
 				</div>
 			</div>
 		</t>
@@ -100,5 +131,16 @@
 			});
 		</script>
 	</template>
+
+	<record id="opennet_pricing_user" model="ir.ui.view">
+		<field name="name">res.company.form</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+	        <xpath expr="//field[@name='website']" position="after">
+	            <field name="ons_user_price" />
+	        </xpath>
+	    </field>
+    </record>
 
 </odoo>

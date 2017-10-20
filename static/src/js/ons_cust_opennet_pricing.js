@@ -1,15 +1,38 @@
-var last_id = -100;
-$('.ons-pricing-area').on("click", function(){
-	// Récupérer l'id de l'attribut
-	var attr_id = $(this).attr('index-number')
-	console.log(attr_id);
-	// Afficher la div correspondant à l'id
-	if(last_id == attr_id){
-		$("[index-number-info="+last_id+"]").toggleClass('hide')
-	}
-	else{
-		$("[index-number-info="+last_id+"]").addClass('hide')
-		$("[index-number-info="+attr_id+"]").removeClass('hide')
-	}
-	last_id = attr_id;
+odoo.define('ons_cust_opennet.pricing', function (require) {
+"use strict";
+
+var ajax = require('web.ajax');
+
+	$(document).ready(function () {
+		// var maFonction = function(){
+
+		// }
+
+		var users = $( "#user_select" ).val();
+		var user_pricing = $( "#user_pricing" ).text();
+		var monthly_price = user_pricing * users
+		var annualy_price = user_pricing * users * 12
+
+		$( "#user_selected" ).text( "1 user" )
+		$( "#monthly_price" ).text( monthly_price )
+		$( "#annualy_price" ).text( annualy_price )
+
+		$( "#user_select" ).on('keyup mouseup', function(){
+			users = $( this ).val();
+			if (users == '') {
+				$( "#user_selected" ).text( "0 user" )
+			} else if (users == '1'){
+				$( "#user_selected" ).text( "1 user" )
+			} else {
+				$( "#user_selected" ).text( users + " users" )
+			}
+
+			monthly_price = user_pricing * users
+			$( "#monthly_price" ).text( monthly_price )
+			annualy_price = user_pricing * users * 12
+			$( "#annualy_price" ).text( annualy_price )
+		});
+
+	});
+
 });

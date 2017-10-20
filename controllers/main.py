@@ -424,12 +424,19 @@ class opennet_price(http.Controller):
 
         hosting = request.env['ons.hosting'].search([])
 
+        ons_user_price = request.env['res.company'].search_read(
+            [], fields=['ons_user_price']
+        )
+
+        _logger.info('*************************info************************* %s' % ons_user_price)
+
         values = {
             'areas': areas,
             'options_logi': options_logi,
             'options_misc': options_misc,
             'options_tech': options_tech,
             'hosting': hosting,
+            'user_price': ons_user_price,
         }
 
         return request.render(
