@@ -31,6 +31,16 @@ var ajax = require('web.ajax');
 
 		});
 
+		var area_price = parseInt($( "#area_price" ).text());
+		var area_annualy_price = area_price * 12
+		$( "#area_price" ).text( area_price )
+		$( "#area_annualy_price" ).text( area_annualy_price )
+
+		$( ".area_checkbox" ).click(function(){
+			console.log('test')
+			$( "#valais" ).append( '<tr class="active"><td>Total</td><td class="text-right"></td><td class="text-right"></td></tr>' )
+		});
+
 	});
 
 });

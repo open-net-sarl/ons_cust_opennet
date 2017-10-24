@@ -48,7 +48,13 @@
 									<div class="col-md-9 ons-pricing-app">
 										<h3 t-field="area.name" class="mt0 ons_cust_apps_title"></h3>
 										<span t-field="area.price"/> CHF
-										<input type="checkbox" />
+										<t t-if="area.sequence != 1">
+											<input type="checkbox" class="area_checkbox"/>
+											<!-- t-attf-id="{{ slug(area.name) }}" -->
+										</t>
+										<t t-elif="area.sequence == 1">
+											<input type="checkbox" disabled="disabled" checked="checked"/>
+										</t>
 									</div>
 								</div>
 							</div>
@@ -58,7 +64,9 @@
 										<div class="card">
   											<div class="card-body">
 												<t t-if="areas[idx-c].app_ids">
-													<span t-field="areas[idx-c].app_ids.name"/>
+													<t t-foreach="areas[idx-c].app_ids" t-as="app">
+														<span t-field="app.name"/>
+													</t>
 												</t>
 												<t t-else="">
 													<p>Aucune application n'est incluse dans ce domaine</p>
@@ -87,7 +95,7 @@
 				</div>
 				<div class="col-md-3 col-xs-12">
 					<div class="o_my_contact">  
-				        <h3>pricing calcul</h3>
+				        <h3>Pricing</h3>
 				        <table class="table">
 				        	<thead>
 						      	<tr>
@@ -102,6 +110,16 @@
 									<td class="text-right"><span id="monthly_price"/></td>
 									<td class="text-right"><span id="annualy_price"/></td>
 								</tr>
+								<t t-foreach="areas" t-as="area">
+									<t t-if="area.sequence == 1">
+										<tr id="valais">
+											<td><span t-field="area.name"/></td>
+											<td class="text-right"><span t-field="area.price" id="area_price"/></td>
+											<td class="text-right"><span id="area_annualy_price"/></td>
+										</tr>
+									</t>
+								</t>
+
 								<tr class="active">
 									<td>Total</td>
 									<td class="text-right"></td>
@@ -114,7 +132,7 @@
 			</div>
 		</t>
 		<script>
-			var last_id = -100;
+			<!-- var last_id = -100;
 			$('.ons-pricing-area').on("click", function(){
 				// Récupérer l'id de l'attribut
 				var id_attr = $(this).attr('index-number')
@@ -128,7 +146,7 @@
 					$("[index-number-info="+id_attr+"]").removeClass('hide')
 				}
 				last_id = id_attr;
-			});
+			}); -->
 		</script>
 	</template>
 

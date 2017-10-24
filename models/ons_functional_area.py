@@ -17,3 +17,4 @@ class OnsFunctionnalArea(models.Model):
     )
     app_ids = fields.Many2many('ir.module.module', string="Apps")
     logo = fields.Binary(string="Logo to upload")
+    sequence = fields.Integer(string="Séquence", required=True, default=1)
