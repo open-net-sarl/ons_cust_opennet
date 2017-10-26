@@ -4,42 +4,125 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 var ajax = require('web.ajax');
 
 	$(document).ready(function () {
-		var writePrice = function(user_pricing, users){
-			let monthly_price = user_pricing * users
-			$( "#monthly_price" ).text( monthly_price )
-			let annualy_price = user_pricing * users * 12
-			$( "#annualy_price" ).text( annualy_price )
+
+		initializeValues();
+
+		addRow($( ".area_checkbox" ));
+		addRow($( ".logi_checkbox" ));
+		addRow($( ".tech_checkbox" ));
+		addRow($( ".misc_checkbox" ));
+		addRow($( ".hosting_checkbox" ));
+
+		followScroll(40, 200);
+
+		function initializeValues() {
+			$( "#user_selected" ).text( "1 user" )
+
+			var user_pricing = $( "#user_pricing" ).text();
+			var users = $( "#user_select" ).val();
+
+			writeUserPrice(user_pricing, users);
+
+			var area_price = parseInt($( ".area_price_data" ).text());
+			var area_annualy_price = area_price * 12
+			$( ".area_price_data" ).text( area_price )
+			$( ".area_annualy_price_data" ).text( area_annualy_price )
+
+			computeTotal();
 		}
 
-		$( "#user_selected" ).text( "1 user" )
-		var user_pricing = $( "#user_pricing" ).text();
-		var users = $( "#user_select" ).val();
+		$( "#user_select" ).on('keyup mouseup', function() {
+			var users = $( this ).val();
+			var user_pricing = $( "#user_pricing" ).text();
 
-		writePrice(user_pricing, users);
-
-		$( "#user_select" ).on('keyup mouseup', function(){
-			users = $( this ).val();
 			if (users == '') {
 				$( "#user_selected" ).text( "0 user" )
-			} else if (users == '1'){
+			} 
+			else if (users == '1'){
 				$( "#user_selected" ).text( "1 user" )
-			} else {
+			} 
+			else {
 				$( "#user_selected" ).text( users + " users" )
 			}
 
-			writePrice(user_pricing, users);
+			writeUserPrice(user_pricing, users);
 
+			computeTotal();
 		});
 
-		var area_price = parseInt($( "#area_price" ).text());
-		var area_annualy_price = area_price * 12
-		$( "#area_price" ).text( area_price )
-		$( "#area_annualy_price" ).text( area_annualy_price )
+		function writeUserPrice(user_pricing, users) {
+			var monthly_price = user_pricing * users
+			var annualy_price = user_pricing * users * 12
 
-		$( ".area_checkbox" ).click(function(){
-			console.log('test')
-			$( "#valais" ).append( '<tr class="active"><td>Total</td><td class="text-right"></td><td class="text-right"></td></tr>' )
-		});
+			$( "#monthly_price" ).text( monthly_price )
+			$( "#annualy_price" ).text( annualy_price )
+
+			computeTotal();
+		}
+
+		function addRow(checkbox) {
+			checkbox.click(function(event) {
+				var myparent = $( this ).parent();
+
+				if (myparent != null) {
+
+					var id = myparent.attr( 'id' )
+					var name = myparent.find( ".data_title" ).text();
+					var price = parseInt(myparent.find( ".data_price" ).text());
+					var annualy_price = price * 12
+					var last_row = $( ".base_row:last" )
+					var this_checkbox = $( "input[id='"+id+"']" )
+
+					if (this_checkbox.is(':checked')) {
+						last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+					}
+					else {
+						$( "tr[row_id='"+id+"']" ).remove();
+					}
+
+					computeTotal();
+				}		
+			});
+
+		}
+
+		function dependArea(checkbox) {
+
+		}
+
+		function computeTotal(){
+			var monthly = 0
+			var annualy = 0
+
+			$( "tr.base_row" ).each(function() {
+				monthly += parseInt($( this ).find( ".monthly span" ).text());
+				console.log($( this ).find( ".monthly span" ).text())
+				console.log(monthly);
+				annualy += parseInt($( this ).find( ".annualy span" ).text());
+			});
+
+			$( ".monthly_total" ).text( monthly );
+			$( ".annualy_total" ).text( annualy );
+		}
+
+		function followScroll(topMargin, time) {
+		    var element = $( '.follow-scroll' ),
+		        originalY = element.offset().top;
+		    
+		    // Space between element and top of screen (when scrolling)
+		    var topMargin = topMargin;
+		    
+		    // Should probably be set in CSS; but here just for emphasis
+		    element.css('position', 'relative');
+		    
+		    $( window ).on('scroll', function(event) {
+		        var scrollTop = $( window ).scrollTop();
+		        
+		        element.stop(false, false).animate({
+		            top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
+		        }, this.time);
+		    });
+		}
 
 	});
 

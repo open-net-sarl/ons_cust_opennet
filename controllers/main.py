@@ -428,8 +428,6 @@ class opennet_price(http.Controller):
             [], fields=['ons_user_price']
         )
 
-        _logger.info('*************************info************************* %s' % ons_user_price)
-
         values = {
             'areas': areas,
             'options_logi': options_logi,

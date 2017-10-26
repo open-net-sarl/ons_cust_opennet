@@ -9,14 +9,41 @@
 						<div class="col-md-3 ons-pricing-logo">
 							<div t-field="option.logo" t-options="{'widget': 'image'}"/>
 						</div>
-						<div class="col-md-9 ons-pricing-app">
-							<h3 t-field="option.name" class="mt0 ons_cust_apps_title"></h3>
-							<span t-field="option.price"/> CHF
-							<input type="checkbox" />
+						<div class="col-md-9 ons-pricing-app" t-attf-id="{{ slug(option) }}">
+							<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
+							<span t-field="option.price" class="data_price"/> CHF
+							<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
 						</div>
 					</div>
 				</div>
 			</t>
+		</div>
+	</template>
+
+	<template id="invisible_area_depend" name="aahh">
+		<div class="row">
+			<div class="col-md-4 mb16 ons-pricing-area">
+				<table>
+					<thead>
+				      	<tr>
+				        	<th>Nom</th>
+				        	<th>prix</th>
+				        	<th>depend</th>
+				      	</tr>
+				    </thead>
+				    <tbody>
+				    	<t t-foreach="areas" t-as="area">
+					    	<t t-foreach="area.depend_area_ids" t-as="depend">
+								<tr>
+									<td><span t-field="area.name" t-attf-app-id="{{ slug(area) }}"/></td>
+									<td><span t-field="area.price" /></td>
+									<td><span t-field="depend.name" t-attf-depend-id="{{ slug(depend) }}"/></td>
+								</tr>
+							</t>
+						</t>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</template>
 
@@ -36,21 +63,18 @@
 					</div>
 					<hr/>
 					<div class="row">
-						<t t-set="idx" t-value="0"/>
-						<t t-set="cnt" t-value="0"/>
 						<t t-foreach="areas" t-as="area">
-							<t t-set="cnt" t-value="cnt + 1"/>
-							<div class="col-md-4 mb16 ons-pricing-area" t-attf-index-number="{{ idx }}">
+							<div class="col-md-4 mb16 ons-pricing-area">
 								<div class="row ons-pricing-row">
 									<div class="col-md-3 ons-pricing-logo">
 										<div t-field="area.logo" t-options="{'widget': 'image'}"/>
 									</div>
-									<div class="col-md-9 ons-pricing-app">
-										<h3 t-field="area.name" class="mt0 ons_cust_apps_title"></h3>
-										<span t-field="area.price"/> CHF
+									<div class="col-md-9 ons-pricing-app" t-attf-id="{{ slug(area) }}">
+										<h3 t-field="area.name" class="mt0 ons-pricing-title data_title"></h3>
+										<span t-field="area.price" class="data_price"/> CHF
 										<t t-if="area.sequence != 1">
-											<input type="checkbox" class="area_checkbox"/>
-											<!-- t-attf-id="{{ slug(area.name) }}" -->
+											<input type="checkbox" class="area_checkbox"  t-attf-id="{{ slug(area) }}"/>
+											<!-- t-attf-id="{{ area.id }}" -->
 										</t>
 										<t t-elif="area.sequence == 1">
 											<input type="checkbox" disabled="disabled" checked="checked"/>
@@ -58,42 +82,26 @@
 									</div>
 								</div>
 							</div>
-							<t t-if="(idx + 1) % 3 == 0 or area_last">
-								<t t-foreach="cnt" t-as="c">
-									<div class="col-md-12 hide ons-pricing-info" t-attf-index-number-info="{{ idx - c }}">
-										<div class="card">
-  											<div class="card-body">
-												<t t-if="areas[idx-c].app_ids">
-													<t t-foreach="areas[idx-c].app_ids" t-as="app">
-														<span t-field="app.name"/>
-													</t>
-												</t>
-												<t t-else="">
-													<p>Aucune application n'est incluse dans ce domaine</p>
-												</t>
-											</div>
-										</div>
-									</div>
-								</t>
-								<t t-set="cnt" t-value="0"/>
-							</t>
-							<t t-set="idx" t-value="idx + 1"/>
 						</t>
 					</div>
 					<hr/>
 					<t t-set="options" t-value="options_logi"/>
+					<t t-set="option_class">logi_checkbox</t>
 					<t t-call="ons_cust_opennet.generic_grid"/>
 					<hr/>
 					<t t-set="options" t-value="options_tech"/>
+					<t t-set="option_class">tech_checkbox</t>
 					<t t-call="ons_cust_opennet.generic_grid"/>
 					<hr/>
 					<t t-set="options" t-value="options_misc"/>
+					<t t-set="option_class">misc_checkbox</t>
 					<t t-call="ons_cust_opennet.generic_grid"/>
 					<hr/>
 					<t t-set="options" t-value="hosting"/>
+					<t t-set="option_class">hosting_checkbox</t>
 					<t t-call="ons_cust_opennet.generic_grid"/>
 				</div>
-				<div class="col-md-3 col-xs-12">
+				<div class="col-md-3 col-xs-12 follow-scroll">
 					<div class="o_my_contact">  
 				        <h3>Pricing</h3>
 				        <table class="table">
@@ -105,31 +113,33 @@
 						      	</tr>
 						    </thead>
 						    <tbody>
-								<tr>
+								<tr class="base_row">
 									<td><span id="user_selected"/></td>
-									<td class="text-right"><span id="monthly_price"/></td>
-									<td class="text-right"><span id="annualy_price"/></td>
+									<td class="text-right monthly"><span id="monthly_price"/></td>
+									<td class="text-right annualy"><span id="annualy_price"/></td>
 								</tr>
 								<t t-foreach="areas" t-as="area">
 									<t t-if="area.sequence == 1">
-										<tr id="valais">
-											<td><span t-field="area.name"/></td>
-											<td class="text-right"><span t-field="area.price" id="area_price"/></td>
-											<td class="text-right"><span id="area_annualy_price"/></td>
+										<tr class="base_row">
+											<td><span t-field="area.name" class="area_name_data"/></td>
+											<td class="text-right monthly"><span t-field="area.price" class="area_price_data"/></td>
+											<td class="text-right annualy"><span class="area_annualy_price_data"/></td>
 										</tr>
 									</t>
 								</t>
 
 								<tr class="active">
 									<td>Total</td>
-									<td class="text-right"></td>
-									<td class="text-right"></td>
+									<td class="text-right"><span class="monthly_total"/></td>
+									<td class="text-right"><span class="annualy_total"/></td>
 								</tr>
 							</tbody>
 						</table>
                     </div>
 				</div>
+				<t t-call="ons_cust_opennet.invisible_area_depend"></t>
 			</div>
+		
 		</t>
 		<script>
 			<!-- var last_id = -100;
