@@ -8,6 +8,7 @@ var ajax = require('web.ajax');
 		initializeValues();
 
 		addRow($( ".area_checkbox" ));
+		dependArea($( ".area_checkbox" ));
 		addRow($( ".logi_checkbox" ));
 		addRow($( ".tech_checkbox" ));
 		addRow($( ".misc_checkbox" ));
@@ -87,7 +88,53 @@ var ajax = require('web.ajax');
 		}
 
 		function dependArea(checkbox) {
+			checkbox.click(function(event) {
+				if (checkbox.is(':checked')) {
+					console.log('this checked')
+				} else  {
+					var parent = $( this ).parent();
+					var depend_area_id = parent.find( ".depend_name" ).attr( 'depend-id' );
+					var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
+					if (depend_checkbox.is(':checked')) {
+						console.log('already checked')
+					} else {
+						depend_checkbox.prop( "checked", true );
+						console.log(depend_checkbox);
+						addDependRow(depend_checkbox);
+					}
+				}
 
+				// For
+				// if checked
+				// if not continue
+				// if checked for depends
+				// if one of the depends is not checked -> uncheck area 
+
+			});
+		}
+
+		function addDependRow(checkbox) {
+			var myparent = checkbox.parent();
+			console.log(myparent)
+
+			if (myparent != null) {
+
+				var id = myparent.attr( 'id' )
+				var name = myparent.find( ".data_title" ).text();
+				var price = parseInt(myparent.find( ".data_price" ).text());
+				var annualy_price = price * 12
+				var last_row = $( ".base_row:last" )
+				var this_checkbox = $( "input[id='"+id+"']" )
+
+				if (this_checkbox.is(':checked')) {
+					last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+				}
+				else {
+					$( "tr[row_id='"+id+"']" ).remove();
+				}
+
+				computeTotal();
+			}		
 		}
 
 		function computeTotal(){
@@ -96,8 +143,6 @@ var ajax = require('web.ajax');
 
 			$( "tr.base_row" ).each(function() {
 				monthly += parseInt($( this ).find( ".monthly span" ).text());
-				console.log($( this ).find( ".monthly span" ).text())
-				console.log(monthly);
 				annualy += parseInt($( this ).find( ".annualy span" ).text());
 			});
 

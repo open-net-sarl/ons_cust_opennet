@@ -18,7 +18,8 @@
         'website_portal_sale',
         'event_barcode',
         'eagle_project',
-        'stock'
+        'stock',
+        'project_issue'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,

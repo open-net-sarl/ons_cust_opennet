@@ -15,3 +15,4 @@ from . import ons_functional_area
 from . import ons_pricing_option
 from . import ons_hosting
 from . import res_company
+from . import project_issue

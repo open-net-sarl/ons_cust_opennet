@@ -34,10 +34,10 @@
 				    <tbody>
 				    	<t t-foreach="areas" t-as="area">
 					    	<t t-foreach="area.depend_area_ids" t-as="depend">
-								<tr>
-									<td><span t-field="area.name" t-attf-app-id="{{ slug(area) }}"/></td>
+								<tr class="depend_row" t-attf-id="{{ slug(area) }}">
+									<td><span t-field="area.name" t-attf-app-id="{{ slug(area) }}" class="depend_app_name"/></td>
 									<td><span t-field="area.price" /></td>
-									<td><span t-field="depend.name" t-attf-depend-id="{{ slug(depend) }}"/></td>
+									<td><span t-field="depend.name" t-attf-depend-id="{{ slug(depend) }}" class="depend_name"/></td>
 								</tr>
 							</t>
 						</t>
@@ -64,6 +64,7 @@
 					<hr/>
 					<div class="row">
 						<t t-foreach="areas" t-as="area">
+							
 							<div class="col-md-4 mb16 ons-pricing-area">
 								<div class="row ons-pricing-row">
 									<div class="col-md-3 ons-pricing-logo">
@@ -73,15 +74,19 @@
 										<h3 t-field="area.name" class="mt0 ons-pricing-title data_title"></h3>
 										<span t-field="area.price" class="data_price"/> CHF
 										<t t-if="area.sequence != 1">
-											<input type="checkbox" class="area_checkbox"  t-attf-id="{{ slug(area) }}"/>
+											<input type="checkbox" class="area_checkbox checkbox"  t-attf-id="{{ slug(area) }}"/>
 											<!-- t-attf-id="{{ area.id }}" -->
 										</t>
 										<t t-elif="area.sequence == 1">
-											<input type="checkbox" disabled="disabled" checked="checked"/>
+											<input type="checkbox" disabled="disabled" class="checkbox" checked="checked"/>
+										</t>
+										<t t-foreach="area.depend_area_ids" t-as="depend">
+											<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}"/>
 										</t>
 									</div>
 								</div>
 							</div>
+
 						</t>
 					</div>
 					<hr/>
@@ -137,7 +142,7 @@
 						</table>
                     </div>
 				</div>
-				<t t-call="ons_cust_opennet.invisible_area_depend"></t>
+				<!--<t t-call="ons_cust_opennet.invisible_area_depend"></t>-->
 			</div>
 		
 		</t>
