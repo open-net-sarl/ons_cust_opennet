@@ -17,7 +17,7 @@ class ProjectIssue(models.Model):
     @api.returns('mail.message', lambda value: value.id)
     def message_post(self, subtype=None,parent_id=False, **kwargs):
         cc_partner_ids = ', '.join([partner.name for partner in self.message_partner_ids if partner.email != 'support@open-net.ch'])
-        send_to = u"Envoyé également à " + cc_partner_ids
+        send_to = u"Envoyé à " + cc_partner_ids
         if kwargs.get('body'):
             kwargs['body'] = tools.append_content_to_html(kwargs['body'], send_to, container_tag='div')
         mail_message = super(ProjectIssue, self).message_post(subtype=subtype, **kwargs)
