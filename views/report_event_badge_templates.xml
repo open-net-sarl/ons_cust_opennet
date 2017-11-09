@@ -16,7 +16,7 @@
                     <h4><strong>Accès WiFi</strong></h4>
                     <p>SSID : <strong>Open Net</strong></p>
                     <p>Password : <strong>bienvenuechezopennet</strong></p>
-                    <h4 class="mt32"><strong>Accès Web</strong></h4>
+                    <h4 class="mt32"><strong>Accès Odoo</strong></h4>
                     <p><strong>http://192.168.127.150</strong></p>
                     <p>Courriel : <strong>stepdemo@open-net.ch</strong></p>
                     <p>Mot de passe : <strong>changeme</strong></p>
@@ -41,7 +41,8 @@
                                         <img t-att-src="'data:image/png;base64,%s' % o.event_id.organizer_id.company_id.logo_web" style="max-height:1cm; max-width:4cm;"/>
                                     </span>
                                     <h5 t-field="o.event_id.name"/>
-                                    <h5>( <i class="fa fa-clock-o"/> <span itemprop="startDate" t-field="o.event_id.date_begin" t-options="{&quot;hide_seconds&quot;: True}"> </span> <i>to</i> <span itemprop="endDate" t-field="o.event_id.date_end" t-options="{&quot;hide_seconds&quot;: True}"> </span> )</h5>
+                                    <!-- <i class="fa fa-clock-o"/>  -->
+                                    <h5>(<span itemprop="startDate" t-field="o.event_id.date_begin" t-options="{&quot;hide_seconds&quot;: True}"> </span> <i>to</i> <span itemprop="endDate" t-field="o.event_id.date_end" t-options="{&quot;hide_seconds&quot;: True}"> </span> )</h5>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 text-center" id="o_event_name">
