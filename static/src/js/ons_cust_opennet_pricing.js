@@ -71,15 +71,18 @@ var ajax = require('web.ajax');
 					var name = myparent.find( ".data_title" ).text();
 					var price = parseInt(myparent.find( ".data_price" ).text());
 					var annualy_price = price * 12
+					var sequence = parseInt(myparent.find( ".sequence" ).text());
 					var last_row = $( ".base_row:last" )
 					var this_checkbox = $( "input[id='"+id+"']" )
 
 					if (this_checkbox.is(':checked')) {
-						last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+						last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td><td>'+sequence+'</td></tr>' )
 					}
 					else {
 						$( "tr[row_id='"+id+"']" ).remove();
 					}
+
+					// orderBySequence(myparent, sequence);
 
 					computeTotal();
 				}		
@@ -87,35 +90,74 @@ var ajax = require('web.ajax');
 
 		}
 
+		function checkDependencies() {
+			console.log('test')
+
+			var areas = $( '.functionnal-area' )
+			// var dependencies = $( '.depend_name' )
+
+			for (var idx = 0; idx < areas.length; idx++) {
+				var checkbox = $(areas[idx]).find('input')
+				var dependencies = $(areas[idx]).find('.depend_name')
+				//var input_dependencies
+				if (checkbox.is(':checked')) {
+					// For depends
+					var is_checked = true
+					for (var i = 0; i < dependencies.length; i++) {
+						var depend_id = $(dependencies[i]).attr( 'depend-id' )
+						// var depend_parent = depend_id.parent()
+						var depend_area_checkbox = $( "input[id='"+depend_id+"']" )
+
+						// if one of the dependencies is not checked -> uncheck the current input
+						if (!depend_area_checkbox.is(':checked')) {
+							is_checked = false
+							// $( "tr[row_id='"+depend_id+"']" ).remove();
+						}
+					}
+					if (!is_checked){
+						checkbox.trigger("click")
+					}
+					// if one of the depends is not checked -> uncheck area
+					console.log('condition passed')
+				}
+			}
+		}
+
 		function dependArea(checkbox) {
 			checkbox.click(function(event) {
-				if (checkbox.is(':checked')) {
-					console.log('this checked')
+				if (!this.checked) {
+					console.log('calling checkDependencies')
+					checkDependencies();
 				} else  {
+					// var parent = this.parentNode
 					var parent = $( this ).parent();
-					var depend_area_id = parent.find( ".depend_name" ).attr( 'depend-id' );
+					var depend_area_id = parent.find( ".depend_name" ).attr( 'depend-id' )
 					var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
+
 					if (depend_checkbox.is(':checked')) {
 						console.log('already checked')
+
 					} else {
-						depend_checkbox.prop( "checked", true );
-						console.log(depend_checkbox);
-						addDependRow(depend_checkbox);
+						updateDependRow(depend_checkbox);
+						depend_checkbox.trigger('click');
 					}
 				}
-
-				// For
-				// if checked
-				// if not continue
-				// if checked for depends
-				// if one of the depends is not checked -> uncheck area 
-
 			});
 		}
 
-		function addDependRow(checkbox) {
+		function orderBySequence(parent, sequence) {
+			var areas = $( '.functionnal-area' )
+			var list = []
+
+			console.log(areas)
+
+			for (var idx = 0; idx < areas.length; idx++) {
+				list[idx] = sequence;
+			}
+		}
+
+		function updateDependRow(checkbox) {
 			var myparent = checkbox.parent();
-			console.log(myparent)
 
 			if (myparent != null) {
 
@@ -125,13 +167,6 @@ var ajax = require('web.ajax');
 				var annualy_price = price * 12
 				var last_row = $( ".base_row:last" )
 				var this_checkbox = $( "input[id='"+id+"']" )
-
-				if (this_checkbox.is(':checked')) {
-					last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
-				}
-				else {
-					$( "tr[row_id='"+id+"']" ).remove();
-				}
 
 				computeTotal();
 			}		

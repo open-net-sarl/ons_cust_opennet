@@ -20,33 +20,6 @@
 		</div>
 	</template>
 
-	<template id="invisible_area_depend" name="aahh">
-		<div class="row">
-			<div class="col-md-4 mb16 ons-pricing-area">
-				<table>
-					<thead>
-				      	<tr>
-				        	<th>Nom</th>
-				        	<th>prix</th>
-				        	<th>depend</th>
-				      	</tr>
-				    </thead>
-				    <tbody>
-				    	<t t-foreach="areas" t-as="area">
-					    	<t t-foreach="area.depend_area_ids" t-as="depend">
-								<tr class="depend_row" t-attf-id="{{ slug(area) }}">
-									<td><span t-field="area.name" t-attf-app-id="{{ slug(area) }}" class="depend_app_name"/></td>
-									<td><span t-field="area.price" /></td>
-									<td><span t-field="depend.name" t-attf-depend-id="{{ slug(depend) }}" class="depend_name"/></td>
-								</tr>
-							</t>
-						</t>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</template>
-
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
 			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
@@ -65,7 +38,7 @@
 					<div class="row">
 						<t t-foreach="areas" t-as="area">
 							
-							<div class="col-md-4 mb16 ons-pricing-area">
+							<div class="col-md-4 mb16 ons-pricing-area functionnal-area">
 								<div class="row ons-pricing-row">
 									<div class="col-md-3 ons-pricing-logo">
 										<div t-field="area.logo" t-options="{'widget': 'image'}"/>
@@ -83,6 +56,7 @@
 										<t t-foreach="area.depend_area_ids" t-as="depend">
 											<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}"/>
 										</t>
+										<span t-field="area.sequence" class="sequence" t-attf-sequence-id="{{ slug(area) }}" />
 									</div>
 								</div>
 							</div>
@@ -142,7 +116,6 @@
 						</table>
                     </div>
 				</div>
-				<!--<t t-call="ons_cust_opennet.invisible_area_depend"></t>-->
 			</div>
 		
 		</t>
