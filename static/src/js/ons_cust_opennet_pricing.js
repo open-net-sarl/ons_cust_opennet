@@ -70,19 +70,21 @@ var ajax = require('web.ajax');
 					var id = myparent.attr( 'id' )
 					var name = myparent.find( ".data_title" ).text();
 					var price = parseInt(myparent.find( ".data_price" ).text());
-					var annualy_price = price * 12
 					var sequence = parseInt(myparent.find( ".sequence" ).text());
+					var annualy_price = price * 12
 					var last_row = $( ".base_row:last" )
 					var this_checkbox = $( "input[id='"+id+"']" )
 
 					if (this_checkbox.is(':checked')) {
-						last_row.after( '<tr row_id='+id+' class="base_row"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td><td>'+sequence+'</td></tr>' )
+						last_row.after( '<tr row_id='+id+' class="base_row" sequence="'+sequence+'"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
 					}
 					else {
 						$( "tr[row_id='"+id+"']" ).remove();
 					}
 
-					// orderBySequence(myparent, sequence);
+					var this_tbody = $( "#tbody_sort" ).get(0)
+
+					orderBySequence(this_tbody);
 
 					computeTotal();
 				}		
@@ -91,8 +93,6 @@ var ajax = require('web.ajax');
 		}
 
 		function checkDependencies() {
-			console.log('test')
-
 			var areas = $( '.functionnal-area' )
 			// var dependencies = $( '.depend_name' )
 
@@ -118,7 +118,7 @@ var ajax = require('web.ajax');
 						checkbox.trigger("click")
 					}
 					// if one of the depends is not checked -> uncheck area
-					console.log('condition passed')
+					console.log('checked dependencies')
 				}
 			}
 		}
@@ -145,15 +145,27 @@ var ajax = require('web.ajax');
 			});
 		}
 
-		function orderBySequence(parent, sequence) {
-			var areas = $( '.functionnal-area' )
-			var list = []
+		function orderBySequence(tbody) {
+			var new_tbody = tbody.cloneNode(false);
 
-			console.log(areas)
+		    // Add all rows to an array
+		    var rows = [];
+		    for (var i = tbody.childNodes.length; i--;) {
+		        if (tbody.childNodes[i].nodeName === 'TR')
+		            rows.push(tbody.childNodes[i]);
+		        console.log(rows)
+		    }
 
-			for (var idx = 0; idx < areas.length; idx++) {
-				list[idx] = sequence;
-			}
+		    // Sort the rows in descending order
+		    rows.sort(function(a, b){
+		       return a.getAttribute('sequence') - 
+		              b.getAttribute('sequence');
+		    });
+
+		    // Add them into the tbody in order
+		    for(var i = 0; i < rows.length; i++)
+		        new_tbody.appendChild(rows[i]);
+		    tbody.parentNode.replaceChild(new_tbody, tbody);
 		}
 
 		function updateDependRow(checkbox) {

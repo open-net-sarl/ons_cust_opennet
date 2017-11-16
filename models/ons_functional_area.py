@@ -6,6 +6,7 @@ from odoo import api, models, fields
 
 class OnsFunctionnalArea(models.Model):
     _name = "ons.functionnal.area"
+    _order = "sequence"
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
@@ -13,7 +14,8 @@ class OnsFunctionnalArea(models.Model):
     depend_area_ids = fields.One2many(
         'ons.functionnal.area',
         string="Depends on areas",
-        inverse_name='functionnal_area_id'
+        inverse_name='functionnal_area_id',
+        ondelete='restrict'
     )
     app_ids = fields.Many2many('ir.module.module', string="Apps")
     logo = fields.Binary(string="Logo to upload")

@@ -37,7 +37,6 @@
 					<hr/>
 					<div class="row">
 						<t t-foreach="areas" t-as="area">
-							
 							<div class="col-md-4 mb16 ons-pricing-area functionnal-area">
 								<div class="row ons-pricing-row">
 									<div class="col-md-3 ons-pricing-logo">
@@ -51,7 +50,7 @@
 											<!-- t-attf-id="{{ area.id }}" -->
 										</t>
 										<t t-elif="area.sequence == 1">
-											<input type="checkbox" disabled="disabled" class="checkbox" checked="checked"/>
+											<input type="checkbox" disabled="disabled" class="checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
 										</t>
 										<t t-foreach="area.depend_area_ids" t-as="depend">
 											<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}"/>
@@ -60,7 +59,6 @@
 									</div>
 								</div>
 							</div>
-
 						</t>
 					</div>
 					<hr/>
@@ -91,15 +89,15 @@
 						        	<th class="text-right">Annualy</th>
 						      	</tr>
 						    </thead>
-						    <tbody>
-								<tr class="base_row">
+						    <tbody id="tbody_sort">
+								<tr class="base_row" t-attf-sequence="0">
 									<td><span id="user_selected"/></td>
 									<td class="text-right monthly"><span id="monthly_price"/></td>
 									<td class="text-right annualy"><span id="annualy_price"/></td>
 								</tr>
 								<t t-foreach="areas" t-as="area">
 									<t t-if="area.sequence == 1">
-										<tr class="base_row">
+										<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
 											<td><span t-field="area.name" class="area_name_data"/></td>
 											<td class="text-right monthly"><span t-field="area.price" class="area_price_data"/></td>
 											<td class="text-right annualy"><span class="area_annualy_price_data"/></td>
@@ -107,7 +105,7 @@
 									</t>
 								</t>
 
-								<tr class="active">
+								<tr class="active" t-attf-sequence="9999">
 									<td>Total</td>
 									<td class="text-right"><span class="monthly_total"/></td>
 									<td class="text-right"><span class="annualy_total"/></td>
@@ -117,25 +115,7 @@
                     </div>
 				</div>
 			</div>
-		
 		</t>
-		<script>
-			<!-- var last_id = -100;
-			$('.ons-pricing-area').on("click", function(){
-				// Récupérer l'id de l'attribut
-				var id_attr = $(this).attr('index-number')
-				console.log(id_attr);
-				// Afficher la div correspondant à l'id
-				if(last_id == id_attr){
-					$("[index-number-info="+last_id+"]").toggleClass('hide')
-				}
-				else{
-					$("[index-number-info="+last_id+"]").addClass('hide')
-					$("[index-number-info="+id_attr+"]").removeClass('hide')
-				}
-				last_id = id_attr;
-			}); -->
-		</script>
 	</template>
 
 	<record id="opennet_pricing_user" model="ir.ui.view">
