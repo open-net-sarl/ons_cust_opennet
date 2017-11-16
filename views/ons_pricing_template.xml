@@ -52,7 +52,7 @@
 										<t t-elif="area.sequence == 1">
 											<input type="checkbox" disabled="disabled" class="checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
 										</t>
-										<t t-foreach="area.depend_area_ids" t-as="depend">
+										<t t-foreach="area.area_dependencies_id.depend_area_ids" t-as="depend">
 											<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}"/>
 										</t>
 										<span t-field="area.sequence" class="sequence" t-attf-sequence-id="{{ slug(area) }}" />

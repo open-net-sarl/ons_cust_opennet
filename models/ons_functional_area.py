@@ -10,13 +10,27 @@ class OnsFunctionnalArea(models.Model):
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
-    functionnal_area_id = fields.Many2one('ons.functionnal.area')
-    depend_area_ids = fields.One2many(
-        'ons.functionnal.area',
-        string="Depends on areas",
-        inverse_name='functionnal_area_id',
-        ondelete='restrict'
-    )
+    area_dependencies_id = fields.Many2one(
+        'ons.dependencies.area')
     app_ids = fields.Many2many('ir.module.module', string="Apps")
     logo = fields.Binary(string="Logo to upload")
-    sequence = fields.Integer(string="Séquence", required=True, default=1)
+    sequence = fields.Integer(string="Séquence", required=True)
+
+class OnsAreaDependencies(models.Model):
+    _name = 'ons.dependencies.area'
+
+    @api.multi
+    def _get_name(self):
+        for dependencie in self:
+            dependencie.name = ','.join(
+                [depend.name for depend in dependencie.depend_area_ids]
+            )
+
+    name = fields.Char(string="Name", compute="_get_name")
+    functionnal_area_id = fields.Many2one(
+        'ons.functionnal.area',
+        ondelete='set null')
+    depend_area_ids = fields.Many2many(
+        'ons.functionnal.area',
+        string="Depends on areas",
+    )

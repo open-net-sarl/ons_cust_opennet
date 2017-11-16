@@ -131,16 +131,23 @@ var ajax = require('web.ajax');
 				} else  {
 					// var parent = this.parentNode
 					var parent = $( this ).parent();
-					var depend_area_id = parent.find( ".depend_name" ).attr( 'depend-id' )
-					var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
+					var depend_areas = parent.contents( ".depend_name" )
 
-					if (depend_checkbox.is(':checked')) {
-						console.log('already checked')
+					for (var idx = 0; idx < depend_areas.length; idx++) {
+						var depend_area_id = $(depend_areas[idx]).attr( 'depend-id' )
 
-					} else {
-						updateDependRow(depend_checkbox);
-						depend_checkbox.trigger('click');
+						// var depend_area_id = parent.contents( ".depend_name" ).attr( 'depend-id' )
+						var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
+
+						if (depend_checkbox.is(':checked')) {
+							console.log('already checked')
+
+						} else {
+							updateDependRow(depend_checkbox);
+							depend_checkbox.trigger('click');
+						}
 					}
+					
 				}
 			});
 		}
@@ -153,7 +160,6 @@ var ajax = require('web.ajax');
 		    for (var i = tbody.childNodes.length; i--;) {
 		        if (tbody.childNodes[i].nodeName === 'TR')
 		            rows.push(tbody.childNodes[i]);
-		        console.log(rows)
 		    }
 
 		    // Sort the rows in descending order

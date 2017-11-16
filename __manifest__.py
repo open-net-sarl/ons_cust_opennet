@@ -51,6 +51,7 @@
         'views/ons_pricing_template.xml',
         'views/ons_pricing_option_view.xml',
         'views/ons_hosting_view.xml',
+        'views/ons_area_dependencies.xml'
     ],
     'installable': True
 }

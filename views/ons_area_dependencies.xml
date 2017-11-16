@@ -1,0 +1,41 @@
+<odoo>
+	<data>
+		<record id="dependencies_area_tree_view" model="ir.ui.view">
+	        <field name="name">ONS dependencies area tree</field>
+	        <field name="model">ons.dependencies.area</field>
+	        <field name="priority" eval="8"/>
+	        <field name="arch" type="xml">
+	            <tree string="dependencies area tree">
+	                <field name="functionnal_area_id"/>
+                    <field name="depend_area_ids"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.ui.view" id="dependencies_area_form_view">
+            <field name="name">ONS dependencies area form</field>
+            <field name="model">ons.dependencies.area</field>
+            <field name="arch" type="xml">
+                <form string="dependencies area form">
+                    <sheet>
+                        <group>
+                            <field name="functionnal_area_id" invisible="1"/>
+                            <field name="depend_area_ids" widget="many2many_tags" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dependencies_area_action">
+            <field name="name">ONS dependencies area</field>
+            <field name="res_model">ons.dependencies.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="dependencies_area_menu" name="ONS dependencies area"
+                  parent="website.menu_website_global_configuration"
+                  action="dependencies_area_action"/>
+    </data>
+</odoo>
