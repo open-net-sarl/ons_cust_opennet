@@ -6,8 +6,14 @@ from odoo import api, models, fields
 
 class OnsHosting(models.Model):
     _name = 'ons.hosting'
+    _order = "sequence"
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
     description = fields.Text(string="Description")
     logo = fields.Binary(string="Logo to upload")
+    sequence = fields.Integer(string="Séquence", required=True)
+
+    _sql_constraints = [
+        ('sequence_uniq', 'unique (sequence)', 'Each sequence must be unique.')
+    ]

@@ -16,6 +16,10 @@ class OnsFunctionnalArea(models.Model):
     logo = fields.Binary(string="Logo to upload")
     sequence = fields.Integer(string="Séquence", required=True)
 
+    _sql_constraints = [
+        ('sequence_uniq', 'unique (sequence)', 'Each sequence must be unique.')
+    ]
+
 class OnsAreaDependencies(models.Model):
     _name = 'ons.dependencies.area'
 

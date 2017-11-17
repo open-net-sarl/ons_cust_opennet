@@ -13,6 +13,7 @@ var ajax = require('web.ajax');
 		addRow($( ".tech_checkbox" ));
 		addRow($( ".misc_checkbox" ));
 		addRow($( ".hosting_checkbox" ));
+		uncheckHosting($( ".hosting_checkbox" ));
 
 		followScroll(40, 200);
 
@@ -64,7 +65,13 @@ var ajax = require('web.ajax');
 		function addRow(checkbox) {
 			checkbox.click(function(event) {
 				var myparent = $( this ).parent();
-
+				var this_tbody = $( "#tbody_area" )
+				if (this.className == 'logi_checkbox' || this.className == 'tech_checkbox' || this.className == 'misc_checkbox') {
+					this_tbody = $( "#tbody_option" )
+				}
+				if (this.className == 'hosting_checkbox') {
+					this_tbody = $( "#tbody_hosting" )
+				}
 				if (myparent != null) {
 
 					var id = myparent.attr( 'id' )
@@ -72,19 +79,17 @@ var ajax = require('web.ajax');
 					var price = parseInt(myparent.find( ".data_price" ).text());
 					var sequence = parseInt(myparent.find( ".sequence" ).text());
 					var annualy_price = price * 12
-					var last_row = $( ".base_row:last" )
+					// var last_row = $( ".base_row:last" )
 					var this_checkbox = $( "input[id='"+id+"']" )
 
 					if (this_checkbox.is(':checked')) {
-						last_row.after( '<tr row_id='+id+' class="base_row" sequence="'+sequence+'"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+'"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
 					}
 					else {
 						$( "tr[row_id='"+id+"']" ).remove();
 					}
 
-					var this_tbody = $( "#tbody_sort" ).get(0)
-
-					orderBySequence(this_tbody);
+					orderBySequence(this_tbody.get(0));
 
 					computeTotal();
 				}		
@@ -94,7 +99,6 @@ var ajax = require('web.ajax');
 
 		function checkDependencies() {
 			var areas = $( '.functionnal-area' )
-			// var dependencies = $( '.depend_name' )
 
 			for (var idx = 0; idx < areas.length; idx++) {
 				var checkbox = $(areas[idx]).find('input')
@@ -118,15 +122,31 @@ var ajax = require('web.ajax');
 						checkbox.trigger("click")
 					}
 					// if one of the depends is not checked -> uncheck area
-					console.log('checked dependencies')
 				}
 			}
+		}
+
+		function uncheckHosting(checkbox) {
+			checkbox.click(function(event) {
+				var areas = $( '.hosting-area' )
+
+				if (this.checked) {
+					for (var idx = 0; idx < areas.length; idx++) {
+						var checkbox = $(areas[idx]).find('input')
+
+						if (checkbox.is(':checked')) {
+							if (checkbox[0] != this) {
+								checkbox.trigger("click")	
+							}
+						}
+					}
+				}
+			});
 		}
 
 		function dependArea(checkbox) {
 			checkbox.click(function(event) {
 				if (!this.checked) {
-					console.log('calling checkDependencies')
 					checkDependencies();
 				} else  {
 					// var parent = this.parentNode
@@ -140,7 +160,6 @@ var ajax = require('web.ajax');
 						var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
 
 						if (depend_checkbox.is(':checked')) {
-							console.log('already checked')
 
 						} else {
 							updateDependRow(depend_checkbox);
