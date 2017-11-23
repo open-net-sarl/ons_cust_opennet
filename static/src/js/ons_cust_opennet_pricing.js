@@ -7,8 +7,8 @@ var ajax = require('web.ajax');
 
 		initializeValues();
 
-		addRow($( ".area_checkbox" ));
-		dependArea($( ".area_checkbox" ));
+		addRow($( ".area-checkbox" ));
+		dependArea($( ".area-checkbox" ));
 		addRow($( ".logi_checkbox" ));
 		addRow($( ".tech_checkbox" ));
 		addRow($( ".misc_checkbox" ));
@@ -64,7 +64,7 @@ var ajax = require('web.ajax');
 
 		function addRow(checkbox) {
 			checkbox.click(function(event) {
-				var myparent = $( this ).parent();
+				var myparent = $( this ).parent().parent();
 				var this_tbody = $( "#tbody_area" )
 				if (this.className == 'logi_checkbox' || this.className == 'tech_checkbox' || this.className == 'misc_checkbox') {
 					this_tbody = $( "#tbody_option" )

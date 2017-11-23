@@ -9,28 +9,62 @@
     margin-bottom: 0 !important;
 }
 
-.ons-pricing-title {
-	background-color: #F2F2F2;
-}
-
 .ons-pricing-area {
 	transition-property: background-color;
     transition-duration: 1s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-.ons-pricing-row:hover {
-	background-color: #E3F2FD;
+.ons-pricing-row {
+	padding: 15px 0 15px 0;
 }
+
+.ons-pricing-row-modules {
+	padding: 0 0 15px 0;
+}
+
+.ons-pricing-row-modules h4 {
+
+}
+
+/*.ons-pricing-row:hover {
+	background-color: #E3F2FD;
+}*/
 
 .ons-pricing-logo {
-	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
 
-.ons-pricing-app {
+/*.ons-pricing-app {
 	padding-right: 0px !important;
+}*/
+
+.ons-pricing-app {
+	display: inline-block;
+}
+
+.ons-pricing-app-name{
+	background-color: #F2F2F2;
+    padding-left: 5px;
+    font-size: 120%;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.ons-pricing-logo-image {
+	padding: 0px 0px 5px 0px;
 }
 
 .ons-pricing-info:not(.hide) {
  	transition: max-height .3s ease-in-out,margin-bottom .1s .2s;
+}
+
+.ons-pricing-app-price {
+	font-size: 14px;
+    padding: 10px 5px 5px 5px; 
+}
+
+.area-checkbox {
+	display: inline-block;
+	float: right;
 }

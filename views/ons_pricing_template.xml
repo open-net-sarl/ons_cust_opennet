@@ -43,20 +43,22 @@
 						<div class="col-md-12">
 							<hr/>
 							<t t-foreach="areas" t-as="area">
-								<div class="col-md-4 mb16 ons-pricing-area functionnal-area">
-									<div class="row ons-pricing-row">
-										<div class="col-md-3 ons-pricing-logo">
+								<div class="col-md-6 col-xs-6 ons-pricing-area functionnal-area">
+									<div class="row ons-pricing-row" t-attf-id="{{ slug(area) }}">
+										<div class="col-md-2 col-xs-2 ons-pricing-logo">
 											<div t-field="area.logo" t-options="{'widget': 'image'}"/>
 										</div>
-										<div class="col-md-9 ons-pricing-app" t-attf-id="{{ slug(area) }}">
-											<h3 t-field="area.name" class="mt0 ons-pricing-title data_title"></h3>
-											<span t-field="area.price" class="data_price"/> CHF
+										<div class="col-md-10 col-xs-10 ons-pricing-app" t-attf-id="{{ slug(area) }}">
+											<div class="ons-pricing-app-name text-uppercase">
+												<span t-field="area.name" class="mt0 ons-pricing-title data_title"/>
+											</div>
+											<!--<span t-field="area.price" class="data_price ons-pricing-app-price"/> CHF-->
 											<t t-if="area.sequence != 1">
-												<input type="checkbox" class="area_checkbox checkbox"  t-attf-id="{{ slug(area) }}"/>
+												<input type="checkbox" class="area-checkbox checkbox text-right"  t-attf-id="{{ slug(area) }}"/>
 												<!-- t-attf-id="{{ area.id }}" -->
 											</t>
 											<t t-elif="area.sequence == 1">
-												<input type="checkbox" disabled="disabled" class="checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
+												<input type="checkbox" disabled="disabled" class="area-checkbox checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
 											</t>
 											<t t-foreach="area.area_dependencies_id.depend_area_ids" t-as="depend">
 												<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}" style="display: none;"/>
@@ -64,10 +66,20 @@
 											<span t-field="area.sequence" class="sequence" t-attf-sequence-id="{{ slug(area) }}" style="display: none;"/>
 										</div>
 									</div>
+									<div class="row ons-pricing-row-modules">
+										<div class="col-md-12 col-xs-12">
+											<h4>Ce Pack fonctionnel contient</h4>
+										</div>
+										<t t-foreach="area.app_ids" t-as="app">
+											<div class="col-md-2 col-xs-2 ons-pricing-logo">
+												<div t-field="app.icon_image" t-options="{'widget': 'image'}"/>
+												<span t-field="app.shortdesc" />
+											</div>
+										</t>
+									</div>
 								</div>
 							</t>
 						</div>
-						<hr/>
 						<t t-set="options" t-value="options_logi"/>
 						<t t-set="option_class">logi_checkbox</t>
 						<t t-set="div_class">col-md-4 mb16 ons-pricing-area</t>
@@ -88,7 +100,7 @@
 						<t t-set="div_class">col-md-4 mb16 ons-pricing-area hosting-area</t>
 						<t t-call="ons_cust_opennet.generic_grid"/>
 					</div>
-					<div class="col-md-3 col-xs-12 follow-scroll">
+					<div class="col-md-3 col-xs-3 follow-scroll">
 						<div class="o_my_contact">  
 					        <h3>Pricing</h3>
 					        <table class="table">
