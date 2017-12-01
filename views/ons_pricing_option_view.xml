@@ -24,6 +24,7 @@
                         <group>
                             <field name="name"/>
                             <field name="price"/>
+                            <field name="description"/>
                             <field name="sequence"/>
                             <field name="option_type"/>
                             <field name="app_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}}"/>

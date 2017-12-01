@@ -410,8 +410,10 @@ class opennet_price(http.Controller):
     """docstring for ClassName"""
     @http.route(['/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):
-
-        areas = request.env['ons.functionnal.area'].search([])
+        # lang = request.env['res.lang'].search(
+        #     [('code', '=', 'fr_FR')]
+        # )
+        areas = request.env['ons.functionnal.area'].with_context({'lang': 'fr_FR'}).search([])
         options_logi = request.env['ons.pricing.option'].search(
             [('option_type', '=', 'logistic')]
         )

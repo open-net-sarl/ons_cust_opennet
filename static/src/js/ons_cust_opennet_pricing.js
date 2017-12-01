@@ -15,18 +15,24 @@ var ajax = require('web.ajax');
 		addRow($( ".hosting_checkbox" ));
 		uncheckHosting($( ".hosting_checkbox" ));
 
+	
 		followScroll(40, 200);
+		
 
 		function initializeValues() {
-			$( "#user_selected" ).text( "1 user" )
+			$( "#user_selected" ).text( "1 utilisateur" )
 
 			var user_pricing = $( "#user_pricing" ).text();
 			var users = $( "#user_select" ).val();
 
 			writeUserPrice(user_pricing, users);
 
-			var area_price = parseInt($( ".area_price_data" ).text());
+			var area_price = parseFloat($( ".area_price_data" ).text());
 			var area_annualy_price = area_price * 12
+
+			area_price = area_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+			area_annualy_price = area_annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+
 			$( ".area_price_data" ).text( area_price )
 			$( ".area_annualy_price_data" ).text( area_annualy_price )
 
@@ -38,13 +44,13 @@ var ajax = require('web.ajax');
 			var user_pricing = $( "#user_pricing" ).text();
 
 			if (users == '') {
-				$( "#user_selected" ).text( "0 user" )
+				$( "#user_selected" ).text( "0 utilisateur" )
 			} 
 			else if (users == '1'){
-				$( "#user_selected" ).text( "1 user" )
+				$( "#user_selected" ).text( "1 utilisateur" )
 			} 
 			else {
-				$( "#user_selected" ).text( users + " users" )
+				$( "#user_selected" ).text( users + " utilisateurs" )
 			}
 
 			writeUserPrice(user_pricing, users);
@@ -56,6 +62,9 @@ var ajax = require('web.ajax');
 			var monthly_price = user_pricing * users
 			var annualy_price = user_pricing * users * 12
 
+			monthly_price = monthly_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+			annualy_price = annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+
 			$( "#monthly_price" ).text( monthly_price )
 			$( "#annualy_price" ).text( annualy_price )
 
@@ -65,6 +74,7 @@ var ajax = require('web.ajax');
 		function addRow(checkbox) {
 			checkbox.click(function(event) {
 				var myparent = $( this ).parent().parent();
+				var parent_row = myparent.parent();
 				var this_tbody = $( "#tbody_area" )
 				if (this.className == 'logi_checkbox' || this.className == 'tech_checkbox' || this.className == 'misc_checkbox') {
 					this_tbody = $( "#tbody_option" )
@@ -76,17 +86,21 @@ var ajax = require('web.ajax');
 
 					var id = myparent.attr( 'id' )
 					var name = myparent.find( ".data_title" ).text();
-					var price = parseInt(myparent.find( ".data_price" ).text());
+					var price = parseFloat(myparent.find( ".data_price" ).text());
 					var sequence = parseInt(myparent.find( ".sequence" ).text());
 					var annualy_price = price * 12
-					// var last_row = $( ".base_row:last" )
 					var this_checkbox = $( "input[id='"+id+"']" )
+
+					price = price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+					annualy_price = annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 					if (this_checkbox.is(':checked')) {
 						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+'"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+						parent_row.addClass( "selected" )
 					}
 					else {
 						$( "tr[row_id='"+id+"']" ).remove();
+						parent_row.removeClass( "selected" )
 					}
 
 					orderBySequence(this_tbody.get(0));
@@ -95,6 +109,49 @@ var ajax = require('web.ajax');
 				}		
 			});
 
+		}
+
+		function computeTotal(){
+			var monthly = 0
+			var annualy = 0
+
+			$( "tr.base_row" ).each(function() {
+				monthly += parseFloat($( this ).find( ".monthly span" ).text().replace(' ',''));
+				annualy += parseFloat($( this ).find( ".annualy span" ).text().replace(' ',''));
+			});
+
+			monthly = monthly.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+			annualy = annualy.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+
+			$( ".monthly_total" ).text( monthly );
+			$( ".annualy_total" ).text( annualy );
+		}
+
+		function dependArea(checkbox) {
+			checkbox.click(function(event) {
+				if (!this.checked) {
+					checkDependencies();
+				} else  {
+					// var parent = this.parentNode
+					var parent = $( this ).parent();
+					var depend_areas = parent.contents( ".depend_name" )
+
+					for (var idx = 0; idx < depend_areas.length; idx++) {
+						var depend_area_id = $(depend_areas[idx]).attr( 'depend-id' )
+
+						// var depend_area_id = parent.contents( ".depend_name" ).attr( 'depend-id' )
+						var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
+
+						if (depend_checkbox.is(':checked')) {
+
+						} else {
+							updateDependRow(depend_checkbox);
+							depend_checkbox.trigger('click');
+						}
+					}
+					
+				}
+			});
 		}
 
 		function checkDependencies() {
@@ -126,49 +183,20 @@ var ajax = require('web.ajax');
 			}
 		}
 
-		function uncheckHosting(checkbox) {
-			checkbox.click(function(event) {
-				var areas = $( '.hosting-area' )
+		function updateDependRow(checkbox) {
+			var myparent = checkbox.parent();
 
-				if (this.checked) {
-					for (var idx = 0; idx < areas.length; idx++) {
-						var checkbox = $(areas[idx]).find('input')
+			if (myparent != null) {
 
-						if (checkbox.is(':checked')) {
-							if (checkbox[0] != this) {
-								checkbox.trigger("click")	
-							}
-						}
-					}
-				}
-			});
-		}
+				var id = myparent.attr( 'id' )
+				var name = myparent.find( ".data_title" ).text();
+				var price = parseInt(myparent.find( ".data_price" ).text());
+				var annualy_price = price * 12
+				var last_row = $( ".base_row:last" )
+				var this_checkbox = $( "input[id='"+id+"']" )
 
-		function dependArea(checkbox) {
-			checkbox.click(function(event) {
-				if (!this.checked) {
-					checkDependencies();
-				} else  {
-					// var parent = this.parentNode
-					var parent = $( this ).parent();
-					var depend_areas = parent.contents( ".depend_name" )
-
-					for (var idx = 0; idx < depend_areas.length; idx++) {
-						var depend_area_id = $(depend_areas[idx]).attr( 'depend-id' )
-
-						// var depend_area_id = parent.contents( ".depend_name" ).attr( 'depend-id' )
-						var depend_checkbox = $( "input[id='"+depend_area_id+"']" )
-
-						if (depend_checkbox.is(':checked')) {
-
-						} else {
-							updateDependRow(depend_checkbox);
-							depend_checkbox.trigger('click');
-						}
-					}
-					
-				}
-			});
+				computeTotal();
+			}		
 		}
 
 		function orderBySequence(tbody) {
@@ -193,33 +221,22 @@ var ajax = require('web.ajax');
 		    tbody.parentNode.replaceChild(new_tbody, tbody);
 		}
 
-		function updateDependRow(checkbox) {
-			var myparent = checkbox.parent();
+		function uncheckHosting(checkbox) {
+			checkbox.click(function(event) {
+				var areas = $( '.hosting-area' )
 
-			if (myparent != null) {
+				if (this.checked) {
+					for (var idx = 0; idx < areas.length; idx++) {
+						var checkbox = $(areas[idx]).find('input')
 
-				var id = myparent.attr( 'id' )
-				var name = myparent.find( ".data_title" ).text();
-				var price = parseInt(myparent.find( ".data_price" ).text());
-				var annualy_price = price * 12
-				var last_row = $( ".base_row:last" )
-				var this_checkbox = $( "input[id='"+id+"']" )
-
-				computeTotal();
-			}		
-		}
-
-		function computeTotal(){
-			var monthly = 0
-			var annualy = 0
-
-			$( "tr.base_row" ).each(function() {
-				monthly += parseInt($( this ).find( ".monthly span" ).text());
-				annualy += parseInt($( this ).find( ".annualy span" ).text());
+						if (checkbox.is(':checked')) {
+							if (checkbox[0] != this) {
+								checkbox.trigger("click")	
+							}
+						}
+					}
+				}
 			});
-
-			$( ".monthly_total" ).text( monthly );
-			$( ".annualy_total" ).text( annualy );
 		}
 
 		function followScroll(topMargin, time) {
@@ -240,6 +257,13 @@ var ajax = require('web.ajax');
 		        }, this.time);
 		    });
 		}
+
+		$(window).bind("resize", function () {
+		    console.log($(this).width())
+		    if ($(this).width() > 1000) {
+		        $('div').removeClass('follow-scroll')
+		    }
+		}).trigger('resize');
 
 	});
 

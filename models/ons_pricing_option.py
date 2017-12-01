@@ -10,9 +10,11 @@ class OnsPricingOption(models.Model):
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
+    description = fields.Text(string="Description")
     app_ids = fields.Many2many('ir.module.module', string="Apps")
     logo = fields.Binary(string="Logo to upload")
     sequence = fields.Integer(string="Séquence", required=True, select=True)
+
     option_type = fields.Selection([
         ('logistic', 'Intégration logistique'),
         ('technical', 'Outils techniques'),

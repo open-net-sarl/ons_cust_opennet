@@ -25,6 +25,7 @@
                         <group>
                             <field name="name"/>
                             <field name="price"/>
+                            <field name="description"/>
                             <field name="sequence"/>
                             <field name="area_dependencies_id" context="{'default_functionnal_area_id': active_id}"/>
 <!--                             <field name="depend_area_ids" widget="many2many_tags"/> -->

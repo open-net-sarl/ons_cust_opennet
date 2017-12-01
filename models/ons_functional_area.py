@@ -10,6 +10,7 @@ class OnsFunctionnalArea(models.Model):
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
+    description = fields.Text(string="Description")
     area_dependencies_id = fields.Many2one(
         'ons.dependencies.area')
     app_ids = fields.Many2many('ir.module.module', string="Apps")
