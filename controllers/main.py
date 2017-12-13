@@ -410,25 +410,26 @@ class opennet_price(http.Controller):
     """docstring for ClassName"""
     @http.route(['/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):
-        # lang = request.env['res.lang'].search(
-        #     [('code', '=', 'fr_FR')]
-        # )
-        areas = request.env['ons.functionnal.area'].with_context({'lang': 'fr_FR'}).search([])
-        options_logi = request.env['ons.pricing.option'].search(
+
+        areas = request.env['ons.functionnal.area'].with_context({'lang': 'fr_FR'}).sudo().search([])
+
+        options_logi = request.env['ons.pricing.option'].sudo().search(
             [('option_type', '=', 'logistic')]
         )
-        options_misc = request.env['ons.pricing.option'].search(
+        options_misc = request.env['ons.pricing.option'].sudo().search(
             [('option_type', '=', 'misc')]
         )
-        options_tech = request.env['ons.pricing.option'].search(
+        options_tech = request.env['ons.pricing.option'].sudo().search(
             [('option_type', '=', 'technical')]
         )
 
-        hosting = request.env['ons.hosting'].search([])
+        hosting = request.env['ons.hosting'].sudo().search([])
 
-        ons_user_price = request.env['res.company'].search_read(
+        ons_user_price = request.env['res.company'].sudo().search_read(
             [], fields=['ons_user_price']
         )
+
+        pricing = request.env['ons.user.pricing'].search([])
 
         values = {
             'areas': areas,
@@ -437,6 +438,7 @@ class opennet_price(http.Controller):
             'options_tech': options_tech,
             'hosting': hosting,
             'user_price': ons_user_price,
+            'prices': pricing,
         }
 
         return request.render(

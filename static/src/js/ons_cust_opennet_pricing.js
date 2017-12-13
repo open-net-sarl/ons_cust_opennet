@@ -28,13 +28,10 @@ var ajax = require('web.ajax');
 			writeUserPrice(user_pricing, users);
 
 			var area_price = parseFloat($( ".area_price_data" ).text());
-			var area_annualy_price = area_price * 12
 
 			area_price = area_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-			area_annualy_price = area_annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 			$( ".area_price_data" ).text( area_price )
-			$( ".area_annualy_price_data" ).text( area_annualy_price )
 
 			computeTotal();
 		}
@@ -60,13 +57,10 @@ var ajax = require('web.ajax');
 
 		function writeUserPrice(user_pricing, users) {
 			var monthly_price = user_pricing * users
-			var annualy_price = user_pricing * users * 12
 
 			monthly_price = monthly_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-			annualy_price = annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 			$( "#monthly_price" ).text( monthly_price )
-			$( "#annualy_price" ).text( annualy_price )
 
 			computeTotal();
 		}
@@ -88,14 +82,14 @@ var ajax = require('web.ajax');
 					var name = myparent.find( ".data_title" ).text();
 					var price = parseFloat(myparent.find( ".data_price" ).text());
 					var sequence = parseInt(myparent.find( ".sequence" ).text());
-					var annualy_price = price * 12
 					var this_checkbox = $( "input[id='"+id+"']" )
 
 					price = price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-					annualy_price = annualy_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 					if (this_checkbox.is(':checked')) {
-						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+'"><td>'+name+'</td><td class="text-right monthly"><span>'+price+'</span></td><td class="text-right annualy"><span>'+annualy_price+'</span></td></tr>' )
+						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+
+							'"><td>'+name+'</td><td class="text-right monthly"><span>'
+							+price+'</span></td></tr>' )
 						parent_row.addClass( "selected" )
 					}
 					else {
@@ -113,18 +107,14 @@ var ajax = require('web.ajax');
 
 		function computeTotal(){
 			var monthly = 0
-			var annualy = 0
 
 			$( "tr.base_row" ).each(function() {
 				monthly += parseFloat($( this ).find( ".monthly span" ).text().replace(' ',''));
-				annualy += parseFloat($( this ).find( ".annualy span" ).text().replace(' ',''));
 			});
 
 			monthly = monthly.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-			annualy = annualy.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 			$( ".monthly_total" ).text( monthly );
-			$( ".annualy_total" ).text( annualy );
 		}
 
 		function dependArea(checkbox) {
@@ -191,7 +181,6 @@ var ajax = require('web.ajax');
 				var id = myparent.attr( 'id' )
 				var name = myparent.find( ".data_title" ).text();
 				var price = parseInt(myparent.find( ".data_price" ).text());
-				var annualy_price = price * 12
 				var last_row = $( ".base_row:last" )
 				var this_checkbox = $( "input[id='"+id+"']" )
 
@@ -239,27 +228,35 @@ var ajax = require('web.ajax');
 			});
 		}
 
-		function followScroll(topMargin, time) {
-		    var element = $( '.follow-scroll' ),
-		        originalY = element.offset().top;
+		// function followScroll(topMargin, time) {
+		//     var element = $( '.follow-scroll' ),
+		//         originalY = element.offset().top;
 		    
-		    // Space between element and top of screen (when scrolling)
-		    var topMargin = topMargin;
+		//     // Space between element and top of screen (when scrolling)
+		//     var topMargin = topMargin;
 		    
-		    // Should probably be set in CSS; but here just for emphasis
-		    element.css('position', 'relative');
+		//     // Should probably be set in CSS; but here just for emphasis
+		//     element.css('position', 'relative');
 		    
-		    $( window ).on('scroll', function(event) {
-		        var scrollTop = $( window ).scrollTop();
+		//     $( window ).on('scroll', function(event) {
+		//         var scrollTop = $( window ).scrollTop();
 		        
-		        element.stop(false, false).animate({
-		            top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
-		        }, this.time);
-		    });
-		}
+		//         element.stop(false, false).animate({
+		//             top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
+		//         }, this.time);
+		//     });
+		// }
+
+		$( '.ons-pricing-row-include-title' ).click(function(event){
+			var parent = $(this).parent()
+			var i = $(this).children().find( '.fa' )
+			i.toggleClass( "fa-plus" )
+			i.toggleClass( "fa-minus" )
+			var div = parent.find( '.ons-pricing-row-include-text' )
+			div.toggle("blind");
+		});
 
 		$(window).bind("resize", function () {
-		    console.log($(this).width())
 		    if ($(this).width() > 1000) {
 		        $('div').removeClass('follow-scroll')
 		    }

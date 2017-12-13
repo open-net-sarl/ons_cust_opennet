@@ -17,3 +17,16 @@ class Invoice(models.Model):
         for invoice in self:
             for payment in invoice.payment_move_line_ids:
                 invoice.last_payment_date = payment.date
+
+    @api.multi
+    def get_grouped_taxes_values(self):
+        tax_grouped = {}
+        for line in self.tax_line_ids:
+                val = line.amount
+                key = line.name
+
+                if key not in tax_grouped:
+                    tax_grouped[key] = 0.0
+                tax_grouped[key] += val
+
+        return tax_grouped

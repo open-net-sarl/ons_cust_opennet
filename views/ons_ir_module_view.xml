@@ -1,0 +1,45 @@
+<odoo>
+	<data>
+		<record id="ons_ir_module_tree_view" model="ir.ui.view">
+	        <field name="name">ONS ir module tree</field>
+	        <field name="model">ons.ir.module</field>
+	        <field name="priority" eval="8"/>
+	        <field name="arch" type="xml">
+	            <tree string="ONS modules tree">
+	                <field name="name"/>
+                    <field name="shortdesc"/>
+                    <field name="license"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.ui.view" id="ons_ir_module_form_view">
+            <field name="name">ONS ir module form</field>
+            <field name="model">ons.ir.module</field>
+            <field name="arch" type="xml">
+                <form string="ONS modules form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="shortdesc"/>
+                            <field name="description"/>
+                            <field name="license"/>
+                            <field name="logo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ons_ir_module_action">
+            <field name="name">ONS ir module</field>
+            <field name="res_model">ons.ir.module</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ons_ir_module_menu" name="ONS ir module"
+                  parent="website.menu_website_global_configuration"
+                  action="ons_ir_module_action"/>
+    </data>
+</odoo>

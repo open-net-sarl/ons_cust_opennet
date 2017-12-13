@@ -239,12 +239,32 @@
                                     <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
                                 </td>
                             </tr>
+<!--
                             <tr style="page-break-inside: avoid;" >
                                 <td>TVA 8%</td>
                                 <td>
                                     <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
                                 </td>
                             </tr>
+
+                            <t t-foreach="o.tax_line_ids" t-as="tax_line">
+                                <tr style="page-break-inside: avoid;">
+                                    <td><span t-esc="tax_line.name"/></td>
+                                    <td>
+                                        <span t-field="tax_line.amount" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                            </t>
+-->
+                            <t t-set="tax_list" t-value="o.get_grouped_taxes_values()"/>
+                            <t t-foreach="tax_list" t-as="tax_name">
+                                <tr style="page-break-inside: avoid;">
+                                    <td><span t-esc="tax_name"/></td>
+                                    <td class="text-right">
+                                        <span t-esc="'%1.2f %s' % (tax_list[tax_name], o.currency_id.symbol)"/>
+                                    </td>
+                                </tr>
+                            </t>
                             <tr style="page-break-inside: avoid;" >
                                 <td>
                                     <strong>Total</strong>

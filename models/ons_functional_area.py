@@ -10,10 +10,10 @@ class OnsFunctionnalArea(models.Model):
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
-    description = fields.Text(string="Description")
+    description = fields.Html(string="Description")
     area_dependencies_id = fields.Many2one(
         'ons.dependencies.area')
-    app_ids = fields.Many2many('ir.module.module', string="Apps")
+    app_ids = fields.Many2many('ons.ir.module', string="Apps")
     logo = fields.Binary(string="Logo to upload")
     sequence = fields.Integer(string="Séquence", required=True)
 

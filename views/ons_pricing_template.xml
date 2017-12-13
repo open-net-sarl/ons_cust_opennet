@@ -13,7 +13,7 @@
 							<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
 						</div>
 						<div class="col-md-4">
-							<span t-esc="option.price" class="data_price"/> CHF <!-- t-options="{'widget': 'monetary', 'display_currency': 'website.currency_id'}" -->
+							<span t-esc="'%.2f' % option.price" class="data_price"/> CHF <!-- t-options="{'widget': 'monetary', 'display_currency': 'website.currency_id'}" -->
 						</div>
 						<div class="col-md-1">
 							<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
@@ -25,12 +25,34 @@
 		</div>
 	</template>
 
+	<template id="hosting_grid" name="Hosting grid">
+		<div class="col-md-12">
+			<hr/>
+			<!-- <t t-foreach="options" t-as="option"> -->
+				<div class="col-md-12 mb16 ons-pricing-area">
+					<div class="row ons-pricing-row">
+						<div class="col-md-12">
+							<h3>Sélectionner votre type d'hébergement</h3>
+							<label class="radio-inline"><input type="radio" name="optradio"/>Enterprise</label>
+							<label class="radio-inline"><input type="radio" name="optradio"/>Community</label>
+							<br/>
+							<t t-foreach="prices" t-as="price">
+								<span t-field="price.name" t-atff-hosting_id="{{ slug(price.hosting_id.name) }}" t-attf-nb_user="{{ price.nb_user }}"/>
+							</t>
+						</div>
+					</div>
+				</div>
+			<!-- </t> -->
+		</div>
+	</template>
+
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
 			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9 col-xs-9">
+					<div class="col-md-9 col-xs-12">
 						<div class="page-header">
 						  	<h1>Open-Net <small>pricing</small></h1>
 						</div>
@@ -80,15 +102,17 @@
 										<div class="col-md-12 col-xs-12">
 											<h4>Fonctionnalités</h4>
 										</div>
-										<t t-foreach="area.app_ids" t-as="app">
+										<t t-foreach="area.app_ids" t-as="module">
 											<div class="col-md-2 col-xs-6">
-												<div class="row mb16">
-													<div class="col-md-4 col-xs-4 ons-pricing-logo">
-														<div t-field="app.icon_image" t-options="{'widget': 'image'}"/>
+												<div class="row">
+													<div class="col-md-12 ons-pricing-logo" align="center">
+														<div t-field="module.logo" t-options="{'widget': 'image'}"/>
 													</div>
-													<div class="col-md-8 col-xs-8">
-														<span t-field="app.shortdesc"></span>
-														<t t-if="app.license == 'OEEL-1'">
+												</div>
+												<div class="row mb16">
+													<div class="col-md-12" align="center">
+														<span t-field="module.shortdesc"></span>
+														<t t-if="module.license == 'enterprise'">
 															<span> (E)</span>
 														</t>
 														<t t-else="">
@@ -100,10 +124,10 @@
 										</t>
 									</div>
 									<div class="row ons-pricing-row-include">
-										<div class="col-md-12 col-xs-12">
-											<h4>Inclu</h4>
+										<div class="col-md-12 col-xs-12 ons-pricing-row-include-title">
+											<h4>Inclu <i class="fa fa-plus" aria-hidden="true"></i></h4>
 										</div>
-										<div class="col-md-12 col-xs-12">
+										<div class="col-md-12 col-xs-12 ons-pricing-row-include-text" style="display: none;">
 											<p t-field="area.description"></p>
 										</div>
 									</div>
@@ -125,13 +149,15 @@
 						<t t-set="div_class">col-md-12 mb16 ons-pricing-area</t>
 						<t t-call="ons_cust_opennet.generic_grid"/>
 
+						<t t-call="ons_cust_opennet.hosting_grid"/>
+
 						<t t-set="options" t-value="hosting"/>
 						<t t-set="option_class">hosting_checkbox</t>
 						<t t-set="div_class">col-md-12 mb16 ons-pricing-area hosting-area</t>
 						<t t-call="ons_cust_opennet.generic_grid"/>
 					</div>
-					<div class="col-md-3 col-xs-3">
-						<div class="row follow-scroll">
+					<div class="col-md-3 col-xs-12">
+						<div class="row bs-sidebar">
 							<div class="col-md-12">
 								<div class="page-header">
 						  			<h1>Open-Net <small>pricing</small></h1>
@@ -141,14 +167,12 @@
 								      	<tr>
 								        	<th></th>
 								        	<th class="text-right">Mensuel</th>
-								        	<th class="text-right">Annuel</th>
 								      	</tr>
 								    </thead>
 								    <tbody>
 								    	<tr class="base_row" t-attf-sequence="0">
 											<td><span id="user_selected"/></td>
 											<td class="text-right monthly"><span id="monthly_price"/></td>
-											<td class="text-right annualy"><span id="annualy_price"/></td>
 										</tr>
 								    </tbody>
 								    <tbody id="tbody_area">
@@ -157,7 +181,6 @@
 												<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
 													<td><span t-field="area.name" class="area_name_data"/></td>
 													<td class="text-right monthly"><span t-esc="area.price" class="area_price_data"/></td>
-													<td class="text-right annualy"><span class="area_annualy_price_data"/></td>
 												</tr>
 											</t>
 										</t>
@@ -170,7 +193,6 @@
 										<tr class="active" t-attf-sequence="9999">
 											<td>Total</td>
 											<td class="text-right"><span class="monthly_total"/> CHF</td>
-											<td class="text-right"><span class="annualy_total"/> CHF</td>
 										</tr>
 									</tbody>
 								</table>
@@ -182,7 +204,7 @@
 		</t>
 	</template>
 
-	<record id="opennet_pricing_user" model="ir.ui.view">
+	<!-- <record id="opennet_pricing_user" model="ir.ui.view">
 		<field name="name">res.company.form</field>
 		<field name="model">res.company</field>
 		<field name="inherit_id" ref="base.view_company_form"/>
@@ -191,6 +213,6 @@
 	            <field name="ons_user_price" />
 	        </xpath>
 	    </field>
-    </record>
+    </record> -->
 
 </odoo>

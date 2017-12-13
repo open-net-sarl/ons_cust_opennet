@@ -1,0 +1,45 @@
+<odoo>
+	<data>
+		<record id="ons_user_pricing_tree_view" model="ir.ui.view">
+	        <field name="name">ONS user pricing tree</field>
+	        <field name="model">ons.user.pricing</field>
+	        <field name="priority" eval="8"/>
+	        <field name="arch" type="xml">
+	            <tree string="ONS user pricing tree">
+	                <field name="nb_user"/>
+                    <field name="hosting_id"/>
+                    <field name="types"/>
+                    <field name="price"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.ui.view" id="ons_user_pricing_form_view">
+            <field name="name">ONS user pricing form</field>
+            <field name="model">ons.user.pricing</field>
+            <field name="arch" type="xml">
+                <form string="ONS user pricing form">
+                    <sheet>
+                        <group>
+                            <field name="nb_user"/>
+                            <field name="hosting_id"/>
+                            <field name="types"/>
+                            <field name="price"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ons_user_pricing_action">
+            <field name="name">ONS user pricing</field>
+            <field name="res_model">ons.user.pricing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ons_user_pricing_menu" name="ONS user pricing"
+                  parent="website.menu_website_global_configuration"
+                  action="ons_user_pricing_action"/>
+    </data>
+</odoo>
