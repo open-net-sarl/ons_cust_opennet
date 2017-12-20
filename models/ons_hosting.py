@@ -12,6 +12,10 @@ class OnsHosting(models.Model):
     price = fields.Float(string="Price")
     description = fields.Text(string="Description")
     logo = fields.Binary(string="Logo to upload")
+    type = fields.Selection([
+        ('enterprise', 'Enterprise'),
+        ('community', 'Community'),
+    ], string="Type of odoo")
     sequence = fields.Integer(string="Séquence", copy=False, required=False)
 
     _sql_constraints = [

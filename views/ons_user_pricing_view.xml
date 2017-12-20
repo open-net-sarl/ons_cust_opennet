@@ -8,7 +8,7 @@
 	            <tree string="ONS user pricing tree">
 	                <field name="nb_user"/>
                     <field name="hosting_id"/>
-                    <field name="types"/>
+                    <field name="type"/>
                     <field name="price"/>
 	            </tree>
 	        </field>
@@ -23,7 +23,7 @@
                         <group>
                             <field name="nb_user"/>
                             <field name="hosting_id"/>
-                            <field name="types"/>
+                            <field name="type"/>
                             <field name="price"/>
                         </group>
                     </sheet>

@@ -425,10 +425,6 @@ class opennet_price(http.Controller):
 
         hosting = request.env['ons.hosting'].sudo().search([])
 
-        ons_user_price = request.env['res.company'].sudo().search_read(
-            [], fields=['ons_user_price']
-        )
-
         pricing = request.env['ons.user.pricing'].search([])
 
         values = {
@@ -437,7 +433,6 @@ class opennet_price(http.Controller):
             'options_misc': options_misc,
             'options_tech': options_tech,
             'hosting': hosting,
-            'user_price': ons_user_price,
             'prices': pricing,
         }
 

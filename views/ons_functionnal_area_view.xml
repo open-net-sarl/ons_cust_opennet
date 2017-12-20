@@ -1,7 +1,7 @@
 <odoo>
 	<data>
 		<record id="functionnal_area_tree_view" model="ir.ui.view">
-	        <field name="name">ONS Functionnal area tree</field>
+	        <field name="name">ONS functionnal area tree</field>
 	        <field name="model">ons.functionnal.area</field>
 	        <field name="priority" eval="8"/>
 	        <field name="arch" type="xml">
@@ -17,7 +17,7 @@
 	    </record>
 
         <record model="ir.ui.view" id="functionnal_area_form_view">
-            <field name="name">ONS Functionnal area form</field>
+            <field name="name">ONS functionnal area form</field>
             <field name="model">ons.functionnal.area</field>
             <field name="arch" type="xml">
                 <form string="Functionnal area form">
@@ -38,13 +38,13 @@
         </record>
 
         <record model="ir.actions.act_window" id="functionnal_area_action">
-            <field name="name">ONS Functionnal area</field>
+            <field name="name">ONS functionnal area</field>
             <field name="res_model">ons.functionnal.area</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="functionnal_area_menu" name="ONS Functionnal area"
+        <menuitem id="functionnal_area_menu" name="ONS functionnal area"
                   parent="website.menu_website_global_configuration"
                   action="functionnal_area_action"/>
     </data>

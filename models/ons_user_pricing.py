@@ -9,7 +9,7 @@ class onsUserPricing(models.Model):
 
     nb_user = fields.Integer(string="Number of users", required=True)
     hosting_id = fields.Many2one('ons.hosting', required=True)
-    types = fields.Selection([
+    type = fields.Selection([
         ('enterprise', 'enterprise'),
         ('community', 'community'),
     ], string="Type of odoo", required=True)
@@ -19,5 +19,5 @@ class onsUserPricing(models.Model):
     @api.multi
     def _compute_name(self):
         for pricing in self:
-            pricing.name = "%s - %s - %s" % (pricing.hosting_id.name, pricing.types, pricing.nb_user)
+            pricing.name = "%s - %s - %s" % (pricing.hosting_id.name, pricing.type, pricing.nb_user)
 

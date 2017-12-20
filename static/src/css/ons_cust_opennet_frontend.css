@@ -65,10 +65,10 @@ input[type="checkbox"] {
 	border: 1px solid #00bcd4;
 }
 
-.bs-sidebar {
+/*.bs-sidebar {
 	margin-right: 217px;
 	position: fixed;
-}
+}*/
 
 @media (max-width: 990px) {
 	.bs-sidebar {
@@ -76,4 +76,8 @@ input[type="checkbox"] {
 		margin-right: auto;
 		z-index: none;
 	}
+}
+
+.ons-hosting-title {
+	margin-top: 0;
 }

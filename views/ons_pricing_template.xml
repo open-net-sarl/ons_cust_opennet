@@ -2,47 +2,102 @@
 <odoo>
 
 	<template id="generic_grid" name="Generic grid">
-		<div class="col-md-12 mt32">
-			<t t-foreach="options" t-as="option">
-				<div t-attf-class="{{ div_class }} mb16">
-					<div class="row ons-pricing-row" t-attf-id="{{ slug(option) }}">
-						<div class="col-md-1 col-xs-1 ons-pricing-logo">
-							<div t-field="option.logo" t-options="{'widget': 'image'}"/>
-						</div>
-						<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(option) }}">
-							<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
-						</div>
-						<div class="col-md-4">
-							<span t-esc="'%.2f' % option.price" class="data_price"/> CHF <!-- t-options="{'widget': 'monetary', 'display_currency': 'website.currency_id'}" -->
-						</div>
-						<div class="col-md-1">
-							<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
-							<span t-field="option.sequence" class="sequence" t-attf-sequence-id="{{ slug(option) }}" style="display: none;"/>
+		<div class="row">
+			<div class="col-md-12 mt32" t-attf-id="{{ id }}">
+				<t t-foreach="options" t-as="option">
+					<div class="row">
+						<div t-attf-class="{{ div_class }} mb16">
+							<div class="row ons-pricing-row" t-attf-id="{{ slug(option) }}">
+								<div class="col-md-1 col-xs-1 ons-pricing-logo">
+									<div t-field="option.logo" t-options="{'widget': 'image'}"/>
+								</div>
+								<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(option) }}">
+									<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
+								</div>
+								<div class="col-md-4">
+									<span t-esc="'%.2f' % option.price" class="data_price"/> CHF
+								</div>
+								<div class="col-md-1">
+									<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
+									<span t-field="option.sequence" class="sequence" t-attf-sequence-id="{{ slug(option) }}" style="display: none;"/>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</t>
+				</t>
+			</div>
 		</div>
 	</template>
 
 	<template id="hosting_grid" name="Hosting grid">
-		<div class="col-md-12">
-			<hr/>
-			<!-- <t t-foreach="options" t-as="option"> -->
-				<div class="col-md-12 mb16 ons-pricing-area">
-					<div class="row ons-pricing-row">
-						<div class="col-md-12">
-							<h3>Sélectionner votre type d'hébergement</h3>
-							<label class="radio-inline"><input type="radio" name="optradio"/>Enterprise</label>
-							<label class="radio-inline"><input type="radio" name="optradio"/>Community</label>
-							<br/>
-							<t t-foreach="prices" t-as="price">
-								<span t-field="price.name" t-atff-hosting_id="{{ slug(price.hosting_id.name) }}" t-attf-nb_user="{{ price.nb_user }}"/>
-							</t>
+		<div class="row">
+			<div class="col-md-12">
+				<hr/>
+				<div class="row">
+					<div class="col-md-12 mb16 ons-pricing-area">
+						<div class="row ons-pricing-row">
+							<div class="col-md-12">
+								<h2 class="ons-hosting-title">Sélectionner votre type d'hébergement</h2>
+								<label class="radio-inline"><input id="hosting_default" type="radio" name="optradio" class="radio-hosting-type" value="enterprise"/>Enterprise</label>
+								<label class="radio-inline"><input type="radio" name="optradio" class="radio-hosting-type" value="community"/>Community</label>
+								<br/>
+								<div id="price_table" style="display: none;">
+									<t t-foreach="prices" t-as="price">
+										<span t-field="price.name" t-attf-hosting_id="{{ slug(price.hosting_id) }}" t-attf-nb_user="{{ price.nb_user }}" t-attf-price="{{ price.price }}"/><br/>
+									</t>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			<!-- </t> -->
+			</div>
+
+			<div class="col-md-12 mt32" t-attf-id="{{ id }}">
+				<t t-foreach="options" t-as="option">
+					<t t-if="option.type == 'enterprise'">
+						<div class="row">
+							<div t-attf-class="{{ div_class }} mb16 enterprise-row" style="display: none;">
+								<div class="row ons-pricing-row" t-attf-id="{{ slug(option) }}">
+									<div class="col-md-1 col-xs-1 ons-pricing-logo">
+										<div t-field="option.logo" t-options="{'widget': 'image'}"/>
+									</div>
+									<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(option) }}">
+										<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
+									</div>
+									<div class="col-md-4">
+										<span t-esc="'%.2f' % option.price" class="data_price"/> CHF <!-- t-options="{'widget': 'monetary', 'display_currency': 'website.currency_id'}" -->
+									</div>
+									<div class="col-md-1">
+										<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
+										<span t-field="option.sequence" class="sequence" t-attf-sequence-id="{{ slug(option) }}" style="display: none;"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+					<t t-if="option.type == 'community'">
+						<div class="row">
+							<div t-attf-class="{{ div_class }} mb16 other-row" style="display: none;">
+								<div class="row ons-pricing-row" t-attf-id="{{ slug(option) }}">
+									<div class="col-md-1 col-xs-1 ons-pricing-logo">
+										<div t-field="option.logo" t-options="{'widget': 'image'}"/>
+									</div>
+									<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(option) }}">
+										<h3 t-field="option.name" class="mt0 ons-pricing-title data_title"></h3>
+									</div>
+									<div class="col-md-4">
+										<span t-esc="'%.2f' % option.price" class="data_price"/> CHF <!-- t-options="{'widget': 'monetary', 'display_currency': 'website.currency_id'}" -->
+									</div>
+									<div class="col-md-1">
+										<input type="checkbox" t-attf-class="{{ option_class }}" t-attf-id="{{ slug(option) }}"/>
+										<span t-field="option.sequence" class="sequence" t-attf-sequence-id="{{ slug(option) }}" style="display: none;"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+				</t>
+			</div>
 		</div>
 	</template>
 
@@ -52,88 +107,93 @@
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9 col-xs-12">
+					<div class="col-md-8 col-xs-12">
 						<div class="page-header">
-						  	<h1>Open-Net <small>pricing</small></h1>
+						  	<h1>Open Net <small>pricing</small></h1>
 						</div>
-						<div class="col-md-12">
-							<h3>Définissez le nombre d'Utilisateurs</h3>
-							<form>
+						<div class="row">
+							<div class="col-md-12">
+								<h3>Définissez le nombre d'Utilisateurs</h3>
 								<div class="input-group">
 								  	<input type="number" value="1" min="1" class="form-control" placeholder="nombre d'utilisateur(s)" id="user_select"/>
-								  	<span class="input-group-addon">Utilisateurs x <span t-esc="'%.2f' % user_price[0]['ons_user_price']" id="user_pricing"/></span>
+								  	<span class="input-group-addon">Utilisateur(s)</span>
 								</div>
-							</form>
+							</div>
 						</div>
-						<div class="col-md-12 mt32">
-							<t t-foreach="areas" t-as="area">
-								<t t-if="area.sequence != 1">
-									<t t-set="selected_class"></t>
-								</t>
-								<t t-elif="area.sequence == 1">
-									<t t-set="selected_class">selected</t>
-								</t>
-								<div t-attf-class="{{ selected_class }} col-md-12 col-xs-12 ons-pricing-area functionnal-area mb16">
-									<div class="row ons-pricing-row" t-attf-id="{{ slug(area) }}">
-										<div class="col-md-1 col-xs-1 ons-pricing-logo">
-											<div t-field="area.logo" t-options="{'widget': 'image'}"/>
-										</div>
-										<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(area) }}">
-											<h3 t-field="area.name" class="mt0 ons-pricing-title data_title"></h3>
-										</div>
-										<div class="col-md-4">
-											<span t-esc="'%.2f' % area.price" class="data_price ons-pricing-app-price"/> CHF
-										</div>
-										<div class="col-md-1">
-											<t t-if="area.sequence != 1">
-												<input type="checkbox" class="area-checkbox checkbox text-right"  t-attf-id="{{ slug(area) }}"/>
-												<!-- t-attf-id="{{ area.id }}" -->
-											</t>
-											<t t-elif="area.sequence == 1">
-												<input type="checkbox" disabled="disabled" class="area-checkbox checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
-											</t>
-											<t t-foreach="area.area_dependencies_id.depend_area_ids" t-as="depend">
-												<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}" style="display: none;"/>
-											</t>
-											<span t-field="area.sequence" class="sequence" t-attf-sequence-id="{{ slug(area) }}" style="display: none;"/>
-										</div>
-									</div>
-									<div class="row ons-pricing-row-modules">
-										<div class="col-md-12 col-xs-12">
-											<h4>Fonctionnalités</h4>
-										</div>
-										<t t-foreach="area.app_ids" t-as="module">
-											<div class="col-md-2 col-xs-6">
-												<div class="row">
-													<div class="col-md-12 ons-pricing-logo" align="center">
-														<div t-field="module.logo" t-options="{'widget': 'image'}"/>
-													</div>
+						<div class="row">
+							<div class="col-md-12 mt32">
+								<t t-foreach="areas" t-as="area">
+									<t t-if="area.sequence != 1">
+										<t t-set="selected_class"></t>
+									</t>
+									<t t-elif="area.sequence == 1">
+										<t t-set="selected_class">selected</t>
+									</t>
+									<div class="row">
+										<div t-attf-class="{{ selected_class }} col-md-12 col-xs-12 ons-pricing-area functionnal-area mb16">
+											<div class="row ons-pricing-row" t-attf-id="{{ slug(area) }}">
+												<div class="col-md-1 col-xs-1 ons-pricing-logo">
+													<div t-field="area.logo" t-options="{'widget': 'image'}"/>
 												</div>
-												<div class="row mb16">
-													<div class="col-md-12" align="center">
-														<span t-field="module.shortdesc"></span>
-														<t t-if="module.license == 'enterprise'">
-															<span> (E)</span>
-														</t>
-														<t t-else="">
-															<span> (C)</span>
-														</t>
-													</div>
+												<div class="col-md-6 col-xs-6 ons-pricing-app" t-attf-id="{{ slug(area) }}">
+													<h3 t-field="area.name" class="mt0 ons-pricing-title data_title"></h3>
+												</div>
+												<div class="col-md-4">
+													<span t-esc="'%.2f' % area.price" class="data_price ons-pricing-app-price"/>
+												</div>
+												<div class="col-md-1">
+													<t t-if="area.sequence != 1">
+														<input type="checkbox" class="area-checkbox checkbox text-right"  t-attf-id="{{ slug(area) }}"/>
+														<!-- t-attf-id="{{ area.id }}" -->
+													</t>
+													<t t-elif="area.sequence == 1">
+														<input type="checkbox" disabled="disabled" class="area-checkbox checkbox" checked="checked" t-attf-id="{{ slug(area) }}"/>
+													</t>
+													<t t-foreach="area.area_dependencies_id.depend_area_ids" t-as="depend">
+														<span t-field="depend.name" class="depend_name" t-attf-depend-id="{{ slug(depend) }}" style="display: none;"/>
+													</t>
+													<span t-field="area.sequence" class="sequence" t-attf-sequence-id="{{ slug(area) }}" style="display: none;"/>
 												</div>
 											</div>
-										</t>
-									</div>
-									<div class="row ons-pricing-row-include">
-										<div class="col-md-12 col-xs-12 ons-pricing-row-include-title">
-											<h4>Inclu <i class="fa fa-plus" aria-hidden="true"></i></h4>
+											<div class="row ons-pricing-row-modules">
+												<div class="col-md-12 col-xs-12">
+													<h4>Fonctionnalités</h4>
+												</div>
+												<t t-foreach="area.app_ids" t-as="module">
+													<div class="col-md-2 col-xs-6">
+														<div class="row">
+															<div class="col-md-12 ons-pricing-logo" align="center">
+																<div t-field="module.logo" t-options="{'widget': 'image'}"/>
+															</div>
+														</div>
+														<div class="row mb16">
+															<div class="col-md-12" align="center">
+																<span t-field="module.shortdesc"></span>
+																<t t-if="module.license == 'enterprise'">
+																	<span> (E)</span>
+																</t>
+																<t t-else="">
+																	<span> (C)</span>
+																</t>
+															</div>
+														</div>
+													</div>
+												</t>
+											</div>
+											<div class="row ons-pricing-row-include">
+												<div class="col-md-12 col-xs-12">
+													<h4>Inclu <i class="fa fa-plus ons-pricing-row-include-title" aria-hidden="true"></i></h4>
+												</div>
+												<div class="col-md-12 col-xs-12 ons-pricing-row-include-info" style="display: none;">
+													<p t-field="area.description"></p>
+												</div>
+											</div>
 										</div>
-										<div class="col-md-12 col-xs-12 ons-pricing-row-include-text" style="display: none;">
-											<p t-field="area.description"></p>
-										</div>
 									</div>
-								</div>
-							</t>
+								</t>
+							</div>
 						</div>
+
 						<t t-set="options" t-value="options_logi"/>
 						<t t-set="option_class">logi_checkbox</t>
 						<t t-set="div_class">col-md-12 mb16 ons-pricing-area</t>
@@ -149,53 +209,56 @@
 						<t t-set="div_class">col-md-12 mb16 ons-pricing-area</t>
 						<t t-call="ons_cust_opennet.generic_grid"/>
 
-						<t t-call="ons_cust_opennet.hosting_grid"/>
-
 						<t t-set="options" t-value="hosting"/>
 						<t t-set="option_class">hosting_checkbox</t>
 						<t t-set="div_class">col-md-12 mb16 ons-pricing-area hosting-area</t>
-						<t t-call="ons_cust_opennet.generic_grid"/>
+						<t t-set="id">hostings</t>
+						<t t-call="ons_cust_opennet.hosting_grid"/>
 					</div>
-					<div class="col-md-3 col-xs-12">
-						<div class="row bs-sidebar">
+					<div class="col-md-4 col-xs-12">
+						<div class="row">
 							<div class="col-md-12">
-								<div class="page-header">
-						  			<h1>Open-Net <small>pricing</small></h1>
-								</div>
-						        <table class="table">
-						        	<thead>
-								      	<tr>
-								        	<th></th>
-								        	<th class="text-right">Mensuel</th>
-								      	</tr>
-								    </thead>
-								    <tbody>
-								    	<tr class="base_row" t-attf-sequence="0">
-											<td><span id="user_selected"/></td>
-											<td class="text-right monthly"><span id="monthly_price"/></td>
-										</tr>
-								    </tbody>
-								    <tbody id="tbody_area">
-										<t t-foreach="areas" t-as="area">
-											<t t-if="area.sequence == 1">
-												<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
-													<td><span t-field="area.name" class="area_name_data"/></td>
-													<td class="text-right monthly"><span t-esc="area.price" class="area_price_data"/></td>
+								<!-- <div class="row">
+									<div class="col-md-12"> -->
+										<div class="page-header">
+								  			<h1>Open Net <small>pricing (CHF HT)</small></h1>
+										</div>
+								        <table class="table">
+								        	<thead>
+										      	<tr>
+										        	<th></th>
+										        	<th class="text-right">Mensuel</th>
+										      	</tr>
+										    </thead>
+										    <tbody>
+										    	<tr class="base_row" t-attf-sequence="0">
+													<td><span id="user_selected"/><br/><span id="user_calcul"/></td>
+													<td class="text-right monthly"><span id="monthly_price"/></td>
 												</tr>
-											</t>
-										</t>
-									</tbody>
-									<tbody id="tbody_option">
-									</tbody>
-									<tbody id="tbody_hosting">
-									</tbody>
-									<tbody>
-										<tr class="active" t-attf-sequence="9999">
-											<td>Total</td>
-											<td class="text-right"><span class="monthly_total"/> CHF</td>
-										</tr>
-									</tbody>
-								</table>
+										    </tbody>
+										    <tbody id="tbody_area">
+												<t t-foreach="areas" t-as="area">
+													<t t-if="area.sequence == 1">
+														<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
+															<td><span t-field="area.name" class="area_name_data"/></td>
+															<td class="text-right monthly"><span t-esc="area.price" class="base_row_price"/></td>
+														</tr>
+													</t>
+												</t>
+											</tbody>
+											<tbody id="tbody_option">
+											</tbody>
+											<tbody id="tbody_hosting">
+											</tbody>
+											<tbody>
+												<tr class="active" t-attf-sequence="9999">
+													<td>Total</td>
+													<td class="text-right"><span class="monthly_total"/></td>
+												</tr>
+											</tbody>
+										</table>
+									<!-- </div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -203,16 +266,4 @@
 			</div>
 		</t>
 	</template>
-
-	<!-- <record id="opennet_pricing_user" model="ir.ui.view">
-		<field name="name">res.company.form</field>
-		<field name="model">res.company</field>
-		<field name="inherit_id" ref="base.view_company_form"/>
-		<field name="arch" type="xml">
-	        <xpath expr="//field[@name='website']" position="after">
-	            <field name="ons_user_price" />
-	        </xpath>
-	    </field>
-    </record> -->
-
 </odoo>

@@ -1,7 +1,7 @@
 <odoo>
 	<data>
 		<record id="ons_pricing_option_tree_view" model="ir.ui.view">
-	        <field name="name">ONS Pricing options tree</field>
+	        <field name="name">ONS pricing options tree</field>
 	        <field name="model">ons.pricing.option</field>
 	        <field name="priority" eval="8"/>
 	        <field name="arch" type="xml">
@@ -16,7 +16,7 @@
 	    </record>
 
         <record model="ir.ui.view" id="ons_pricing_option_form_view">
-            <field name="name">ONS Pricing options form</field>
+            <field name="name">ONS pricing options form</field>
             <field name="model">ons.pricing.option</field>
             <field name="arch" type="xml">
                 <form string="ONS Pricing options form">
@@ -36,14 +36,14 @@
         </record>
 
         <record model="ir.actions.act_window" id="ons_pricing_option_action">
-            <field name="name">ONS Pricing options</field>
+            <field name="name">ONS pricing options</field>
             <field name="res_model">ons.pricing.option</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             
         </record>
 
-        <menuitem id="ons_pricing_option_menu" name="ONS Pricing options"
+        <menuitem id="ons_pricing_option_menu" name="ONS pricing options"
                   parent="website.menu_website_global_configuration"
                   action="ons_pricing_option_action"/>
     </data>
