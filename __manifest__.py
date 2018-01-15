@@ -19,7 +19,8 @@
         'event_barcode',
         'eagle_project',
         'stock',
-        'project_issue'
+        'project_issue',
+        'account_budget'
     ],
     'version': '10.0.1.0.2',
     'auto_install': False,
@@ -53,7 +54,8 @@
         'views/ons_hosting_view.xml',
         'views/ons_area_dependencies_view.xml',
         'views/ons_ir_module_view.xml',
-        'views/ons_user_pricing_view.xml'
+        'views/ons_user_pricing_view.xml',
+        'views/ons_pricing_client_view.xml'
     ],
     'installable': True
 }

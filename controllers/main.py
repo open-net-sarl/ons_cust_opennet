@@ -335,7 +335,6 @@ class WebsiteAccount(WebsiteAccount):
 
     @http.route(['/my/tasks', '/my/tasks/page/<int:page>'], type='http', auth="user", website=True)
     def my_tasks(self, page=1, date_begin=None, date_end=None, project=None, sortby=None, **kw):
-        _logger.info('********************MY TASKS ooooo*******************')
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
 
@@ -406,7 +405,7 @@ class WebsiteAccount(WebsiteAccount):
 
         return request.render("website_project.my_task", {'task': task, 'user': request.env.user})
 
-class opennet_price(http.Controller):
+class opennet_pricing(http.Controller):
     """docstring for ClassName"""
     @http.route(['/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):
@@ -439,3 +438,21 @@ class opennet_price(http.Controller):
         return request.render(
             "ons_cust_opennet.opennet_pricing_template", values
         )
+
+    @http.route('/opennet-pricing/send', auth="public", type="json", methods=['POST'], website=True)
+    def send_pricing(self, **post):
+        name = post.get('name')
+        company = post.get('company')
+        email = post.get('email')
+        phone = post.get('phone')
+        html = post.get('html')
+
+        request.env['ons.pricing.client'].create({
+            'name': name,
+            'company': company,
+            'email': email,
+            'phone': phone,
+            'html': html,
+        })
+
+        return True

@@ -24,7 +24,7 @@
                             <field name="shortdesc"/>
                             <field name="description"/>
                             <field name="license"/>
-                            <field name="logo"/>
+                            <field name="logo" widget="image"/>
                         </group>
                     </sheet>
                 </form>

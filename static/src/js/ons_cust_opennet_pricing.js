@@ -1,6 +1,6 @@
 /*
 	ONS pricing
-	© 2017 Zulauff Rémy
+	© 2017 Open Net Sarl
 */
 
 odoo.define('ons_cust_opennet.pricing', function (require) {
@@ -13,7 +13,6 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		initializeValues();
 		onChangeNbUser($( "#user_select" ));
 		onChangeHostingType($( ".radio-hosting-type" ));
-
 		addRow($( ".area-checkbox" ));
 		dependArea($( ".area-checkbox" ));
 		addRow($( ".logi_checkbox" ));
@@ -21,10 +20,48 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		addRow($( ".misc_checkbox" ));
 		addRow($( ".hosting_checkbox" ));
 		uncheckHosting($( ".hosting_checkbox" ));
-		toggleInfo($( '.ons-pricing-row-include-title' ));
+		toggleInfo($( "#showInfo" ));
 
 		$( "#hosting_default" ).trigger('click');
 
+		$( window ).scroll(function(){
+			if ($(this).scrollTop() > 100) {
+				$( '.scrollToTop' ).fadeIn();
+			} else {
+				$( '.scrollToTop' ).fadeOut();
+			}
+		});
+		
+		$( '.scrollToTop' ).click(function(){
+			$('html, body').animate({ scrollTop: 0 }, "slow");
+			return false;
+		});
+
+		$( "#sendButton" )[ 0 ].addEventListener("click", sendInfo);
+
+		followScroll(50, 50)
+
+		function followScroll(topMargin, time) {
+		    var element = $( '.follow-scroll' );
+		    var originalY = element.offset().top;
+		    
+		    // Space between element and top of screen (when scrolling)
+		    var topMargin = topMargin;
+		    
+		    // Should probably be set in CSS; but here just for emphasis
+		    element.css('position', 'relative');
+		    
+		    
+		    $( window ).on('scroll', function(event) {
+		    	if ($(window).width() > 1000) {
+			        var scrollTop = $( window ).scrollTop();
+			        
+			        element.stop(false, false).animate({
+			            top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
+			        }, this.time);
+			    }
+		    });
+		}
 	});
 
 	function initializeValues() {
@@ -34,6 +71,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 		var area_price = parseFloat($( ".base_row_price" ).text());
 		area_price = area_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+		user_price = user_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 		$( ".base_row_price" ).text( area_price )
 		$( "#user_selected" ).text( user_text )
@@ -62,13 +100,24 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				var price = parseFloat(myparent.find( ".data_price" ).text());
 				var sequence = parseInt(myparent.find( ".sequence" ).text());
 				var this_checkbox = $( "input[id='"+id+"']" )
+				var price_type = this_checkbox.attr( "price_type" )
+				var second_price = 0
+				console.log(price_type)
 
 				price = price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 				if (this_checkbox.is(':checked')) {
-					this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+
-						'"><td>'+name+'</td><td class="text-right monthly"><span>'
+					if (price_type == "base") {
+						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+
+						'"><td>'+name+'</td><td class="text-right base"><span>'
+						+price+'</span></td><td class="text-right monthly"><span style="display:none;">'
+						+second_price+'</span></td></tr>' )
+					} else if (price_type == "monthly") {
+						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+
+						'"><td>'+name+'</td><td class="text-right base"><span  style="display:none;">'
+						+second_price+'</span></td><td class="text-right monthly"><span>'
 						+price+'</span></td></tr>' )
+					}
 					parent_row.addClass( "selected" )
 				}
 				else {
@@ -85,14 +134,18 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 	}
 
 	function computeTotal(){
+		var base = 0
 		var monthly = 0
 
 		$( "tr.base_row" ).each(function() {
+			base += parseFloat($( this ).find( ".base span" ).text().replace(' ',''));
 			monthly += parseFloat($( this ).find( ".monthly span" ).text().replace(' ',''));
 		});
 
+		base = base.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 		monthly = monthly.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
+		$( ".base_total" ).text( base )
 		$( ".monthly_total" ).text( monthly );
 	}
 
@@ -113,7 +166,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 					} else {
 						updateDependRow(depend_checkbox);
-						depend_checkbox.trigger('click');
+						depend_checkbox.trigger( 'click' );
 					}
 				}
 				
@@ -125,8 +178,8 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		var areas = $( '.functionnal-area' )
 
 		for (var idx = 0; idx < areas.length; idx++) {
-			var checkbox = $(areas[idx]).find('input')
-			var dependencies = $(areas[idx]).find('.depend_name')
+			var checkbox = $(areas[idx]).find( 'input' )
+			var dependencies = $(areas[idx]).find( '.depend_name' )
 
 			if (checkbox.is(':checked')) {
 				var is_checked = true
@@ -141,7 +194,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				}
 
 				if (!is_checked){
-					checkbox.trigger("click")
+					checkbox.trigger( "click" )
 				}
 			}
 		}
@@ -174,8 +227,8 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 	    // Sort the rows in descending order
 	    rows.sort(function(a, b){
-	       return a.getAttribute('sequence') - 
-	              b.getAttribute('sequence');
+	       return a.getAttribute( 'sequence' ) - 
+	              b.getAttribute( 'sequence' );
 	    });
 
 	    // Add them into the tbody in order
@@ -211,6 +264,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 			getUserPrice()
 		});
 	}
+
 	function onChangeHostingType(radio) {
 		radio.on('click', function() {
 			var inputValue = $(this).attr("value");
@@ -253,8 +307,8 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		}
 		
 
-		all_hostings.children('div').each(function () {
-			if ($(this).find('input').is(':checked')) {
+		all_hostings.children( 'div' ).each(function () {
+			if ($(this).find( 'input' ).is(':checked')) {
 				checked_hosting = $(this)
 			}
 		});
@@ -320,11 +374,11 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 			if (this.checked) {
 				for (var idx = 0; idx < areas.length; idx++) {
-					var checkbox = $(areas[idx]).find('input')
+					var checkbox = $(areas[idx]).find( 'input' )
 
 					if (checkbox.is(':checked')) {
 						if (checkbox[0] != this) {
-							checkbox.trigger("click")
+							checkbox.trigger( "click" )
 						}
 					}
 				}
@@ -334,32 +388,68 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		});
 	}
 
-	// function followScroll(topMargin, time) {
-	//     var element = $( '.follow-scroll' ),
-	//         originalY = element.offset().top;
-	    
-	//     // Space between element and top of screen (when scrolling)
-	//     var topMargin = topMargin;
-	    
-	//     // Should probably be set in CSS; but here just for emphasis
-	//     element.css('position', 'relative');
-	    
-	//     $( window ).on('scroll', function(event) {
-	//         var scrollTop = $( window ).scrollTop();
-	        
-	//         element.stop(false, false).animate({
-	//             top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
-	//         }, this.time);
-	//     });
-	// }
-
-	function toggleInfo(i){
-		i.click(function(event){
-			var parent = $(this).parent().parent().parent()
-			$(this).toggleClass( "fa-plus" )
-			$(this).toggleClass( "fa-minus" )
-			var div = parent.find( '.ons-pricing-row-include-info' )
-			div.toggle("blind");
+	function toggleInfo(button){
+		button.click(function(event) {
+			var parent = $(this).parent()
+			var form = parent.find( "#contact" )
+			form.toggle( "blind" )
 		});
+	}
+
+	function sendInfo(){
+		var name = $( '#name' ).val()
+		var company = $( '#company' ).val()
+		var email = $( '#email' ).val()
+		var phone = $( '#phone' ).val()
+		var name_div = $( '#name' ).parent()
+		var phone_div = $( '#phone' ).parent()
+		var table_html = $( '#pricing_table' ).html()
+		var isValid = true
+
+		if (name == ""){
+			isValid = false
+			name_div.addClass( 'has-error' )
+		} else {
+			name_div.removeClass( 'has-error' )
+		}
+
+		if (phone == ""){
+			isValid = false
+			phone_div.addClass( 'has-error' )
+		}
+		else {
+			phone_div.removeClass( 'has-error' )
+		}
+
+		if (isValid == false) {
+			$( "#sendError" ).show("blind")
+			$( "#sendSucces" ).hide("blind")
+		}
+
+		if (isValid == true) {
+			ajax.jsonRpc('/opennet-pricing/send', 'call', {
+				'name': name,
+				'company': company,
+				'email': email,
+				'phone': phone,
+				'html': table_html,
+			})
+	        .then(function (result) {
+	            $( "#sendSucces" ).show("blind")
+	            $( "#sendError" ).hide("blind")
+	            name_div.removeClass( 'has-error' )
+	            phone_div.removeClass( 'has-error' )
+
+	            $( '#name' ).val( '' )
+	            $( '#company' ).val( '' )
+	            $( '#email' ).val( '' )
+	            $( '#phone' ).val( '' )
+
+	            console.log('succes')
+	        })
+	        .fail(function () {
+	            console.log('fail')
+	        });
+    	}
 	}
 });

@@ -10,6 +10,10 @@ class OnsHosting(models.Model):
 
     name = fields.Char(string="Name")
     price = fields.Float(string="Price")
+    price_type = fields.Selection([
+        ('base', 'Base'),
+        ('monthly', 'Mensuel'),
+    ], string="Type de prix")
     description = fields.Text(string="Description")
     logo = fields.Binary(string="Logo to upload")
     type = fields.Selection([

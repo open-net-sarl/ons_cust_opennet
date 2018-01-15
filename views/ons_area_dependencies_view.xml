@@ -33,9 +33,5 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <menuitem id="dependencies_area_menu" name="ONS dependencies area"
-                  parent="website.menu_website_global_configuration"
-                  action="dependencies_area_action"/>
     </data>
 </odoo>

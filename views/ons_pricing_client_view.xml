@@ -1,0 +1,56 @@
+<odoo>
+	<data>
+		<record id="ons_pricing_client_tree_view" model="ir.ui.view">
+	        <field name="name">ONS pricing client tree</field>
+	        <field name="model">ons.pricing.client</field>
+	        <field name="priority" eval="8"/>
+	        <field name="arch" type="xml">
+	            <tree string="ONS pricing client tree">
+                    <field name="create_date"/>
+	                <field name="name"/>
+                    <field name="company"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.ui.view" id="ons_pricing_client_form_view">
+            <field name="name">ONS pricing client form</field>
+            <field name="model">ons.pricing.client</field>
+            <field name="arch" type="xml">
+                <form string="ONS pricing client form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company"/>
+                                <field name="create_date"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                                <field name="phone"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="html"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ons_pricing_client_action">
+            <field name="name">ONS pricing client</field>
+            <field name="res_model">ons.pricing.client</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            
+        </record>
+
+        <menuitem id="ons_pricing_client_menu" name="Demande de pricing"
+                  parent="sales_team.menu_sales"
+                  sequence="6"
+                  action="ons_pricing_client_action"/>
+    </data>
+</odoo>

@@ -17,3 +17,5 @@ from . import ons_hosting
 from . import project_issue
 from . import ons_ir_module
 from . import ons_user_pricing
+from . import ons_pricing_client
+from . import crossovered_budget
