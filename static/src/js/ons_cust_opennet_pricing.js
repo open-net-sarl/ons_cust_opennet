@@ -427,7 +427,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		}
 
 		if (isValid == true) {
-			ajax.jsonRpc('/opennet-pricing/send', 'call', {
+			ajax.jsonRpc('/pricing/send', 'call', {
 				'name': name,
 				'company': company,
 				'email': email,
