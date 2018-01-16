@@ -407,7 +407,7 @@ class WebsiteAccount(WebsiteAccount):
 
 class opennet_pricing(http.Controller):
     """docstring for ClassName"""
-    @http.route(['/pricing'], auth="public", type="http", website=True)
+    @http.route(['/pricing', '/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):
 
         areas = request.env['ons.functionnal.area'].with_context({'lang': 'fr_FR'}).sudo().search([])
