@@ -300,7 +300,6 @@
 								</table>
 							</div>
 							<div class="col-md-12">
-								<hr/>
 								<button class="btn btn-default" type="submit" id="showInfo">DEMANDER UNE OFFRE</button>
 								<div id="contact" style="display:none;">
 									<p class="help-block">Champs obligatoires *</p>

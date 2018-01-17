@@ -114,7 +114,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 						+second_price+'</span></td></tr>' )
 					} else if (price_type == "monthly") {
 						this_tbody.append( '<tr row_id='+id+' class="base_row" sequence="'+sequence+
-						'"><td>'+name+'</td><td class="text-right base"><span  style="display:none;">'
+						'"><td>Hébergement</td><td class="text-right base"><span  style="display:none;">'
 						+second_price+'</span></td><td class="text-right monthly"><span>'
 						+price+'</span></td></tr>' )
 					}
