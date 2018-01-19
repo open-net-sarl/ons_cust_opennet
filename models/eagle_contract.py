@@ -11,6 +11,24 @@ _logger = logging.getLogger(__name__)
 class EagleContractBase(models.Model):
     _inherit = 'eagle.contract'
 
+    stock_moves = fields.One2many(
+        'stock.move',
+        inverse_name='contract_id',
+        readonly=False,
+        compute='_detect_stock_moves',
+        string='Stock moves',
+        store=True
+    )
+
+    @api.depends('current_sale_orders', 'past_sale_orders')
+    def _detect_stock_moves(self):
+        for cnt in self:
+            lst = []
+            for sale in cnt.current_sale_orders + cnt.past_sale_orders:
+                lst += [] if not sale.procurement_group_id else \
+                self.env['stock.move'].search([('group_id','=',sale.procurement_group_id.id)])
+            cnt.stock_moves = [x.id for x in lst]
+
     # @api.onchange("customer_id", "customer_id.child_ids")
     @api.multi
     def _compute_portal_user_ids(self):
