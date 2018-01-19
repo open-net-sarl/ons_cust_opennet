@@ -114,12 +114,14 @@
 
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
+			<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+			<script src='/ons_cust_opennet/static/src/js/simple-scroll-follow.min.js'/>
 			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
 			<div class="container">
 				<div class="row">
 				<a href="#" class="scrollToTop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-					<div class="col-md-8 col-xs-12">
+					<div class="col-md-8 col-xs-12" id="limit_follow">
 						<div class="page-header">
 						  	<h1>Open Net <small>pricing</small></h1>
 						</div>
@@ -255,7 +257,8 @@
 						<t t-call="ons_cust_opennet.hosting_grid"/>
 					</div>
 					<div class="col-md-4 col-xs-12">
-						<div class="row follow-scroll">
+						<div class="row">
+						<div class="follow-scroll">
 							<div class="col-md-12">
 								<div class="page-header">
 						  			<h1>Open Net <small>pricing (CHF HT)</small></h1>
@@ -323,8 +326,10 @@
 									<button class="btn btn-default" id="sendButton">ENVOYER VOTRE DEMANDE</button>
 									<p class="bg-success mt16" id="sendSucces" style="display: none;">Votre demande a bien été envoyée, <br/>nous vous contacterons prochainement</p>
 									<p class="bg-danger mt16" id="sendError" style="display: none;">Vous n'avez pas rempli tous les champs !</p>
+									<br/>
 								</div>
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
