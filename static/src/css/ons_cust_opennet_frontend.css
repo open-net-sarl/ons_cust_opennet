@@ -113,3 +113,7 @@ input[type="checkbox"] {
 	padding: 10px;
 	font-size: 16px;
 }
+
+.follow-scroll {
+	position: absolute;
+}

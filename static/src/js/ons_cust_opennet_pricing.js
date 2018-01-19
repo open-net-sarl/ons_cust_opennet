@@ -39,29 +39,10 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 		$( "#sendButton" )[ 0 ].addEventListener("click", sendInfo);
 
-		followScroll(50, 50)
-
-		function followScroll(topMargin, time) {
-		    var element = $( '.follow-scroll' );
-		    var originalY = element.offset().top;
-		    
-		    // Space between element and top of screen (when scrolling)
-		    var topMargin = topMargin;
-		    
-		    // Should probably be set in CSS; but here just for emphasis
-		    element.css('position', 'relative');
-		    
-		    
-		    $( window ).on('scroll', function(event) {
-		    	if ($(window).width() > 1000) {
-			        var scrollTop = $( window ).scrollTop();
-			        
-			        element.stop(false, false).animate({
-			            top: scrollTop < originalY ? 0 : scrollTop - originalY + topMargin
-			        }, this.time);
-			    }
-		    });
-		}
+		$( '.follow-scroll' ).simpleScrollFollow({
+			limit_elem: '#limit_follow',
+			min_width: 992
+		});
 	});
 
 	function initializeValues() {
@@ -128,7 +109,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				orderBySequence(this_tbody.get(0));
 
 				computeTotal();
-			}		
+			}
 		});
 
 	}
@@ -212,29 +193,29 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 			var this_checkbox = $( "input[id='"+id+"']" )
 
 			computeTotal();
-		}		
+		}
 	}
 
 	function orderBySequence(tbody) {
 		var new_tbody = tbody.cloneNode(false);
 
-	    // Add all rows to an array
-	    var rows = [];
-	    for (var i = tbody.childNodes.length; i--;) {
-	        if (tbody.childNodes[i].nodeName === 'TR')
-	            rows.push(tbody.childNodes[i]);
-	    }
+		// Add all rows to an array
+		var rows = [];
+		for (var i = tbody.childNodes.length; i--;) {
+			if (tbody.childNodes[i].nodeName === 'TR')
+				rows.push(tbody.childNodes[i]);
+		}
 
-	    // Sort the rows in descending order
-	    rows.sort(function(a, b){
-	       return a.getAttribute( 'sequence' ) - 
-	              b.getAttribute( 'sequence' );
-	    });
+		// Sort the rows in descending order
+		rows.sort(function(a, b){
+			return a.getAttribute( 'sequence' ) - 
+				b.getAttribute( 'sequence' );
+		});
 
-	    // Add them into the tbody in order
-	    for(var i = 0; i < rows.length; i++)
-	        new_tbody.appendChild(rows[i]);
-	    tbody.parentNode.replaceChild(new_tbody, tbody);
+		// Add them into the tbody in order
+		for(var i = 0; i < rows.length; i++)
+			new_tbody.appendChild(rows[i]);
+		tbody.parentNode.replaceChild(new_tbody, tbody);
 	}
 
 	function checkNbUser(users) {
@@ -268,20 +249,20 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 	function onChangeHostingType(radio) {
 		radio.on('click', function() {
 			var inputValue = $(this).attr("value");
-    		if (inputValue == 'enterprise') {
-    			console.log('input value is enterprise')
-    			$( '.other-row' ).hide()
-    			$( '.enterprise-row' ).show()
-    		}
+			if (inputValue == 'enterprise') {
+				console.log('input value is enterprise')
+				$( '.other-row' ).hide()
+				$( '.enterprise-row' ).show()
+			}
 
-    		if (inputValue == 'community') {
-    			console.log('input value is community')
-    			$( '.enterprise-row' ).hide()
-    			$( '.other-row' ).show()
-    		}
+			if (inputValue == 'community') {
+				console.log('input value is community')
+				$( '.enterprise-row' ).hide()
+				$( '.other-row' ).show()
+			}
 
-	      	getUserPrice()
-	    });
+			getUserPrice()
+		});
 	}
 
 	function getUserPrice() {
@@ -339,30 +320,30 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 						filtred_hosting_prices.push(hosting_price);
 						break;
 					}
-	    		}
+				}
 
-	  			var compute_details = []
-	    		var previous_nb_user = 0
-	    		var final_price = 0
+				var compute_details = []
+				var previous_nb_user = 0
+				var final_price = 0
 
-	    		for (var i=0; i < filtred_hosting_prices.length-1; i++) {
-	    			var hosting_price = $(filtred_hosting_prices[i])
-	    			var nb_user = parseInt(hosting_price.attr( 'nb_user' ))
-	    			var price = parseInt(hosting_price.attr( 'price' ))
-	    			compute_details.push("(" + (nb_user - previous_nb_user) + " x " + price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ")")
-	    			final_price += (nb_user -previous_nb_user) * price
-	    			previous_nb_user = nb_user
-	    		}
+				for (var i=0; i < filtred_hosting_prices.length-1; i++) {
+					var hosting_price = $(filtred_hosting_prices[i])
+					var nb_user = parseInt(hosting_price.attr( 'nb_user' ))
+					var price = parseInt(hosting_price.attr( 'price' ))
+					compute_details.push("(" + (nb_user - previous_nb_user) + " x " + price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ")")
+					final_price += (nb_user -previous_nb_user) * price
+					previous_nb_user = nb_user
+				}
 
-	    		var last_host_price = parseInt($(filtred_hosting_prices[filtred_hosting_prices.length-1]).attr('price'))
-	    		compute_details.push("(" + (nb_users - previous_nb_user) + " x " + last_host_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ")")
-	    		compute_details = compute_details.join(" + ")
-	    		final_price += (nb_users - previous_nb_user) * last_host_price
+				var last_host_price = parseInt($(filtred_hosting_prices[filtred_hosting_prices.length-1]).attr('price'))
+				compute_details.push("(" + (nb_users - previous_nb_user) + " x " + last_host_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ")")
+				compute_details = compute_details.join(" + ")
+				final_price += (nb_users - previous_nb_user) * last_host_price
 
-	    		$( "#user_calcul" ).text( compute_details )
-	    		$( "#monthly_price" ).text( final_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") )
+				$( "#user_calcul" ).text( compute_details )
+				$( "#monthly_price" ).text( final_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") )
 
-	    		computeTotal()
+				computeTotal()
 			}
 		});
 
@@ -434,22 +415,22 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				'phone': phone,
 				'html': table_html,
 			})
-	        .then(function (result) {
-	            $( "#sendSucces" ).show("blind")
-	            $( "#sendError" ).hide("blind")
-	            name_div.removeClass( 'has-error' )
-	            phone_div.removeClass( 'has-error' )
+			.then(function (result) {
+				$( "#sendSucces" ).show("blind")
+				$( "#sendError" ).hide("blind")
+				name_div.removeClass( 'has-error' )
+				phone_div.removeClass( 'has-error' )
 
-	            $( '#name' ).val( '' )
-	            $( '#company' ).val( '' )
-	            $( '#email' ).val( '' )
-	            $( '#phone' ).val( '' )
+				$( '#name' ).val( '' )
+				$( '#company' ).val( '' )
+				$( '#email' ).val( '' )
+				$( '#phone' ).val( '' )
 
-	            console.log('succes')
-	        })
-	        .fail(function () {
-	            console.log('fail')
-	        });
-    	}
+				console.log('succes')
+			})
+			.fail(function () {
+				console.log('fail')
+			});
+		}
 	}
 });
