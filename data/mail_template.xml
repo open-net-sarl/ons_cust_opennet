@@ -4,27 +4,29 @@
         <field name="name">Info Cron - Send by Email (Open Net)</field>
         <field name="email_from">support@open-net.ch</field>
         <field name="email_to">${object.ons_cust_person_in_charge.ons_cust_email_two}</field>
-        <field name="subject">ONS: Rappel de mouvement</field>
+        <field name="subject">RAPPEL: Prestation à fournir</field>
         <field name="model_id" ref="stock.model_stock_move"/>
         <field name="auto_delete" eval="False"/> <!-- Should I ? -->
         <field name="lang">${object.partner_id.lang}</field>
         <field name="user_signature" eval="True"/>
         <field name="body_html"><![CDATA[
-<p>Monsieur,</p>
-
 <p>RAPPEL</p>
+
+% if object.partner_id.parent_id.name:
+<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>
+% else:
+<p>Partenaire: ${object.partner_id.name}</p>
+% endif
 
 <p>Article: ${object.product_id.name}</p>
 <p>Description: ${object.name}</p>
-<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>
 % set info = object.info_for_mail_person_in_charge()
 % set action = info['action'].id or 2411
 % set menu = info['menu'].id or 228
 % set date_expected = info['date_expected']
 <p>Date prévue: ${date_expected}</p>
 
-
-<a href="/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}">Voir le mouvement de stock</a>
+<a href="/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}">Voir la prestation</a>
 
     ]]></field>
     </record>

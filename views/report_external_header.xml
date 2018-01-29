@@ -6,7 +6,8 @@
             <table>
                 <tr>
                     <td width="250">
-                        <img style="max-height: 60px;" t-att-src="'data:image/png;base64,%s' % company.logo" t-if="company.logo"/>
+                        <!-- <img style="max-height: 60px;" t-att-src="'data:image/png;base64,%s' % company.logo" t-if="company.logo"/> -->
+                        <img style="max-height: 60px" src="/ons_cust_opennet/static/src/img/logo.png"/>
                     </td>
                     <td style="color: #303030; vertical-align: top; padding-top: 10px; font-size: 10pt;" width="250">
                         <span t-if="o.company_id.name">

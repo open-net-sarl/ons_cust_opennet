@@ -41,3 +41,11 @@ class StockMove(models.Model):
         menu = self.env.ref('stock.menu_stock_root') or False
         date_expected = fields.Date.from_string(self.date_expected)
         return {'action': action,'menu': menu, 'date_expected': date_expected}
+
+    @api.model
+    def create(self, values):
+        new_move = super(StockMove, self).create(values)
+        if new_move and new_move.procurement_id:
+            new_move.contract_id = new_move.procurement_id.eagle_contract
+
+        return new_move

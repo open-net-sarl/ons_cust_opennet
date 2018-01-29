@@ -34,7 +34,7 @@
             </div>
             <page name="other_infos" position="before">
                 <page string="Stock moves" name="stock_moves">
-                    <field name="stock_moves" mode="tree">
+                    <field name="lst_stock_moves" mode="tree">
                         <tree limit="20">
                             <field name="date_expected" widget="date"/>
                             <field name="ons_cust_person_in_charge"/>
