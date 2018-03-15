@@ -16,43 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ons_cust_opennet
-#: model:mail.template,body_html:ons_cust_opennet.email_template_opennet_info_cron
-msgid "\n"
-"<p>Monsieur,</p>\n"
-"\n"
-"<p>RAPPEL</p>\n"
-"\n"
-"<p>Article: ${object.product_id.name}</p>\n"
-"<p>Description: ${object.name}</p>\n"
-"<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>\n"
-"<p>Date prévue: ${object.date_expected}</p>\n"
-"\n"
-"% set info = object.info_for_mail_person_in_charge()\n"
-"% set action = info['action'].id or 2411\n"
-"% set menu = info['menu'].id or 228\n"
-"\n"
-"<a href=\"/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}\">Voir le movement de stock</a>\n"
-"\n"
-"    "
-msgstr "\n"
-"<p>Monsieur,</p>\n"
-"\n"
-"<p>RAPPEL</p>\n"
-"\n"
-"<p>Article: ${object.product_id.name}</p>\n"
-"<p>Description: ${object.name}</p>\n"
-"<p>Partenaire: ${object.partner_id.parent_id.name}, ${object.partner_id.name}</p>\n"
-"<p>Date prévue: ${object.date_expected}</p>\n"
-"\n"
-"% set info = object.info_for_mail_person_in_charge()\n"
-"% set action = info['action'].id or 2411\n"
-"% set menu = info['menu'].id or 228\n"
-"\n"
-"<a href=\"/web?#id=${object.id}&amp;view_type=form&amp;model=stock.move&amp;action=${action}&amp;menu_id=${menu}\">Voir le movement de stock</a>\n"
-"\n"
-"    "
-
-#. module: ons_cust_opennet
 #: model:ir.model.fields,help:ons_cust_opennet.field_ons_cust_customer_config_stock_mng_dropshipping
 msgid "\n"
 "Creates the dropship route and add more complex tests\n"
@@ -836,11 +799,6 @@ msgstr "ONS Customer Config"
 #: model:ir.model.fields,field_description:ons_cust_opennet.field_res_users_ons_cust_email_two
 msgid "ONS Email"
 msgstr "ONS Email"
-
-#. module: ons_cust_opennet
-#: model:mail.template,subject:ons_cust_opennet.email_template_opennet_info_cron
-msgid "ONS: Rappel de movement"
-msgstr "ONS: Rappel de movement"
 
 #. module: ons_cust_opennet
 #: code:addons/ons_cust_opennet/models/ons_cust_customer_config.py:136

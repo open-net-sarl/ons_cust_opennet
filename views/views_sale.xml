@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="onsc_view_sale_form_qty_edit">
+        <field name="name">Open Net: sale form - Qté livrable éditable</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority" eval="17" />
+        <field name="groups_id" eval="[(6,0,[ref('ons_cust_opennet.group_edit_delivery_qty_so_lines')])]" />
+        <field name="arch" type="xml">
+            <xpath expr="//form//field[@name='qty_delivered']" position="replace">
+                <field name="qty_delivered" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ('cancel'))]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

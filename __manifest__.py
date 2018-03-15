@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # © 2017 Open Net Sarl
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-# access_portal_project_task,portal_project_task,project.model_project_task,base.group_portal,1,0,0,0
 
 {
     'name': 'Open-Net Customization for Open Net',
@@ -28,15 +27,18 @@
     'license': 'AGPL-3',
     'images': [],
     'data': [
-        'security/ir.model.access.csv',
-        'security/security.xml',
         'data/ons_cust_crons.xml',
         'data/mail_template.xml',
-        'views/project_task_views.xml',
+        'data/res_groups.xml',
+        'security/ir.model.access.csv',
+        'security/security.xml',
+        'report/account_followup_report_views.xml',
         'views/ons_cust_opennet.xml',
-        'views/eagle_views.xml',
-        'views/stock_move_views.xml',
-        'views/res_partner_views.xml',
+        'views/views_project_task.xml',
+        'views/views_eagle.xml',
+        'views/views_sale.xml',
+        'views/views_stock_move.xml',
+        'views/views_res_partner.xml',
         'views/report_external_header.xml',
         'views/report_external_footer.xml',
         'views/report_invoice.xml',
@@ -45,9 +47,6 @@
         'views/ons_cust_customer_config_views.xml',
         'views/ons_cust_customer_changes_views.xml',
         'views/ons_cust_custumer_config_web_views.xml',
-        'views/website_portal_templates.xml',
-        'views/website_portal_sale_templates.xml',
-        'report/account_followup_report_views.xml',
         'views/ons_functionnal_area_view.xml',
         'views/ons_pricing_template.xml',
         'views/ons_pricing_option_view.xml',
@@ -55,7 +54,9 @@
         'views/ons_area_dependencies_view.xml',
         'views/ons_ir_module_view.xml',
         'views/ons_user_pricing_view.xml',
-        'views/ons_pricing_client_view.xml'
+        'views/ons_pricing_client_view.xml',
+        'views/website_portal_templates.xml',
+        'views/website_portal_sale_templates.xml',
     ],
     'installable': True
 }
