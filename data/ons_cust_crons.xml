@@ -23,4 +23,17 @@
         <field name="nextcall" eval="(DateTime.now() + timedelta(days= +1)).strftime('%Y-%m-%d 1:00:00')"/>
         <field name="active">True</field>
     </record>
+
+    <record model="ir.cron" id="search_crm_lead_recent_msg">
+        <field name="name">ONS: Search for recent messages on crm.lead</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'crm.lead'"/>
+        <field name="function" eval="'_search_for_recent_messages'"/>
+        <field name="args" eval="'()'" />
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days= +1)).strftime('%Y-%m-%d 1:00:00')"/>
+        <field name="active">True</field>
+    </record>
 </odoo>

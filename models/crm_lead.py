@@ -19,6 +19,10 @@ class crm_lead(models.Model):
             if messages:
                 lead.last_message_date = messages[-1].date
 
+    def _search_for_recent_messages(self):
+        all_leads = self.env['crm.lead'].search([])
+        all_leads._has_recent_messages()
+
     @api.depends('message_ids.date')
     def _has_recent_messages(self):
         for lead in self:
