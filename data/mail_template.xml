@@ -30,6 +30,37 @@
 
     ]]></field>
     </record>
+
+    <record id="info_deadline_project_task_cron" model="mail.template">
+        <field name="name">Info Cron - Send by Email (Open Net)</field>
+        <field name="email_from">support@open-net.ch</field>
+        <field name="email_to">${object.user_id.partner_id.ons_cust_email_two}</field>
+        <field name="subject">RAPPEL: Tâche non terminée, échéance dépassée</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="lang">${object.user_id.partner_id.lang}</field>
+        <field name="user_signature" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p>RAPPEL</p>
+
+% if object.user_id.partner_id.parent_id.name:
+<p>Partenaire: ${object.user_id.partner_id.parent_id.name}, ${object.user_id.partner_id.name}</p>
+% else:
+<p>Partenaire: ${object.user_id.partner_id.name}</p>
+% endif
+
+<p>Titre de la tâche: ${object.name}</p>
+<p>Projet: ${object.project_id.name}</p>
+<p>La date d'échéance à été dépassée (${object.date_deadline})</p>
+
+% set info = object.info_for_deadline_project_task()
+% set action = info['action'].id or 476
+% set menu = info['menu'].id or 1055
+
+<a href="/web?#id=${object.id}&amp;view_type=form&amp;model=project.task&amp;action=${action}&amp;menu_id=${menu}">Voir la tâche</a>
+
+    ]]></field>
+    </record>
 </odoo>
 
 <!-- https://github.com/odoo/odoo/blob/fc2e80cb4bcc450762c7ac5cb82a3e2d88062b38/addons/mail/data/mail_data.xml -->

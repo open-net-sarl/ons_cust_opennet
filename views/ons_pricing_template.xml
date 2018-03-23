@@ -114,13 +114,10 @@
 
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
-			<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 			<script src='/ons_cust_opennet/static/src/js/simple-scroll-follow.min.js'/>
 			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
 			<div class="container">
 				<div class="row">
-				<a href="#" class="scrollToTop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 					<div class="col-md-8 col-xs-12" id="limit_follow">
 						<div class="page-header">
 						  	<h1>Open Net <small>pricing</small></h1>

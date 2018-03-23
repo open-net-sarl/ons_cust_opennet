@@ -36,4 +36,17 @@
         <field name="nextcall" eval="(DateTime.now() + timedelta(days= +1)).strftime('%Y-%m-%d 1:00:00')"/>
         <field name="active">True</field>
     </record>
+
+    <record model="ir.cron" id="info_deadline_project_task">
+        <field name="name">ONS: Inform person in charge of a deadline project task</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">work_days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'project.task'"/>
+        <field name="function" eval="'_cron_info_deadline_project_task'"/>
+        <field name="args" eval="'()'" />
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days= +1)).strftime('%Y-%m-%d 1:00:00')"/>
+        <field name="active">True</field>
+    </record>
 </odoo>
