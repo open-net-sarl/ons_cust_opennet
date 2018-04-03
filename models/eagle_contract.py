@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-# © 2017 Open Net Sarl
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# © 2017 Open Net Sarl License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api, _
 
 import logging
 _logger = logging.getLogger(__name__)
 
+import csv
+import base64
+import datetime
 
 class EagleContractBase(models.Model):
     _inherit = 'eagle.contract'
@@ -18,21 +20,15 @@ class EagleContractBase(models.Model):
     )
 
 #     stock_moves = fields.One2many(
-#         'stock.move',
-#         inverse_name='contract_id',
-#         readonly=True,
-#         compute='_detect_stock_moves',
-#         string='Stock moves',
-#         store=False
-#     )
+#         'stock.move', inverse_name='contract_id', readonly=True, compute='_detect_stock_moves', string='Stock moves', 
+#     store=False )
 #
 #     def _detect_stock_moves(self):
 #         for cnt in self:
-#             lst = []
-#             for sale in cnt.current_sale_orders + cnt.past_sale_orders:
+#             lst = [] for sale in cnt.current_sale_orders + cnt.past_sale_orders:
 #                 lst += [] if not sale.procurement_group_id else \
-#                     self.env['stock.move'].search([('group_id','=',sale.procurement_group_id.id)])
-#             cnt.stock_moves = [x.id for x in lst]
+#                     self.env['stock.move'].search([('group_id','=',sale.procurement_group_id.id)]) cnt.stock_moves = [x.id 
+#             for x in lst]
 
     # @api.onchange("customer_id", "customer_id.child_ids")
     @api.multi
@@ -79,3 +75,47 @@ class EagleContractBase(models.Model):
             "domain": [["ons_partner_id", "=", self.customer_id.id]],
             "name": _("Customer Portal Changes"),
         }
+
+        
+    @api.multi
+    def extract_email(self):
+        FILENAME = "/tmp/emails_" + datetime.datetime.now().strftime("%Y-%m-%d") + ".csv"
+        emails = []
+
+        contracts = self.search([('state', 'ilike', 'production')]) #Ongoing contract
+
+	for contract in contracts:
+            client_name = unicode(contract.name).encode('utf-8')
+            vm_name = str(contract.category_id.name)
+            client_email = str(contract.customer_id.email)
+            
+            emails.append([client_name, vm_name, client_email])
+        
+        try:
+            with open(FILENAME, "wb") as f:
+                writer = csv.writer(f)
+                writer.writerows(emails)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            _logger.info('Failed to write {}\n{}'.format(FILENAME, exc))
+
+	with open(FILENAME, 'r') as content_file:
+    	    content = content_file.read()
+
+	attachment = {
+            'name': ("Test"),
+            'datas': base64.b64encode(content),
+            'datas_fname': FILENAME,
+            'res_model': 'my.model',
+            'type': 'binary'
+        }
+        attach_id = self.env['ir.attachment'].create(attachment)
+	
+        mail = self.env.ref('ons_cust_opennet.extract_email')
+
+	mail.attachment_ids =  False
+        mail.attachment_ids =  [(4,attach_id.id)]
+
+        mail.send_mail(contracts[0].id)
+
+	_logger.info("extract email successful")
