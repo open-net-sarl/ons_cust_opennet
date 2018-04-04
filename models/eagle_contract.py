@@ -78,44 +78,37 @@ class EagleContractBase(models.Model):
 
         
     @api.multi
-    def extract_email(self):
-        FILENAME = "/tmp/emails_" + datetime.datetime.now().strftime("%Y-%m-%d") + ".csv"
+    def export_email(self):
+        FILENAME = "partner_emails_" + datetime.datetime.now().strftime("%Y-%m-%d") + ".csv"
         emails = []
 
-        contracts = self.search([('state', 'ilike', 'production')]) #Ongoing contract
-
+        # Select 'Ongoing' contract
+        contracts = self.search([('state', 'ilike', 'production')]) 
+        emails.append(['client_name', 'client_vm_name', 'client_email'])
 	for contract in contracts:
             client_name = unicode(contract.name).encode('utf-8')
             vm_name = str(contract.category_id.name)
             client_email = str(contract.customer_id.email)
             
             emails.append([client_name, vm_name, client_email])
-        
-        try:
-            with open(FILENAME, "wb") as f:
-                writer = csv.writer(f)
-                writer.writerows(emails)
-        except Exception as e:
-            exc = '{}: {}'.format(type(e).__name__, e)
-            _logger.info('Failed to write {}\n{}'.format(FILENAME, exc))
 
-	with open(FILENAME, 'r') as content_file:
-    	    content = content_file.read()
+        # Concert 2D array to csv string
+        emails_csv_string = '\n'.join(map(lambda row: ','.join(map(str, row)), emails))
 
-	attachment = {
-            'name': ("Test"),
-            'datas': base64.b64encode(content),
+      	attachment = {
+            'name': ("Patner emails"),
+            'datas': base64.b64encode(emails_csv_string),
             'datas_fname': FILENAME,
-            'res_model': 'my.model',
             'type': 'binary'
         }
-        attach_id = self.env['ir.attachment'].create(attachment)
-	
+
+        attachment_ref = self.env['ir.attachment'].create(attachment)
+
         mail = self.env.ref('ons_cust_opennet.extract_email')
 
 	mail.attachment_ids =  False
-        mail.attachment_ids =  [(4,attach_id.id)]
+        mail.attachment_ids =  [(4,attachment_ref.id)]
 
         mail.send_mail(contracts[0].id)
 
-	_logger.info("extract email successful")
+	_logger.info("Extract partner emails successful")

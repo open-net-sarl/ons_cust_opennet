@@ -65,14 +65,14 @@
     <record id="extract_email" model="mail.template">
         <field name="name">Extract</field>
         <field name="email_from">support@open-net.ch</field>
-        <field name="email_to">eco@open-net.ch</field>
-        <field name="subject">Extract email</field>
+        <field name="email_to">info@open-net.ch,opennetsarl@gmail.com</field>
+        <field name="subject">Export of partner emails</field>
         <field name="model_id" ref="ons_cust_opennet.model_eagle_contract"/>
         <field name="auto_delete" eval="False"/>
         <field name="lang">${object.user_id.partner_id.lang}</field>
-        <field name="user_signature" eval="True"/>
+        <field name="user_signature" eval="False"/>
 	<field name="body_html"><![CDATA[
-	  <h1>Extract email</h1>
+	  <h1>Export of partner emails</h1>
 	]]></field>
     </record>
 </odoo>
