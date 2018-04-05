@@ -24,24 +24,16 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 
 		$( "#hosting_default" ).trigger('click');
 
-		$( window ).scroll(function(){
-			if ($(this).scrollTop() > 100) {
-				$( '.scrollToTop' ).fadeIn();
-			} else {
-				$( '.scrollToTop' ).fadeOut();
-			}
-		});
-		
-		$( '.scrollToTop' ).click(function(){
-			$('html, body').animate({ scrollTop: 0 }, "slow");
-			return false;
-		});
-
 		$( "#sendButton" )[ 0 ].addEventListener("click", sendInfo);
 
-		$( '.follow-scroll' ).simpleScrollFollow({
+		/*$( '.follow-scroll' ).simpleScrollFollow({
 			limit_elem: '#limit_follow',
-			min_width: 992
+			min_width: 992,
+			upper_side: '#limit_upper_follow',
+		});*/
+		$(".follow-scroll").stick_in_parent({
+			parent: "#limit_upper_follow",
+			offset_top: 60,
 		});
 	});
 

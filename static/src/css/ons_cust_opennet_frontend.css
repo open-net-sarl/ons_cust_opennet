@@ -86,24 +86,6 @@ input[type="checkbox"] {
 	margin-top: 5px !important;
 }
 
-.scrollToTop {
-	width: 30px; 
-	height: 30px;
-	text-align: center; 
-	background-color: transparent;
-	font-weight: bold;
-	color: #444;
-	text-decoration: none;
-	position: fixed;
-	bottom: 75px;
-	right: 40px;
-	display: none;
-	z-index: 1;
-}
-.scrollToTop:hover {
-	text-decoration: none;
-}
-
 #sendSucces {
 	padding: 10px;
 	font-size: 16px;

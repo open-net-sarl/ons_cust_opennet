@@ -115,8 +115,9 @@
 	<template id="opennet_pricing_template" name="Open-net pricing">
 		<t t-call="website.layout">
 			<script src='/ons_cust_opennet/static/src/js/simple-scroll-follow.min.js'/>
+			<script src='/ons_cust_opennet/static/src/js/sticky-kit.js'/>
 			<script src='/ons_cust_opennet/static/src/js/ons_cust_opennet_pricing.js'/>
-			<div class="container">
+			<div class="container" id="limit_upper_follow">
 				<div class="row">
 					<div class="col-md-8 col-xs-12" id="limit_follow">
 						<div class="page-header">
