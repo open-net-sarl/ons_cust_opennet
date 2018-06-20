@@ -27,13 +27,14 @@ class StockMove(models.Model):
             date_expected = fields.Date.from_string(record.date_expected)
             if record.state in ['assigned', 'confirmed', 'waiting'] and \
                date_expected <= datetime.datetime.today().date():
-                if record.ons_cust_person_in_charge:
-                    mail_tmp = self.env.ref('ons_cust_opennet.email_template_opennet_info_cron')
-                    mail_tmp.send_mail(record.id)
-                else:
-                    mail_tmp = self.env.ref('ons_cust_opennet.email_template_opennet_info_cron')
-                    record.ons_cust_person_in_charge = jae
-                    mail_tmp.send_mail(record.id)
+                if record.picking_type_id.code == 'outgoing':
+                    if record.ons_cust_person_in_charge:
+                        mail_tmp = self.env.ref('ons_cust_opennet.email_template_opennet_info_cron')
+                        mail_tmp.send_mail(record.id)
+                    else:
+                        mail_tmp = self.env.ref('ons_cust_opennet.email_template_opennet_info_cron')
+                        record.ons_cust_person_in_charge = jae
+                        mail_tmp.send_mail(record.id)
 
     @api.multi
     def info_for_mail_person_in_charge(self):
