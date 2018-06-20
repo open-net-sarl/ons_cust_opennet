@@ -75,6 +75,23 @@
 	  <h1>Export of partner emails</h1>
 	]]></field>
     </record>
+
+    <record id="email_template_eagle_contract" model="mail.template">
+        <field name="name">Eagle Contact mail</field>
+        <field name="email_from">support@open-net.ch</field>
+        <field name="email_to">${object.customer_id.ons_cust_email_two}</field>
+        <field name="subject">Contract</field>
+        <field name="model_id" ref="ons_cust_opennet.model_eagle_contract"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="lang">${object.customer_id.lang}</field>
+        <field name="report_template" ref="eagle_reporting.eagle_print_contract_group"/>
+        <field name="report_name">Contract</field>
+        <field name="user_signature" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p>test</p>
+
+    ]]></field>
+    </record>
 </odoo>
 
 <!-- https://github.com/odoo/odoo/blob/fc2e80cb4bcc450762c7ac5cb82a3e2d88062b38/addons/mail/data/mail_data.xml -->

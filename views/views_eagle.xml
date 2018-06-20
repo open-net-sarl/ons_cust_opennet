@@ -8,6 +8,13 @@
             <xpath expr="//group[@name='references']" position="inside">
                 <field name="portal_user_ids" widget="many2many_tags"/>
             </xpath>
+           <!--  <xpath expr="//header" position="inside">
+                <button type="object"
+                    string="Envoyer par email"
+                    name="action_send_contract_email"
+                    class="oe_highlight"
+                /> -->
+            </xpath>
         </field>
     </record>
 

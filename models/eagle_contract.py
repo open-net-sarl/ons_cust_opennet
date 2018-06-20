@@ -85,7 +85,7 @@ class EagleContractBase(models.Model):
         # Select 'Ongoing' contract
         contracts = self.search([('state', 'ilike', 'production')]) 
         emails.append(['client_name', 'client_vm_name', 'client_email'])
-	for contract in contracts:
+        for contract in contracts:
             client_name = unicode(contract.name).encode('utf-8')
             vm_name = str(contract.category_id.name)
             client_email = str(contract.customer_id.email)
@@ -105,10 +105,39 @@ class EagleContractBase(models.Model):
         attachment_ref = self.env['ir.attachment'].create(attachment)
 
         mail = self.env.ref('ons_cust_opennet.extract_email')
-
-	mail.attachment_ids =  False
+        mail.attachment_ids =  False
         mail.attachment_ids =  [(4,attachment_ref.id)]
 
-        mail.send_mail(contracts[0].id)
 
-	_logger.info("Extract partner emails successful")
+        mail.send_mail(273)
+
+    @api.multi
+    def action_send_contract_email(self):
+        self.ensure_one()
+
+        template = self.env.ref('ons_cust_opennet.email_template_eagle_contract', False)
+        compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
+
+        context = dict(
+            default_model='eagle.contract',
+            default_res_id=self.id,
+            default_use_template=bool(template),
+            default_template_id=template and template.id or False,
+            default_composition_mode='comment',
+            force_email=True
+        )
+
+        for record in self:
+            self.ensure_one()
+
+        return {
+            'name': _('Compose Email'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form.id, 'form')],
+            'view_id': compose_form.id,
+            'target': 'new',
+            'context': context,
+        }

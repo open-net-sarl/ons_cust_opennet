@@ -17,6 +17,7 @@
         'website_portal_sale',
         'event_barcode',
         'eagle_project',
+        'eagle_base',
         'stock',
         'project_issue',
         'account_budget'
