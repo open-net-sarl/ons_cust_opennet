@@ -79,16 +79,22 @@
     <record id="email_template_eagle_contract" model="mail.template">
         <field name="name">Eagle Contact mail</field>
         <field name="email_from">support@open-net.ch</field>
-        <field name="email_to">${object.customer_id.ons_cust_email_two}</field>
-        <field name="subject">Contract</field>
+        <field name="email_to">${object.customer_id.child_ids[0].id if object.customer_id.child_ids else object.customer_id.id}</field>
+        <field name="subject">Offre</field>
         <field name="model_id" ref="ons_cust_opennet.model_eagle_contract"/>
         <field name="auto_delete" eval="False"/>
         <field name="lang">${object.customer_id.lang}</field>
         <field name="report_template" ref="eagle_reporting.eagle_print_contract_group"/>
-        <field name="report_name">Contract</field>
+        <field name="report_name">Offre</field>
         <field name="user_signature" eval="True"/>
         <field name="body_html"><![CDATA[
-<p>test</p>
+<p>Madame, Monsieur,</p><br/>
+
+<p>Nous avons le plaisir de vous envoyer le(s) document(s) attaché(s). Veuillez en prendre connaissance et, en cas d'accord, nous le(s) renvoyer portant timbre et signature(s) valable(s) de votre société.</p><br/>
+
+<p>Nous vous remercions de l'attention prêtée au présent et restons à votre entière disposition pour tout complément d'information souhaité.</p><br/>
+
+<p>Dans l'attente de votre retour, nous vous prions d'agréer, Madame, Monsieur nos salutations distinguées.</p><br/>
 
     ]]></field>
     </record>

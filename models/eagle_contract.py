@@ -127,9 +127,6 @@ class EagleContractBase(models.Model):
             force_email=True
         )
 
-        for record in self:
-            self.ensure_one()
-
         return {
             'name': _('Compose Email'),
             'type': 'ir.actions.act_window',
