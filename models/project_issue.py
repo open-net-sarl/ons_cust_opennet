@@ -24,3 +24,11 @@ class ProjectIssue(models.Model):
 
         mail_message = super(ProjectIssue, self).message_post(subtype=subtype, **kwargs)
         return mail_message
+
+    @api.onchange('project_id')
+    def _bind_task(self):
+        ids = self.env['project.task'].search([('progress','!=',100),('stage_id','!=',False),('project_id', '=', self.project_id.id)])
+        if len(ids) == 1:
+            self.task_id = ids
+        else:
+            self.task_id = ''
