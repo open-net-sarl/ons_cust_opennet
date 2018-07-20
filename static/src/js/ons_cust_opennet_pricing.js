@@ -103,7 +103,6 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				computeTotal();
 			}
 		});
-
 	}
 
 	function computeTotal(){
@@ -338,7 +337,6 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				computeTotal()
 			}
 		});
-
 	}
 
 	function uncheckHosting(checkbox) {
@@ -410,6 +408,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 			.then(function (result) {
 				$( "#sendSucces" ).show("blind")
 				$( "#sendError" ).hide("blind")
+				$( "#ajaxError" ).hide("blind")
 				name_div.removeClass( 'has-error' )
 				phone_div.removeClass( 'has-error' )
 
@@ -421,6 +420,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				console.log('succes')
 			})
 			.fail(function () {
+				$( "#ajaxError" ).show("blind")
 				console.log('fail')
 			});
 		}

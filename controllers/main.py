@@ -406,7 +406,6 @@ class WebsiteAccount(WebsiteAccount):
         return request.render("website_project.my_task", {'task': task, 'user': request.env.user})
 
 class opennet_pricing(http.Controller):
-    """docstring for ClassName"""
     @http.route(['/pricing', '/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):
 
