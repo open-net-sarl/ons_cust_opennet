@@ -58,6 +58,7 @@
         'views/ons_pricing_client_view.xml',
         'views/website_portal_templates.xml',
         'views/website_portal_sale_templates.xml',
+        # 'views/website_shop_templates'
     ],
     'installable': True
 }
