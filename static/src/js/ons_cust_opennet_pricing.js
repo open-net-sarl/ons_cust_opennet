@@ -1,6 +1,6 @@
 /*
 	ONS pricing
-	© 2017 Open Net Sarl
+	© 2018 Open Net Sarl
 */
 
 odoo.define('ons_cust_opennet.pricing', function (require) {
@@ -241,15 +241,15 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		radio.on('click', function() {
 			var inputValue = $(this).attr("value");
 			if (inputValue == 'enterprise') {
-				console.log('input value is enterprise')
 				$( '.other-row' ).hide()
 				$( '.enterprise-row' ).show()
+				$( '#enterprise_description' ).show("slow")
 			}
 
 			if (inputValue == 'community') {
-				console.log('input value is community')
 				$( '.enterprise-row' ).hide()
 				$( '.other-row' ).show()
+				$( '#enterprise_description' ).hide("slow")
 			}
 
 			getUserPrice()

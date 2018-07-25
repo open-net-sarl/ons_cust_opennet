@@ -48,10 +48,22 @@
 					<div class="col-md-12 mb16 ons-pricing-area">
 						<div class="row ons-pricing-row">
 							<div class="col-md-12">
-								<h2 class="ons-hosting-title">Sélectionner votre type d'hébergement</h2>
+								<h2 class="ons-hosting-title">Sélectionnez votre type d'hébergement</h2>
 								<label class="radio-inline"><input id="hosting_default" type="radio" name="optradio" class="radio-hosting-type" value="enterprise"/>Enterprise</label>
 								<label class="radio-inline"><input type="radio" name="optradio" class="radio-hosting-type" value="community"/>Community</label>
 								<br/>
+								<div id="enterprise_description" class="mt16">
+									<p>En choisissant la version "Enterprise", vous entrez en relation contractuelle avec l’éditeur Odoo SA et bénéficiez des prestations suivantes* :</p>
+									<ul>
+										<li>Résolution illimitée des bugs</li>
+										<li>Migrations vers les nouvelles versions</li>
+										<li>Accès à la dernière version Enterprise d'Odoo</li>
+										<li>Mises à jour de sécurité</li>
+										<li>Possibilité d’hébergement sur le Cloud Odoo à CHF 39.00 / mois.</li>
+									</ul>
+									<p>*) Les services Odoo Enterprise ne sont fournis que sur les trois dernières versions d'Odoo.</p>
+									<p>Accédez <a target="_blank" href="https://www.odoo.com/fr_FR/pricing#pl=66&amp;num_users=1&amp;hosting=online&amp;implementation_service=partner&amp;pack=25&amp;force_country=CH&amp;integrating_partner_id=-294&amp;price_by=yearly" style="color: rgb(91, 192, 222); text-decoration: underline;">ici</a> à la page des tarifs d'Odoo.</p>
+								</div>
 								<div id="price_table" style="display: none;">
 									<t t-foreach="prices" t-as="price">
 										<span t-field="price.name" t-attf-hosting_id="{{ slug(price.hosting_id) }}" t-attf-nb_user="{{ price.nb_user }}" t-attf-price="{{ price.price }}"/><br/>
@@ -256,77 +268,75 @@
 					</div>
 					<div class="col-md-4 col-xs-12">
 						<div class="row">
-							<div class="follow-scroll">
-								<div class="col-md-12">
-									<div class="page-header">
-							  			<h1>Open Net <small>pricing (CHF HT)</small></h1>
-									</div>
-							        <table class="table" id="pricing_table">
-							        	<thead>
-									      	<tr>
-									        	<th width="50%">Pack fonctionnel</th>
-									        	<th class="text-right">Base</th>
-									        	<th class="text-right">Mensuel</th>
-									      	</tr>
-									    </thead>
-									    <tbody id="tbody_area">
-											<t t-foreach="areas" t-as="area">
-												<t t-if="area.sequence == 1">
-													<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
-														<td><span t-field="area.name" class="area_name_data"/></td>
-														<td class="text-right base"><span t-esc="area.price" class="base_row_price"/></td>
-														<td class="text-right monthly"><span style="display:none;">0</span></td>
-													</tr>
-												</t>
-											</t>
-										</tbody>
-										<tbody id="tbody_option">
-										</tbody>
-										<tbody>
-									    	<tr class="base_row" t-attf-sequence="0">
-												<td><span id="user_selected"/><br/><span id="user_calcul"/></td>
-												<td class="text-right base"><span style="display:none;">0.00</span></td>
-												<td class="text-right monthly"><span id="monthly_price"/></td>
-											</tr>
-									    </tbody>
-										<tbody id="tbody_hosting">
-										</tbody>
-										<tbody>
-											<tr class="active" t-attf-sequence="9999">
-												<td><strong>Total</strong></td>
-												<td class="text-right"><strong><span class="base_total"/></strong></td>
-												<td class="text-right"><strong><span class="monthly_total"/></strong></td>
-											</tr>
-										</tbody>
-									</table>
+							<div class="col-md-12">
+								<div class="page-header">
+						  			<h1>Open Net <small>pricing (CHF HT)</small></h1>
 								</div>
-								<div class="col-md-12">
-									<button class="btn btn-default" type="submit" id="showInfo">DEMANDER UNE OFFRE</button>
-									<div id="contact" style="display:none;">
-										<p class="help-block">Champs obligatoires *</p>
-										<div class="form-group">
-										    <label for="nomPrenom">Prénom et nom *</label>
-										    <input type="text" class="form-control" id="name" placeholder="Exemple : Jean Cercle" required="Ce champ est requis"/>
-										</div>
-										<div class="form-group">
-										    <label for="societe">Société</label>
-										    <input type="text" class="form-control" id="company" placeholder="Exemple : Rond-Point SA"/>
-										</div>
-										<div class="form-group">
-										    <label for="email">Adresse mail</label>
-										    <input type="email" class="form-control" id="email" placeholder="Exemple : jeancercle@gmail.com"/>
-										</div>
-										<div class="form-group">
-										    <label for="phone">Téléphone *</label>
-										    <input type="text" class="form-control" id="phone" placeholder="Exemple : +41 79 872 52 93" required="Ce champ est requis"/>
-										</div>
-										<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-										<button class="btn btn-default" id="sendButton">ENVOYER VOTRE DEMANDE</button>
-										<p class="bg-success mt16" id="sendSucces" style="display: none;">Votre demande a bien été envoyée, <br/>nous vous contacterons prochainement</p>
-										<p class="bg-danger mt16" id="sendError" style="display: none;">Vous n'avez pas rempli tous les champs !</p>
-										<p class="bg-danger mt16" id="ajaxError" style="display: none;">La requête n'a pas pu être envoyée, contactez l'administrateur.</p>
-										<br/>
+						        <table class="table" id="pricing_table">
+						        	<thead>
+								      	<tr>
+								        	<th width="50%">Pack fonctionnel</th>
+								        	<th class="text-right">Base</th>
+								        	<th class="text-right">Mensuel</th>
+								      	</tr>
+								    </thead>
+								    <tbody id="tbody_area">
+										<t t-foreach="areas" t-as="area">
+											<t t-if="area.sequence == 1">
+												<tr class="base_row" t-attf-sequence="{{ area.sequence }}">
+													<td><span t-field="area.name" class="area_name_data"/></td>
+													<td class="text-right base"><span t-esc="area.price" class="base_row_price"/></td>
+													<td class="text-right monthly"><span style="display:none;">0</span></td>
+												</tr>
+											</t>
+										</t>
+									</tbody>
+									<tbody id="tbody_option">
+									</tbody>
+									<tbody>
+								    	<tr class="base_row" t-attf-sequence="0">
+											<td><span id="user_selected"/><br/><span id="user_calcul"/></td>
+											<td class="text-right base"><span style="display:none;">0.00</span></td>
+											<td class="text-right monthly"><span id="monthly_price"/></td>
+										</tr>
+								    </tbody>
+									<tbody id="tbody_hosting">
+									</tbody>
+									<tbody>
+										<tr class="active" t-attf-sequence="9999">
+											<td><strong>Total</strong></td>
+											<td class="text-right"><strong><span class="base_total"/></strong></td>
+											<td class="text-right"><strong><span class="monthly_total"/></strong></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-12 mb16">
+								<button class="btn btn-default" type="submit" id="showInfo">DEMANDER UNE OFFRE</button>
+								<div id="contact" style="display:none;">
+									<p class="help-block">Champs obligatoires *</p>
+									<div class="form-group">
+									    <label for="nomPrenom">Prénom et nom *</label>
+									    <input type="text" class="form-control" id="name" placeholder="Exemple : Jean Cercle" required="Ce champ est requis"/>
 									</div>
+									<div class="form-group">
+									    <label for="societe">Société</label>
+									    <input type="text" class="form-control" id="company" placeholder="Exemple : Rond-Point SA"/>
+									</div>
+									<div class="form-group">
+									    <label for="email">Adresse mail</label>
+									    <input type="email" class="form-control" id="email" placeholder="Exemple : jeancercle@gmail.com"/>
+									</div>
+									<div class="form-group">
+									    <label for="phone">Téléphone *</label>
+									    <input type="text" class="form-control" id="phone" placeholder="Exemple : +41 79 872 52 93" required="Ce champ est requis"/>
+									</div>
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<button class="btn btn-default" id="sendButton">ENVOYER VOTRE DEMANDE</button>
+									<p class="bg-success mt16" id="sendSucces" style="display: none;">Votre demande a bien été envoyée, <br/>nous vous contacterons prochainement</p>
+									<p class="bg-danger mt16" id="sendError" style="display: none;">Vous n'avez pas rempli tous les champs !</p>
+									<p class="bg-danger mt16" id="ajaxError" style="display: none;">La requête n'a pas pu être envoyée, contactez l'administrateur.</p>
+									<br/>
 								</div>
 							</div>
 						</div>
