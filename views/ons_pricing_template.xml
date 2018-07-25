@@ -136,7 +136,7 @@
 						  	<h1>Open Net <small>pricing</small></h1>
 						</div>
 						<div class="row">
-							<div class="col-md-12 mt32">
+							<div class="col-md-12">
 								<t t-foreach="areas" t-as="area">
 									<t t-if="area.sequence != 1">
 										<t t-set="selected_class"></t>
@@ -312,38 +312,51 @@
 										</tbody>
 									</table>
 								</div>
-								<div class="col-md-12">
-									<button class="btn btn-default" type="submit" id="showInfo">DEMANDER UNE OFFRE</button>
-									<div id="contact" style="display:none;">
-										<p class="help-block">Champs obligatoires *</p>
-										<div class="form-group">
-										    <label for="nomPrenom">Prénom et nom *</label>
-										    <input type="text" class="form-control" id="name" placeholder="Exemple : Jean Cercle" required="Ce champ est requis"/>
-										</div>
-										<div class="form-group">
-										    <label for="societe">Société</label>
-										    <input type="text" class="form-control" id="company" placeholder="Exemple : Rond-Point SA"/>
-										</div>
-										<div class="form-group">
-										    <label for="email">Adresse mail</label>
-										    <input type="email" class="form-control" id="email" placeholder="Exemple : jeancercle@gmail.com"/>
-										</div>
-										<div class="form-group">
-										    <label for="phone">Téléphone *</label>
-										    <input type="text" class="form-control" id="phone" placeholder="Exemple : +41 79 872 52 93" required="Ce champ est requis"/>
-										</div>
-										<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-										<button class="btn btn-default" id="sendButton">ENVOYER VOTRE DEMANDE</button>
-										<p class="bg-success mt16" id="sendSucces" style="display: none;">Votre demande a bien été envoyée, <br/>nous vous contacterons prochainement</p>
-										<p class="bg-danger mt16" id="sendError" style="display: none;">Vous n'avez pas rempli tous les champs !</p>
-										<p class="bg-danger mt16" id="ajaxError" style="display: none;">La requête n'a pas pu être envoyée, contactez l'administrateur.</p>
-										<br/>
-									</div>
+								<div class="col-md-12 mb16">
+									<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendOfferModal">DEMANDER UNE OFFRE</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="modal fade" id="sendOfferModal" role="dialog">
+			    <div class="modal-dialog">
+			      	<div class="modal-content">
+			        	<div class="modal-header">
+			          		<button type="button" class="close" data-dismiss="modal">
+			          			<span aria-hidden="true">×</span>
+			          		</button>
+			          		<h4 class="modal-title">DEMANDER UNE OFFRE</h4>
+			        	</div>
+			        	<div class="modal-body">
+			          		<p class="help-block">Champs obligatoires *</p>
+							<div class="form-group">
+							    <label for="nomPrenom">Prénom et nom *</label>
+							    <input type="text" class="form-control" id="name" placeholder="Exemple : Jean Cercle" required="Ce champ est requis"/>
+							</div>
+							<div class="form-group">
+							    <label for="societe">Société</label>
+							    <input type="text" class="form-control" id="company" placeholder="Exemple : Rond-Point SA"/>
+							</div>
+							<div class="form-group">
+							    <label for="email">Adresse mail</label>
+							    <input type="email" class="form-control" id="email" placeholder="Exemple : jeancercle@gmail.com"/>
+							</div>
+							<div class="form-group">
+							    <label for="phone">Téléphone *</label>
+							    <input type="text" class="form-control" id="phone" placeholder="Exemple : +41 79 872 52 93" required="Ce champ est requis"/>
+							</div>
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<p class="bg-success mt16" id="sendSucces" style="display: none;">Votre demande a bien été envoyée, <br/>nous vous contacterons prochainement</p>
+							<p class="bg-danger mt16" id="sendError" style="display: none;">Vous n'avez pas rempli tous les champs !</p>
+							<p class="bg-danger mt16" id="ajaxError" style="display: none;">La requête n'a pas pu être envoyée, contactez l'administrateur.</p>
+			        	</div>
+			        	<div class="modal-footer">
+			        		<button class="btn btn-primary" id="sendButton">ENVOYER VOTRE DEMANDE</button>
+			        	</div>
+			      	</div>
+			    </div>
 			</div>
 		</t>
 	</template>
