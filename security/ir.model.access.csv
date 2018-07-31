@@ -1,4 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ons_cust_customer_config_officer,ons_cust_customer_config,model_ons_cust_customer_config,base.group_user,1,1,1,1
+access_portal_stock_picking,portal_stock_picking,stock.model_stock_picking,base.group_portal,1,0,0,0
+access_portal_stock_move,portal_stock_move,stock.model_stock_move,base.group_portal,1,0,0,0
+access_portal_account_analytic_tag,portal_account_analytic_tag,analytic.model_account_analytic_tag,base.group_portal,1,0,0,0
+access_portal_stock_picking_type,portal_stock_picking_type,stock.model_stock_picking_type,base.group_portal,1,0,0,0
 access_ons_pricing_list,ons_pricing_list,model_ons_functionnal_area,base.group_user,1,1,1,1
 access_ons_pricing_option,ons_pricing_option,model_ons_pricing_option,base.group_user,1,1,1,1
 access_ons_hosting,ons_hosting,model_ons_hosting,base.group_user,1,1,1,1

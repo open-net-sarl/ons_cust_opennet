@@ -9,13 +9,13 @@ from odoo.tools.translate import _
 from odoo.fields import Date
 from odoo.exceptions import AccessError
 from collections import OrderedDict
-# from odoo.addons.website_portal.controllers.main import website_account
-# from odoo.addons.website_project.controllers.main import WebsiteAccount
+from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_project.controllers.main import WebsiteAccount
 
 import logging
 _logger = logging.getLogger(__name__)
 
-"""
+
 class portal_parameters(http.Controller):
 
     MANDATORY_FIELDS = ["email"]
@@ -404,7 +404,7 @@ class WebsiteAccount(WebsiteAccount):
             return request.render("website.403")
 
         return request.render("website_project.my_task", {'task': task, 'user': request.env.user})
-"""
+
 class opennet_pricing(http.Controller):
     @http.route(['/pricing', '/opennet-pricing'], auth="public", type="http", website=True)
     def pricing(self, **kw):

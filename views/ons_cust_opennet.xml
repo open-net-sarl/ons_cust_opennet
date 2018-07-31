@@ -2,13 +2,13 @@
 
 <odoo>
     <data>
-        <!-- <template id="assets_common" name="ons_cust_opennet assets" inherit_id="report.assets_common">
+        <template id="assets_common" name="ons_cust_opennet assets" inherit_id="web.assets_common">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/ons_cust_opennet/static/src/css/ons_cust_opennet.css"/>
             </xpath>
-        </template> -->
+        </template>
 
-        <template id="assets_frontend" inherit_id="website.assets_frontend" name="ons_cust_opennet assets frontend">
+        <template id="assets_frontend" inherit_id="web.assets_frontend" name="ons_cust_opennet assets frontend">
 	      	<xpath expr="." position="inside">
 	          	<link rel='stylesheet' href='/ons_cust_opennet/static/src/css/ons_cust_opennet_frontend.css'/>
 	      	</xpath>

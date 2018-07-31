@@ -1,6 +1,6 @@
 /*
 	ONS pricing
-	© 2018 Open Net Sarl
+	© 2017 Open Net Sarl
 */
 
 odoo.define('ons_cust_opennet.pricing', function (require) {
@@ -20,6 +20,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		addRow($( ".misc_checkbox" ));
 		addRow($( ".hosting_checkbox" ));
 		uncheckHosting($( ".hosting_checkbox" ));
+		toggleInfo($( "#showInfo" ));
 
 		$( "#hosting_default" ).trigger('click');
 
@@ -30,7 +31,7 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 			min_width: 992,
 			upper_side: '#limit_upper_follow',
 		});*/
-		$( '.follow-scroll' ).stick_in_parent({
+		$(".follow-scroll").stick_in_parent({
 			parent: "#limit_upper_follow",
 			offset_top: 60,
 		});
@@ -358,6 +359,14 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		});
 	}
 
+	function toggleInfo(button){
+		button.click(function(event) {
+			var parent = $(this).parent()
+			var form = parent.find( "#contact" )
+			form.toggle( "blind" )
+		});
+	}
+
 	function sendInfo(){
 		var name = $( '#name' ).val()
 		var company = $( '#company' ).val()
@@ -384,8 +393,8 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 		}
 
 		if (isValid == false) {
-			$( '#sendError' ).show( 'blind' )
-			$( '#sendSucces' ).hide( 'blind' )
+			$( "#sendError" ).show("blind")
+			$( "#sendSucces" ).hide("blind")
 		}
 
 		if (isValid == true) {
@@ -397,9 +406,9 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				'html': table_html,
 			})
 			.then(function (result) {
-				$( '#sendSucces' ).show( 'blind' )
-				$( '#sendError' ).hide( 'blind' )
-				$( '#ajaxError' ).hide( 'blind' )
+				$( "#sendSucces" ).show("blind")
+				$( "#sendError" ).hide("blind")
+				$( "#ajaxError" ).hide("blind")
 				name_div.removeClass( 'has-error' )
 				phone_div.removeClass( 'has-error' )
 
@@ -408,11 +417,11 @@ odoo.define('ons_cust_opennet.pricing', function (require) {
 				$( '#email' ).val( '' )
 				$( '#phone' ).val( '' )
 
-				console.log( 'succes' )
+				console.log('succes')
 			})
 			.fail(function () {
-				$( '#ajaxError' ).show( 'blind' )
-				console.log( 'fail' )
+				$( "#ajaxError" ).show("blind")
+				console.log('fail')
 			});
 		}
 	}

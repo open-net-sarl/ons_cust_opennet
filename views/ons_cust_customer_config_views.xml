@@ -20,125 +20,127 @@
         <field name="priority" eval="1"/>
         <field name="arch" type="xml">
             <form string="ONS Customer Config">
-                <field name="user_id" invisible="1"/>
-                <group>
-                    <!-- company info -->
-                    <group string="Company Info">
-                        <field name="logo" filename="logo_name" widget="FieldBinaryFile"/>
-                        <field name="logo_name" invisible="1"/>
-                        <field name="email"/>
+                <sheet>
+                    <field name="user_id" invisible="1"/>
+                    <group>
+                        <!-- company info -->
+                        <group string="Company Info">
+                            <field name="logo" filename="logo_name" widget="FieldBinaryFile"/>
+                            <field name="logo_name" invisible="1"/>
+                            <field name="email"/>
+                        </group>
+                        <!-- bank info -->
+                        <group string="Bank Info">
+                            <field name="iban"/>
+                            <field name="bank_account_number"/>
+                            <field name="bank_name"/>
+                            <field name="bank_agency_name"/>
+                            <field name="bvr_number"/>
+                        </group>
                     </group>
-                    <!-- bank info -->
-                    <group string="Bank Info">
-                        <field name="iban"/>
-                        <field name="bank_account_number"/>
-                        <field name="bank_name"/>
-                        <field name="bank_agency_name"/>
-                        <field name="bvr_number"/>
+                    <group>
+                        <group string="Email Servers">
+                            <group colspan="2">
+                                <label for="do_email_configuration" string="Do configuration for"/>
+                                <div>
+                                    <field name="do_email_configuration" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <!-- serveur d'email entrant - Incoming Email Server -->
+                            <group string="Incoming Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['in', 'all'])]}">
+                                <field name="incoming_email_server_type"/>
+                                <field name="incoming_email_server_name"/>
+                                <field name="incoming_email_server_port"/>
+                                <field name="incoming_email_server_security"/>
+                                <field name="incoming_email_server_username"/>
+                                <field name="incoming_email_server_pass"/>
+                            </group>
+                            <!-- serveur d'email sortant - Outgoing Email Server -->
+                            <group string="Outgoing Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['out', 'all'])]}">
+                                <field name="outgoing_email_server_name"/>
+                                <field name="outgoing_email_server_port"/>
+                                <field name="outgoing_email_server_security"/>
+                                <field name="outgoing_email_server_username"/>
+                                <field name="outgoing_email_server_password"/>
+                            </group>
+                        </group>
                     </group>
-                </group>
-                <group>
-                    <group string="Email Servers">
-                        <group colspan="2">
-                            <label for="do_email_configuration" string="Do configuration for"/>
+                    <group>
+                        <!-- numerotation de vos documents - Document Numbering -->
+                        <group string="Document Numbering">
+                            <field name="doc_numb_quot_sales"/>
+                            <field name="doc_numb_invoices"/>
+                            <field name="doc_numb_purchases"/>
+                            <field name="doc_numb_delivery"/>
+                        </group>
+                        <!-- carnet d'adress - Contact Default Parameters -->
+                        <group string="Contact Default Parameters">
+                            <field name="contacts_lang" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
+                            <field name="contacts_payment_terms"/>
+                        </group>
+                    </group>
+                    <group>
+                        <!-- articles - Product Default Parameters -->
+                        <group string="Product Default Parameters">
+                            <field name="products_type"/>
+                            <field name="products_can_be_sold"/>
+                            <field name="products_can_be_purchased"/>
+                            <field name="products_warranty"/>
+                            <field name="products_delivery_delay"/>
+                            <field name="products_earnings_acc"/>
+                            <field name="products_spendings_acc"/>
+                            <field name="products_customer_tax"/>
+                            <field name="products_supplier_tax"/>
+                            <field name="products_supply_routes"/>
+                            <field name="products_unit_of_mesure"/>
+                        </group>
+                        <!-- ventes - Sales Parameters -->
+                        <group string="Sales Parameters">
+                            <field name="sales_sale_price"/>
+                            <field name="sales_invoicing_policy"/>
+                            <field name="sales_general_conditions"/>
+                            <field name="sales_authorize_different_address"/>
+                            <field name="sales_modify_sale_order"/>
+                        </group>
+                    </group>
+                    <group>
+                        <!-- comptabilite - Accounting Default Parameters -->
+                        <group string="Accounting Default Parameters">
+                            <label for="id" string="Fiscal Year Last Day"/>
                             <div>
-                                <field name="do_email_configuration" class="oe_inline"/>
+                                <field name="accounting_last_month_fiscal_exercise" class="oe_inline"/>
+                                <span style="margin-right:5px;"></span>
+                                <field name="accounting_last_day_fiscal_exercise" class="oe_inline oe_text_right"/>
                             </div>
+                            <field name="accounting_currency" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
+                            <field name="accounting_analytic_acc"/>
+                            <field name="accounting_asset_management"/>
+                            <field name="accounting_revenu_recognition"/>
+                            <field name="accounting_budget_management"/>
+                            <field name="accounting_output_bvr"/>
+                            <field name="accounting_iso_payment"/>
+                            <field name="accounting_foreign_currencies_list"/>
+                            <field name="accounting_tax_update_frequence"/>
+                            <field name="accounting_reminder_levels"/>
                         </group>
-                        <!-- serveur d'email entrant - Incoming Email Server -->
-                        <group string="Incoming Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['in', 'all'])]}">
-                            <field name="incoming_email_server_type"/>
-                            <field name="incoming_email_server_name"/>
-                            <field name="incoming_email_server_port"/>
-                            <field name="incoming_email_server_security"/>
-                            <field name="incoming_email_server_username"/>
-                            <field name="incoming_email_server_pass"/>
-                        </group>
-                        <!-- serveur d'email sortant - Outgoing Email Server -->
-                        <group string="Outgoing Email Server" attrs="{'invisible': [('do_email_configuration', 'not in', ['out', 'all'])]}">
-                            <field name="outgoing_email_server_name"/>
-                            <field name="outgoing_email_server_port"/>
-                            <field name="outgoing_email_server_security"/>
-                            <field name="outgoing_email_server_username"/>
-                            <field name="outgoing_email_server_password"/>
+                        <!-- gestion de stock - Stock Management Default Parameters -->
+                        <group string="Stock Management Default Parameters">
+                            <field name="stock_mng_units_mesure"/>
+                            <field name="stock_mng_prod_variants"/>
+                            <field name="stock_mng_packing_methods"/>
+                            <field name="stock_mng_dropshipping"/>
+                            <field name="stock_mng_generate_journal_item"/>
+                            <field name="stock_mng_product_owners"/>
+                            <field name="stock_mng_expiration_dates"/>
+                            <field name="stock_mng_lots_serial_nb"/>
                         </group>
                     </group>
-                </group>
-                <group>
-                    <!-- numerotation de vos documents - Document Numbering -->
-                    <group string="Document Numbering">
-                        <field name="doc_numb_quot_sales"/>
-                        <field name="doc_numb_invoices"/>
-                        <field name="doc_numb_purchases"/>
-                        <field name="doc_numb_delivery"/>
-                    </group>
-                    <!-- carnet d'adress - Contact Default Parameters -->
-                    <group string="Contact Default Parameters">
-                        <field name="contacts_lang" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
-                        <field name="contacts_payment_terms"/>
-                    </group>
-                </group>
-                <group>
-                    <!-- articles - Product Default Parameters -->
-                    <group string="Product Default Parameters">
-                        <field name="products_type"/>
-                        <field name="products_can_be_sold"/>
-                        <field name="products_can_be_purchased"/>
-                        <field name="products_warranty"/>
-                        <field name="products_delivery_delay"/>
-                        <field name="products_earnings_acc"/>
-                        <field name="products_spendings_acc"/>
-                        <field name="products_customer_tax"/>
-                        <field name="products_supplier_tax"/>
-                        <field name="products_supply_routes"/>
-                        <field name="products_unit_of_mesure"/>
-                    </group>
-                    <!-- ventes - Sales Parameters -->
-                    <group string="Sales Parameters">
-                        <field name="sales_sale_price"/>
-                        <field name="sales_invoicing_policy"/>
-                        <field name="sales_general_conditions"/>
-                        <field name="sales_authorize_different_address"/>
-                        <field name="sales_modify_sale_order"/>
-                    </group>
-                </group>
-                <group>
-                    <!-- comptabilite - Accounting Default Parameters -->
-                    <group string="Accounting Default Parameters">
-                        <label for="id" string="Fiscal Year Last Day"/>
-                        <div>
-                            <field name="accounting_last_month_fiscal_exercise" class="oe_inline"/>
-                            <span style="margin-right:5px;"></span>
-                            <field name="accounting_last_day_fiscal_exercise" class="oe_inline oe_text_right"/>
-                        </div>
-                        <field name="accounting_currency" domain="['|', ('active', '=', False), ('active', '=', True )]"/>
-                        <field name="accounting_analytic_acc"/>
-                        <field name="accounting_asset_management"/>
-                        <field name="accounting_revenu_recognition"/>
-                        <field name="accounting_budget_management"/>
-                        <field name="accounting_output_bvr"/>
-                        <field name="accounting_iso_payment"/>
-                        <field name="accounting_foreign_currencies_list"/>
-                        <field name="accounting_tax_update_frequence"/>
-                        <field name="accounting_reminder_levels"/>
-                    </group>
-                    <!-- gestion de stock - Stock Management Default Parameters -->
-                    <group string="Stock Management Default Parameters">
-                        <field name="stock_mng_units_mesure"/>
-                        <field name="stock_mng_prod_variants"/>
-                        <field name="stock_mng_packing_methods"/>
-                        <field name="stock_mng_dropshipping"/>
-                        <field name="stock_mng_generate_journal_item"/>
-                        <field name="stock_mng_product_owners"/>
-                        <field name="stock_mng_expiration_dates"/>
-                        <field name="stock_mng_lots_serial_nb"/>
-                    </group>
-                </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                </div>
             </form>
-            <div class="oe_chatter">
-                <field name="message_follower_ids" widget="mail_followers"/>
-                <field name="message_ids" widget="mail_thread" options="{&quot;thread_level&quot;: 1}"/>
-            </div>
         </field>
     </record>
 

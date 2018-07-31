@@ -15,7 +15,7 @@ class StockMove(models.Model):
         'res.partner', 
         string='Responsable')
 
-    ons_order_id = fields.Many2one(related="procurement_id.sale_line_id.order_id", string="Sale Order")
+    # ons_order_id = fields.Many2one(related="procurement_id.sale_line_id.order_id", string="Sale Order")
 
     contract_id = fields.Many2one('eagle.contract', string='File')
 
@@ -46,7 +46,7 @@ class StockMove(models.Model):
     @api.model
     def create(self, values):
         new_move = super(StockMove, self).create(values)
-        if new_move and new_move.procurement_id:
-            new_move.contract_id = new_move.procurement_id.eagle_contract
+        # if new_move and new_move.procurement_id:
+        #     new_move.contract_id = new_move.procurement_id.eagle_contract
 
         return new_move

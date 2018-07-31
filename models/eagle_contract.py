@@ -95,7 +95,7 @@ class EagleContractBase(models.Model):
         # Concert 2D array to csv string
         emails_csv_string = '\n'.join(map(lambda row: ','.join(map(str, row)), emails))
 
-      	attachment = {
+        attachment = {
             'name': ("Patner emails"),
             'datas': base64.b64encode(emails_csv_string),
             'datas_fname': FILENAME,
