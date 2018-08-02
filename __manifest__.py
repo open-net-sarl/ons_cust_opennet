@@ -34,7 +34,7 @@
         'security/ir.model.access.csv',
         'security/security.xml',
         # 'report/account_followup_report_views.xml',
-        # 'views/ons_cust_opennet.xml',
+        'views/ons_cust_opennet.xml',
         # 'views/views_project_task.xml',
         'views/views_eagle.xml',
         'views/views_sale.xml',
