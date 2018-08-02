@@ -46,7 +46,7 @@ class opennet_pricing(http.Controller):
             "ons_cust_opennet.opennet_pricing_template", values
         )
 
-    @http.route('/pricing/send', auth="public", type="json", methods=['POST'], website=True)
+    @http.route(['/pricing/send', '/opennet-pricing/send'], auth="public", type="json", methods=['POST'], website=True)
     def send_pricing(self, **post):
         name = post.get('name')
         company = post.get('company')
