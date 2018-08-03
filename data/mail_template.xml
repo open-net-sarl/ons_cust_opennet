@@ -76,7 +76,7 @@
 	]]></field>
     </record>
 
-    <record id="email_template_eagle_contract" model="mail.template">
+<!--     <record id="email_template_eagle_contract" model="mail.template">
         <field name="name">Eagle Contact mail</field>
         <field name="email_from">support@open-net.ch</field>
         <field name="email_to">${object.customer_id.child_ids[0].id if object.customer_id.child_ids else object.customer_id.id}</field>
@@ -97,7 +97,7 @@
 <p>Dans l'attente de votre retour, nous vous prions d'agréer, Madame, Monsieur nos salutations distinguées.</p><br/>
 
     ]]></field>
-    </record>
+    </record> -->
 </odoo>
 
 <!-- https://github.com/odoo/odoo/blob/fc2e80cb4bcc450762c7ac5cb82a3e2d88062b38/addons/mail/data/mail_data.xml -->
