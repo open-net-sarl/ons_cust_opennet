@@ -13,6 +13,5 @@
 	          	<link rel='stylesheet' href='/ons_cust_opennet/static/src/css/ons_cust_opennet_frontend.css'/>
 	      	</xpath>
 	    </template>
-
     </data>
 </odoo>
