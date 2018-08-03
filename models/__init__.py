@@ -18,4 +18,3 @@ from . import ons_user_pricing
 from . import ons_pricing_client
 from . import crossovered_budget
 from . import event
-from . import project_task
