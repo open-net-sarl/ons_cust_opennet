@@ -29,7 +29,7 @@
     'images': [],
     'data': [
         'data/ons_cust_crons.xml',
-        # 'data/mail_template.xml',
+        'data/mail_template.xml',
         'data/res_groups.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
